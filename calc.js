@@ -730,17 +730,10 @@
     const pkg = packageHours(p.models, p.reusePct, p.hoursManualPkg, p.hoursAutoPkg);
     const hoursSavedPkg = Math.max(0, pkg.manual - pkg.auto);
     const hoursSavedMonth = p.projects * hoursSavedPkg;
-    const hourlyFot = (p.salaryMonth / HOURS_MONTH) * p.employerCoeff;
-    const savingsFotMonth = hoursSavedMonth * hourlyFot;
-    const paybackMonths = savingsFotMonth > 0 ? p.cost / savingsFotMonth : Infinity;
-    const annualFot = savingsFotMonth * 12;
     return {
       projects: p.projects,
       models: p.models,
       hoursSavedMonth,
-      savingsFotMonth,
-      paybackMonths,
-      annualFot,
       cost: p.cost
     };
   }
@@ -749,18 +742,14 @@
     const el = document.getElementById('execEconomics');
     if (!el) return;
     const e = computeExecutiveEconomics();
-    const paybackStr = e.paybackMonths === Infinity ? '—' : fmtDec(e.paybackMonths, 1);
     el.innerHTML =
-      'При <strong>' + e.projects + ' проектах</strong> в месяц экономия отдела технологии — порядка ' +
-      '<strong>' + fmtDec(e.hoursSavedMonth, 0) + ' ч/мес</strong> (оценка ТБ, полная стоимость места). ' +
-      'Разовые <strong>' + fmt(e.cost) + ' ₽</strong> — около <strong>' + paybackStr +
-      ' мес.</strong> условной нагрузки отдела по ФОТ; в год — порядка <strong>' + fmt(e.annualFot) + ' ₽</strong>.';
+      'При <strong>' + e.projects + ' проектах</strong> в месяц — порядка ' +
+      '<strong>' + fmtDec(e.hoursSavedMonth, 0) + ' ч/мес</strong> меньше рутинного прогона пакетов (оценка технологического бюро).';
     window.__docsExecEconomics = e;
   }
 
   function buildExecutiveSummaryPdf() {
     const e = window.__docsExecEconomics || computeExecutiveEconomics();
-    const paybackStr = e.paybackMonths === Infinity ? '—' : fmtDec(e.paybackMonths, 1);
     const dateStr = new Date().toLocaleDateString('ru-RU');
     return '<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><title>Docs v1 — резюме</title><style>' +
       'body{font:11pt/1.45 Segoe UI,sans-serif;color:#1a2430;max-width:210mm;margin:16mm auto}' +
@@ -776,9 +765,8 @@
       '<h2>Итог замера</h2><ul>' +
       '<li>150 позиций (148 с моделью) → полный пакет за <strong>46 мин</strong> vs 5–10 ч вручную</li>' +
       '<li>148 DXF, 296 стр. PDF, SW 2018 SP3</li></ul>' +
-      '<h2>Экономика отдела технологии</h2><p>' +
-      e.projects + ' проектов/мес → ~' + fmtDec(e.hoursSavedMonth, 0) + ' ч/мес экономии; ' +
-      'окупаемость ' + paybackStr + ' мес. по ФОТ (~' + fmt(e.annualFot) + ' ₽/год).</p>' +
+      '<h2>Нагрузка на отдел</h2><p>' +
+      'Оценка ТБ: при ' + e.projects + ' проектах/мес — порядка ' + fmtDec(e.hoursSavedMonth, 0) + ' ч/мес меньше рутинного прогона.</p>' +
       '<h2>Коммерческое предложение</h2><ul>' +
       '<li>Полный пакет Docs v1: <strong>930 000 ₽</strong></li>' +
       '<li>Оплата 40% / 40% / 20%</li>' +
