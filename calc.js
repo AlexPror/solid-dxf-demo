@@ -159,7 +159,7 @@
       'По 1 листу на позицию: развёртка + модель в PDF.');
     setHtml('descHours',
       '<span class="f-eq">' + fmt(projects) + ' × (' + fmtDec(pkg.manual, 1) + ' − ' + fmtDec(pkg.auto, 1) + ') ч = ' +
-      fmtDec(hoursSavedMonth, 1) + ' ч/мес</span>Учтено ' + reusePct + '% готовых развёрток.');
+      fmtDec(hoursSavedMonth, 1) + ' ч/мес</span>Учтено ' + reusePct + '% готовых чертежей развёрток.');
     setHtml('descFot',
       '<span class="f-eq">' + fmtDec(hoursSavedMonth, 1) + ' ч × ' + fmtDec(hourlyFot, 0) + ' ₽/ч = ' +
       fmt(savingsFotMonth) + ' ₽/мес</span>Ставка: ' + fmt(salaryMonth) + ' ÷ 168 (' + costModeLabel + ').');
@@ -208,7 +208,7 @@
 
     logLine('<span class="log-step">1</span><b>Масштаб.</b> ' + fmt(projects) + ' × ' + fmt(models) + ' = <b>' + fmt(positionsMonth) + '</b> поз./мес, <b>' + fmt(sheetsMonth) + '</b> листов.');
 
-    logLine('<span class="log-step">2</span><b>1 пакет.</b> Вручную <b>' + fmtDec(pkg.manual, 1) + ' ч</b>, плагин <b>' + fmtDec(pkg.auto, 1) + ' ч</b>, экономия <b>' + fmtDec(hoursSavedPkg, 1) + ' ч</b> (reuse ' + reusePct + '%).');
+    logLine('<span class="log-step">2</span><b>1 пакет.</b> Вручную <b>' + fmtDec(pkg.manual, 1) + ' ч</b>, плагин <b>' + fmtDec(pkg.auto, 1) + ' ч</b>, экономия <b>' + fmtDec(hoursSavedPkg, 1) + ' ч</b> (готовых чертежей ' + reusePct + '%).');
 
     logLine('<span class="log-step">3</span><b>Кто работает.</b> ' + staffNote);
 
@@ -644,7 +644,7 @@
       '<tr><th>Параметр</th><th>Значение</th></tr>' +
       '<tr><td>Проектов в месяц</td><td>' + s.projects + '</td></tr>' +
       '<tr><td>Позиций в проекте</td><td>' + s.models + '</td></tr>' +
-      '<tr><td>Готовых развёрток</td><td>' + s.reusePct + '%</td></tr>' +
+      '<tr><td>Готовых чертежей развёрток</td><td>' + s.reusePct + '%</td></tr>' +
       '<tr><td>Режим работы</td><td>' + s.staffLabel + '</td></tr>' +
       '<tr><td>Часов вручную / пакет</td><td>' + s.baseManual + '</td></tr>' +
       '<tr><td>Часов с плагином / пакет</td><td>' + s.baseAuto + '</td></tr>' +

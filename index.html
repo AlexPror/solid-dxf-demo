@@ -50,10 +50,10 @@
         <ul>
           <li>Поиск моделей в PDM или папке</li>
           <li>DXF по одной детали</li>
-          <li>Развёртки — если нет готовых</li>
+          <li>Развёртка в модели — плагин создаёт при прогоне</li>
           <li>PDF и оглавление вручную</li>
           <li>Раскладка по папкам даты / толщины</li>
-          <li class="muted">Ориентир: 5–10 ч на проект 100–200 поз. (при переиспользовании развёрток)</li>
+          <li class="muted">Ориентир: 5–10 ч на проект 100–200 поз. (если часть чертежей <code>_развертка.slddrw</code> уже есть)</li>
         </ul>
       </div>
       <div class="compare-arrow" aria-hidden="true">→</div>
@@ -63,7 +63,7 @@
           <li>Один запуск: Excel + папка «лазер»</li>
           <li>Проверка комплекта и отчёт</li>
           <li>PDM: версия и конфигурация</li>
-          <li>Готовые развёртки не пересоздаём</li>
+          <li>Готовые чертежи <code>_развертка.slddrw</code> не пересоздаём</li>
           <li>Структура папок и PDF автоматически</li>
         </ul>
       </div>
@@ -174,15 +174,15 @@
           <span class="puzzle-num">5</span>
           <div>
             <h3 id="step5-title">Развёртка</h3>
-            <p>Чертёж развёртки — только если нужен. Готовый <code>_развертка.slddrw</code> не трогаем.</p>
+            <p>Развёртку в модели создаём при прогоне. Чертёж <code>_развертка.slddrw</code> — только если его ещё нет.</p>
           </div>
         </header>
         <div class="flow-row">
           <div class="flow-block"><span class="flow-icon">↩</span><strong>Есть гибы?</strong><p>Листовая деталь</p></div>
           <span class="flow-arrow-h" aria-hidden="true">→</span>
-          <div class="flow-block ok"><span class="flow-icon">✓</span><strong>Уже есть</strong><p><code>_развертка.slddrw</code></p></div>
+          <div class="flow-block ok"><span class="flow-icon">✓</span><strong>Чертёж есть</strong><p><code>_развертка.slddrw</code></p></div>
           <span class="flow-arrow-h" aria-hidden="true">→</span>
-          <div class="flow-block"><span class="flow-icon">✎</span><strong>Новая</strong><p>Создаём один раз</p></div>
+          <div class="flow-block"><span class="flow-icon">✎</span><strong>Чертёжа нет</strong><p>Создаём лист</p></div>
           <span class="flow-arrow-h" aria-hidden="true">→</span>
           <div class="flow-block"><span class="flow-icon">📑</span><strong>В альбом</strong><p>Лист в PDF</p></div>
         </div>
@@ -248,16 +248,16 @@
 
   <section class="section section-alt" id="reuse">
     <div class="wrap">
-      <h2>Переиспользование развёрток</h2>
-      <p class="section-lead">В пакете на 100–200 позиций многие детали уже встречались в прошлых проектах. Плагин не затирает чужую работу.</p>
+      <h2>Переиспользование чертежей развёрток</h2>
+      <p class="section-lead">Сами развёртки в моделях обычно никто не хранит — плагин создаёт их при каждом прогоне. Зато чертёж <code>_развертка.slddrw</code> из прошлого проекта можно не трогать: он снова попадёт в альбом.</p>
       <div class="reuse-viz">
         <div class="reuse-bar" id="reuse-bar">
           <span class="reuse-existing" style="width:75%"></span>
           <span class="reuse-new" style="width:25%"></span>
         </div>
         <div class="reuse-legend">
-          <span><i class="dot existing"></i> Уже есть <code>_развертка.slddrw</code> — в альбом</span>
-          <span><i class="dot new"></i> Новая с гибами — создаём один раз</span>
+          <span><i class="dot existing"></i> Уже есть <code>_развертка.slddrw</code> — в альбом без пересоздания</span>
+          <span><i class="dot new"></i> Чертёжа нет — создаём лист (развёртку в модели — всё равно делаем)</span>
         </div>
       </div>
       <p class="note">Режимы на экране комплекта: <strong>только новые</strong> (по умолчанию), обновить отмеченные, пересоздать все.</p>
@@ -407,7 +407,8 @@
         <h3 class="calc-panel-title">Отдел технологии</h3>
         <label>Проектов в месяц <input type="range" id="projects" min="1" max="8" step="1" value="8" /><output id="projects-out">8</output></label>
         <label>Позиций в проекте <input type="range" id="models" min="100" max="200" step="10" value="150" /><output id="models-out">150</output></label>
-        <label>Доля готовых развёрток, % <input type="range" id="reusePct" min="0" max="90" step="5" value="0" /><output id="reusePct-out">0</output></label>
+        <label>Доля готовых чертежей <code>_развертка.slddrw</code>, % <input type="range" id="reusePct" min="0" max="90" step="5" value="0" /><output id="reusePct-out">0</output></label>
+        <p class="field-hint">Влияет на часы вручную и с плагином. Развёртки в моделях всё равно создаются — экономия на чертежах, которые уже лежат в PDM.</p>
         <label>Кто гоняет пакеты
           <select id="staffMode">
             <option value="parallel" selected>8 технологов параллельно (по 1 проекту)</option>
