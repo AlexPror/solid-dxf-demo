@@ -680,6 +680,7 @@ h2 {
 .result-detail-card.card-l1 { border-left-color: var(--navy-2); background: #f8fbfd; }
 .result-detail-card.card-l2 { border-left-color: var(--orange); background: #fffaf5; }
 .result-detail-card.card-total { border-left-color: var(--ok); background: #f0fdf7; }
+.result-detail-card.card-cost { border-left-color: var(--navy); background: #f4f8fb; }
 
 .result-detail-card header {
   display: flex;

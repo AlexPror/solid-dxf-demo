@@ -146,6 +146,7 @@
     setText('savingsTotalYear', fmt(savingsTotalYear));
     setText('paybackTotal', paybackTotal === Infinity ? '—' : paybackTotal.toFixed(1));
     setText('maxPriceTotal', fmt(maxPriceTotal));
+    setText('resultProjectCost', fmt(cost));
 
     const paybackFotStr = paybackFot === Infinity ? '—' : paybackFot.toFixed(1);
     const paybackTotalStr = paybackTotal === Infinity ? '—' : paybackTotal.toFixed(1);
@@ -179,10 +180,17 @@
     setHtml('descPaybackFot',
       '<span class="f-eq">' + fmt(cost) + ' ÷ ' + fmt(savingsFotMonth) + ' = ' + paybackFotStr + ' мес</span>Только отдел технологии.');
     setHtml('descPaybackTotal',
-      '<span class="f-eq">' + fmt(cost) + ' ÷ ' + fmt(savingsTotalMonth) + ' = ' + paybackTotalStr + ' мес</span>Цель: ' + targetPayback + ' мес.');
+      '<span class="f-eq">' + fmt(cost) + ' ÷ ' + fmt(savingsTotalMonth) + ' = ' + paybackTotalStr + ' мес</span>Цель: ' + targetPayback + ' мес.' +
+      (savingsFactoryMonth === 0 ? ' Риски на станке = 0 — совпадает с отделом.' : ''));
+    const ceilingOk = cost <= maxPriceTotal;
     setHtml('descMaxPrice',
       '<span class="f-eq">' + fmt(savingsTotalMonth) + ' × ' + targetPayback + ' = ' + fmt(maxPriceTotal) + ' ₽</span>' +
-      (paybackTotal <= targetPayback ? 'Внедрение укладывается в цель.' : 'При ' + fmt(cost) + ' ₽ цель не достигнута.'));
+      'Сколько можно обосновать за ' + targetPayback + ' мес при выбранной экономии.');
+    setHtml('descProjectCost',
+      'Фиксированная цена из поля ввода. Не пересчитывается от слоя «станок».' +
+      (ceilingOk
+        ? ' КП укладывается в потолок ' + fmt(maxPriceTotal) + ' ₽.'
+        : ' КП ' + fmt(cost) + ' ₽ выше потолка ' + fmt(maxPriceTotal) + ' ₽ — при таких вводных цель ' + targetPayback + ' мес не достигается.'));
 
     lastSnapshot = {
       projects, models, reusePct, staffMode, staffLabel, baseManual, baseAuto,
@@ -215,9 +223,9 @@
 
     logLine('<span class="log-step">8</span><b>Риски на станке.</b> Лазер <b>' + fmt(savingsLaserMonth) + ' ₽</b> + комплект <b>' + fmt(savingsKitMonth) + ' ₽</b> = <b>' + fmt(savingsFactoryMonth) + ' ₽/мес</b>.');
 
-    logLine('<span class="log-step">9</span><b>Отдел + станок.</b> ' + fmt(savingsFotMonth) + ' + ' + fmt(savingsFactoryMonth) + ' = <b>' + fmt(savingsTotalMonth) + ' ₽/мес</b>. Окупаемость <b>' + paybackTotalStr + ' мес</b>. Макс. цена при ' + targetPayback + ' мес: <b>' + fmt(maxPriceTotal) + ' ₽</b>.');
-
-    logLine('<span class="log-step">10</span><b>Срок изделия.</b> Сварка и покраска в ₽ не считаем. Внедрение <b>' + fmt(cost) + ' ₽</b> — себестоимость (рынок интегратора ~' + fmt(MARKET_INTEGRATOR_REF) + ' ₽, см. график выше).');
+    logLine('<span class="log-step">9</span><b>Отдел + станок.</b> ' + fmt(savingsFotMonth) + ' + ' + fmt(savingsFactoryMonth) + ' = <b>' + fmt(savingsTotalMonth) + ' ₽/мес</b>. Окупаемость <b>' + paybackTotalStr + ' мес</b>.');
+    logLine('<span class="log-step">10</span><b>КП и потолок.</b> Стоимость внедрения <b>' + fmt(cost) + ' ₽</b> (ввод). Потолок при ' + targetPayback + ' мес: <b>' + fmt(maxPriceTotal) + ' ₽</b> = экономия × срок — не цена плагина.');
+    logLine('<span class="log-step">11</span><b>Срок изделия.</b> Сварка и покраска в ₽ не считаем. Себестоимость разработки — см. блок «Стоимость vs рынок».');
 
     if (typeof console !== 'undefined' && console.groupCollapsed) {
       console.groupCollapsed('[Калькулятор Docs] ' + new Date().toLocaleTimeString('ru'));
@@ -657,7 +665,8 @@
       '<div class="result-row"><span class="tag">Станок</span> Производство: <b>' + fmt(s.savingsFactoryMonth) + ' ₽/мес</b></div>' +
       '<div class="result-row"><span class="tag">Итого</span> Суммарно: <b>' + fmt(s.savingsTotalMonth) + ' ₽/мес</b> · окупаемость <b>' +
       (s.paybackTotal === Infinity ? '—' : s.paybackTotal.toFixed(1)) + ' мес</b></div>' +
-      '<div class="result-row"><span class="tag">Цель</span> Макс. цена при ' + s.targetPayback + ' мес: <b>' + fmt(s.maxPriceTotal) + ' ₽</b></div>' +
+      '<div class="result-row"><span class="tag">КП</span> Стоимость внедрения: <b>' + fmt(s.cost) + ' ₽</b> (ввод, не из экономии)</div>' +
+      '<div class="result-row"><span class="tag">Цель</span> Потолок при ' + s.targetPayback + ' мес: <b>' + fmt(s.maxPriceTotal) + ' ₽</b> (экономия × срок)</div>' +
       '<p><b>Вывод:</b> ' + s.verdict + '</p>' +
 
       '<h2>Пошаговый журнал</h2>' + logHtml +

@@ -73,7 +73,7 @@
   <div class="pipeline" id="steps">
     <div class="wrap pipeline-intro">
       <h2>Цепочка Docs v1</h2>
-      <p class="section-lead">Не «одна кнопка за 930 тысяч», а автоматизация всей цепочки — от Excel до папки «лазер». Каждый этап — отдельный блок; стрелки показывают, что куда идёт.</p>
+      <p class="section-lead">Автоматизация всей цепочки — от Excel до папки «лазер». Каждый этап — отдельный блок; стрелки показывают, что куда идёт.</p>
     </div>
 
     <section class="puzzle-step step-c1" aria-labelledby="step1-title">
@@ -436,6 +436,7 @@
         <h3 class="calc-panel-title calc-subtitle">Внедрение</h3>
         <p class="field-hint field-hint-top">По умолчанию <strong>930 000 ₽</strong> — себестоимость (~46 дн. × 2 500 ₽/ч), уже минимум для исполнителя. <a href="#dev-market">Сравнение с рынком</a>.</p>
         <label>Целевая окупаемость, мес <input type="range" id="targetPayback" min="6" max="24" step="1" value="12" /><output id="targetPayback-out">12</output></label>
+        <p class="field-hint">Влияет на «потолок цены» (экономия × срок), не на стоимость КП.</p>
         <label>Стоимость внедрения, ₽ <input type="number" id="projectCost" min="100000" max="2000000" step="10000" value="930000" /></label>
 
         <button type="button" class="calc-btn" id="calcBtn">Рассчитать</button>
@@ -485,6 +486,12 @@
             <p class="result-extra" id="descTotalYear">—</p>
           </article>
 
+          <article class="result-detail-card card-cost">
+            <header><span class="result-tag">Внедрение</span><h4>Стоимость в КП</h4></header>
+            <p class="result-value"><strong id="resultProjectCost">—</strong> <span>₽</span></p>
+            <p class="result-formula" id="descProjectCost">—</p>
+          </article>
+
           <article class="result-detail-card">
             <header><span class="result-tag">Окупаемость</span><h4>Только отдел технологии</h4></header>
             <p class="result-value"><strong id="paybackFot">—</strong> <span>мес</span></p>
@@ -498,9 +505,10 @@
           </article>
 
           <article class="result-detail-card">
-            <header><span class="result-tag">Целевой срок</span><h4>Макс. цена внедрения</h4></header>
+            <header><span class="result-tag">Целевой срок</span><h4>Потолок цены при цели</h4></header>
             <p class="result-value"><strong id="maxPriceTotal">—</strong> <span>₽</span></p>
             <p class="result-formula" id="descMaxPrice">—</p>
+            <p class="result-extra muted" id="descMaxPriceHint">Не путать со стоимостью КП — это расчётный потолок из экономии × срок.</p>
           </article>
 
         </div>
