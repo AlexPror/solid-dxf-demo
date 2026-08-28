@@ -273,15 +273,59 @@
     }
   }
 
+  function fmtShort(n) {
+    if (n >= 1000000) {
+      return fmtDec(n / 1000000, n % 1000000 === 0 ? 0 : 2).replace(',', '.') + ' млн';
+    }
+    if (n >= 1000) {
+      return fmt(Math.round(n / 1000)) + ' тыс.';
+    }
+    return fmt(n);
+  }
+
+  function updateMarketHero(cost) {
+    const SCALE_MAX = 4500000;
+    const ref = MARKET_INTEGRATOR_REF;
+    const c = cost || DEV_COST_DEFAULT;
+    const saved = Math.max(0, ref - c);
+    const kpPct = Math.min(100, (c / SCALE_MAX) * 100);
+    const savePct = Math.min(100 - kpPct, (saved / SCALE_MAX) * 100);
+    const refPct = Math.min(100, (ref / SCALE_MAX) * 100);
+    const savedPct = ref > 0 ? Math.round((saved / ref) * 100) : 0;
+
+    const kpEl = document.getElementById('marketScaleKp');
+    const saveEl = document.getElementById('marketScaleSave');
+    const refEl = document.getElementById('marketScaleRef');
+    if (kpEl) {
+      kpEl.style.width = kpPct + '%';
+    }
+    if (saveEl) {
+      saveEl.style.left = kpPct + '%';
+      saveEl.style.width = savePct + '%';
+    }
+    if (refEl) {
+      refEl.style.left = refPct + '%';
+    }
+
+    setText('marketScaleKpLabel', fmtShort(c));
+    setText('marketScaleSaveLabel', saved >= 500000 ? '−' + fmtShort(saved) : 'разница');
+    setText('marketKpValue', fmt(c) + ' ₽');
+    setText('marketSavedValue', fmt(saved) + ' ₽');
+    setText('marketSavedPct', '≈ ' + savedPct + '% от оценки партнёра');
+    setText('marketMathKp', fmt(c) + ' ₽');
+  }
+
   function drawMarketChart(kpCost) {
     const canvas = document.getElementById('market-chart');
     if (!canvas || !canvas.getContext) return;
 
     const cost = kpCost || readNum('projectCost') || DEV_COST_DEFAULT;
+    updateMarketHero(cost);
+
     const dpr = window.devicePixelRatio || 1;
     const cssW = canvas.parentElement ? canvas.parentElement.clientWidth - 8 : 800;
-    const rowH = 44;
-    const cssH = MARKET_TIERS.length * rowH + 72;
+    const rowH = 52;
+    const cssH = MARKET_TIERS.length * rowH + 88;
     canvas.width = Math.round(cssW * dpr);
     canvas.height = Math.round(cssH * dpr);
     canvas.style.width = cssW + 'px';
@@ -292,7 +336,7 @@
 
     const w = cssW;
     const h = cssH;
-    const pad = { l: 168, r: 24, t: 28, b: 36 };
+    const pad = { l: 152, r: 20, t: 44, b: 40 };
     const plotW = w - pad.l - pad.r;
     const maxX = 4800000;
 
@@ -301,6 +345,26 @@
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, w, h);
+
+    const kpX = xVal(cost);
+    const refX = xVal(MARKET_INTEGRATOR_REF);
+
+    if (refX > kpX + 12) {
+      const bracketY = 14;
+      ctx.strokeStyle = '#1f7a4d';
+      ctx.fillStyle = '#1f7a4d';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(kpX, bracketY + 10);
+      ctx.lineTo(kpX, bracketY);
+      ctx.lineTo(refX, bracketY);
+      ctx.lineTo(refX, bracketY + 10);
+      ctx.stroke();
+      ctx.font = 'bold 11px Segoe UI, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      ctx.fillText('−' + fmtShort(refX > kpX ? MARKET_INTEGRATOR_REF - cost : 0), (kpX + refX) / 2, bracketY - 2);
+    }
 
     ctx.strokeStyle = '#e8ecf0';
     ctx.fillStyle = '#5a6573';
@@ -316,76 +380,85 @@
       ctx.fillText((v / 1000000) + ' млн', xx, h - pad.b + 6);
     }
 
-    const refX = xVal(MARKET_INTEGRATOR_REF);
-    ctx.strokeStyle = '#c45f12';
-    ctx.lineWidth = 1.5;
-    ctx.setLineDash([6, 4]);
+    ctx.strokeStyle = '#e87722';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 4]);
     ctx.beginPath();
-    ctx.moveTo(refX, pad.t - 4);
+    ctx.moveTo(refX, pad.t);
     ctx.lineTo(refX, h - pad.b);
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle = '#c45f12';
     ctx.font = '10px Segoe UI, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('ориентир интегратора', refX, 6);
+    ctx.textAlign = 'left';
+    ctx.fillText('3,4 млн · партнёр', Math.min(refX + 4, w - 110), pad.t - 6);
 
     MARKET_TIERS.forEach((tier, i) => {
-      const y = pad.t + i * rowH + 10;
-      const barH = 22;
+      const y = pad.t + i * rowH + 12;
+      const barH = 26;
       const x0 = xVal(tier.low);
       const x1 = xVal(tier.high);
       const isPoint = tier.low === tier.high;
+      const barW = Math.max(isPoint ? 6 : x1 - x0, isPoint ? 6 : 4);
 
       ctx.textAlign = 'right';
       ctx.textBaseline = 'middle';
       ctx.fillStyle = tier.dim ? '#8a939e' : '#1a2430';
       ctx.font = tier.highlight ? 'bold 12px Segoe UI, sans-serif' : '12px Segoe UI, sans-serif';
-      ctx.fillText(tier.label, pad.l - 10, y + barH / 2);
+      ctx.fillText(tier.label, pad.l - 8, y + barH / 2);
 
       if (tier.highlight) {
-        ctx.fillStyle = '#e87722';
-        ctx.fillRect(pad.l, y, x1 - pad.l, barH);
+        ctx.fillStyle = '#1f7a4d';
+        ctx.fillRect(pad.l, y, Math.max(x1 - pad.l, 8), barH);
         ctx.strokeStyle = '#0e3a5a';
         ctx.lineWidth = 2;
-        ctx.strokeRect(pad.l, y, x1 - pad.l, barH);
+        ctx.strokeRect(pad.l, y, Math.max(x1 - pad.l, 8), barH);
       } else if (tier.ref) {
-        ctx.fillStyle = 'rgba(196, 95, 18, 0.25)';
-        ctx.fillRect(x0 - 2, y, 4, barH);
+        ctx.fillStyle = '#e87722';
+        ctx.fillRect(x0 - 3, y, 6, barH);
       } else if (isPoint) {
         ctx.fillStyle = tier.dim ? '#b8c0c8' : '#155a86';
-        ctx.fillRect(pad.l, y, x1 - pad.l, barH);
+        ctx.fillRect(pad.l, y, Math.max(x1 - pad.l, 8), barH);
       } else {
-        ctx.fillStyle = tier.dim ? 'rgba(90, 101, 115, 0.35)' : 'rgba(21, 90, 134, 0.55)';
+        ctx.fillStyle = tier.dim ? 'rgba(90, 101, 115, 0.35)' : 'rgba(21, 90, 134, 0.5)';
         ctx.fillRect(x0, y, x1 - x0, barH);
       }
 
-      ctx.textAlign = 'left';
-      ctx.fillStyle = '#5a6573';
-      ctx.font = '10px Segoe UI, sans-serif';
-      const labelX = Math.min(x1 + 6, w - pad.r - 80);
       const priceStr = isPoint
         ? fmt(tier.low) + ' ₽'
         : fmt(tier.low) + '–' + fmt(tier.high) + ' ₽';
-      ctx.fillText(priceStr + ' · ' + tier.rate, labelX, y + barH / 2);
+      const labelX = tier.highlight
+        ? Math.max(pad.l + 8, x1 + 8)
+        : Math.min(Math.max(x1, pad.l) + 8, w - pad.r - 140);
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = tier.highlight ? '#0e3a5a' : '#5a6573';
+      ctx.font = tier.highlight ? 'bold 11px Segoe UI, sans-serif' : '10px Segoe UI, sans-serif';
+      ctx.fillText(priceStr, labelX, y + barH / 2 - 5);
+      ctx.font = '10px Segoe UI, sans-serif';
+      ctx.fillStyle = '#8a939e';
+      ctx.fillText(tier.rate, labelX, y + barH / 2 + 8);
     });
 
-    const kpX = xVal(cost);
     ctx.strokeStyle = '#1f7a4d';
-    ctx.lineWidth = 2;
-    ctx.setLineDash([4, 3]);
+    ctx.lineWidth = 2.5;
+    ctx.setLineDash([]);
     ctx.beginPath();
-    ctx.moveTo(kpX, pad.t - 2);
+    ctx.moveTo(kpX, pad.t);
     ctx.lineTo(kpX, h - pad.b);
     ctx.stroke();
-    ctx.setLineDash([]);
+    ctx.fillStyle = '#1f7a4d';
+    ctx.font = 'bold 10px Segoe UI, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('КП', kpX - 4, pad.t - 6);
 
     const saved = Math.max(0, MARKET_INTEGRATOR_REF - cost);
     const note = document.getElementById('marketChartNote');
     if (note) {
-      note.innerHTML = 'Зелёная линия — ваша цена внедрения в калькуляторе (<strong>' + fmt(cost) + ' ₽</strong>). ' +
-        'Относительно черновика партнёра (~' + fmt(MARKET_INTEGRATOR_REF) + ' ₽) заказчик платит на <strong>' +
-        fmt(saved) + ' ₽</strong> меньше — это уже минимум исполнителя, не скидка «с потолка».';
+      note.innerHTML =
+        '<strong>Зелёная полоса и линия «КП»</strong> — цена из калькулятора (<strong>' + fmt(cost) + ' ₽</strong>). ' +
+        'Оранжевая отметка — черновик партнёра. Между ними <strong>' + fmt(saved) + ' ₽</strong> — ' +
+        'это не скидка «с потолка», а разница моделей: solo по себестоимости vs команда с PM и накладными.';
     }
   }
 

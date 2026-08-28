@@ -297,18 +297,98 @@
   <section class="section section-alt" id="dev-market">
     <div class="wrap">
       <h2>Стоимость разработки vs рынок</h2>
-      <p class="section-lead">930 000 ₽ — не наценка, а <strong>минимальная себестоимость</strong> исполнителя: ~46 рабочих дней по 2 500 ₽/ч. На том же ТЗ (~450–550 ч с PM и тестами) интегратор или студия обычно закладывают в разы больше.</p>
-      <div class="market-chart-wrap">
-        <canvas id="market-chart" role="img" aria-label="Сравнение разовой стоимости разработки у разных типов подрядчиков"></canvas>
-        <p class="market-chart-note" id="marketChartNote"></p>
+      <p class="section-lead">Один и тот же объём работ — разная цена в зависимости от того, <strong>кто</strong> делает: solo/НПД по себестоимости или команда интегратора с накладными.</p>
+
+      <div class="market-hero">
+        <div class="market-scale" aria-label="Сравнение разовой стоимости внедрения">
+          <div class="market-scale-head">
+            <span>0 ₽</span>
+            <span>1 млн</span>
+            <span>2 млн</span>
+            <span>3 млн</span>
+            <span>4 млн</span>
+          </div>
+          <div class="market-scale-track">
+            <div class="market-scale-seg kp" id="marketScaleKp">
+              <span class="market-scale-seg-label" id="marketScaleKpLabel">930 тыс.</span>
+            </div>
+            <div class="market-scale-seg save" id="marketScaleSave">
+              <span class="market-scale-seg-label" id="marketScaleSaveLabel">экономия</span>
+            </div>
+            <div class="market-scale-pin ref" id="marketScaleRef" title="Черновик партнёра">
+              <span>3,4 млн</span>
+            </div>
+          </div>
+          <div class="market-scale-legend">
+            <span><i class="dot kp"></i> КП — себестоимость исполнителя</span>
+            <span><i class="dot save"></i> Разница с черновиком партнёра</span>
+            <span><i class="dot ref"></i> Ориентир интегратора / студии</span>
+          </div>
+        </div>
+
+        <div class="market-kpi-grid">
+          <article class="market-kpi market-kpi-yours">
+            <p class="market-kpi-tag">Ваше КП</p>
+            <p class="market-kpi-value" id="marketKpValue">930 000 ₽</p>
+            <p class="market-kpi-formula">46 раб. дн. × 8 ч × <strong>2 500 ₽/ч</strong></p>
+            <p class="market-kpi-note">Минимум исполнителя, без наценки</p>
+          </article>
+          <div class="market-kpi-arrow" aria-hidden="true">→</div>
+          <article class="market-kpi market-kpi-ref">
+            <p class="market-kpi-tag">Черновик партнёра</p>
+            <p class="market-kpi-value">3 400 000 ₽</p>
+            <p class="market-kpi-formula">480 ч × <strong>7 000 ₽/ч</strong></p>
+            <p class="market-kpi-note">Тот же класс задач, команда + PM</p>
+          </article>
+          <article class="market-kpi market-kpi-diff">
+            <p class="market-kpi-tag">Заказчик платит меньше на</p>
+            <p class="market-kpi-value market-kpi-value-save" id="marketSavedValue">2 470 000 ₽</p>
+            <p class="market-kpi-formula" id="marketSavedPct">≈ 73% от оценки партнёра</p>
+            <p class="market-kpi-note">Не «скидка с потолка» — другая модель оплаты</p>
+          </article>
+        </div>
       </div>
-      <ul class="market-sources">
-        <li><strong>2 500 ₽/ч</strong> — ставка solo/НПД на этом проекте (себестоимость в КП)</li>
-        <li><strong>4–7 тыс. ₽/ч</strong> — бутик C# + SOLIDWORKS API → оценка <strong>1,8–3,2 млн</strong> на это ТЗ</li>
-        <li><strong>6–10 тыс. ₽/ч</strong> — <a href="https://dipro.ru/" target="_blank" rel="noopener">интеграторы PDM/SW</a> в РФ → <strong>2,5–4,5 млн</strong></li>
-        <li>Студии: <a href="https://ledas.com/ru/expertise/cad/plugin-development/" target="_blank" rel="noopener">ЛЕДАС</a> (плагины САПР), <a href="https://pro-tim.ru/products/uslugi/razrabotka-po/razrabotka-plaginov-dlya-bim-i-sapr-cad-sistem/" target="_blank" rel="noopener">PRO ТИМ / ИНФОСАПР</a> — заказная разработка, как правило от ~3 млн</li>
-        <li class="muted">Для сравнения: биржевой заказ «макрос SolidWorks» — <a href="https://www.weblancer.net/freelance/3d-grafika-12/razrabotka-dlya-sapr-plagin-nadstroika-rasshirenie-dlya-solidvorks-graskho-993638/" target="_blank" rel="noopener">другой класс задач</a>, не поставка в цех</li>
-      </ul>
+
+      <div class="market-detail">
+        <div class="market-math">
+          <h3>Откуда цифры</h3>
+          <div class="market-math-cols">
+            <div class="market-math-col yours">
+              <h4>Себестоимость в КП</h4>
+              <ul>
+                <li>~43–46 рабочих дней разработки и внедрения</li>
+                <li>Ставка НПД: <strong>2 500 ₽/ч</strong> (solo, без офиса и PM)</li>
+                <li>Итого: <strong id="marketMathKp">930 000 ₽</strong></li>
+              </ul>
+            </div>
+            <div class="market-math-col market">
+              <h4>Типичный рынок на это ТЗ</h4>
+              <ul>
+                <li>~450–550 ч с учётом PM, тестов, vault</li>
+                <li>Ставка бутика / интегратора: <strong>4–10 тыс. ₽/ч</strong></li>
+                <li>Диапазон: <strong>1,8–4,5 млн</strong> · черновик партнёра <strong>3,4 млн</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="market-chart-wrap">
+          <h3 class="market-chart-title">Все типы подрядчиков на одной шкале</h3>
+          <canvas id="market-chart" role="img" aria-label="Сравнение разовой стоимости разработки у разных типов подрядчиков"></canvas>
+          <p class="market-chart-note" id="marketChartNote"></p>
+        </div>
+      </div>
+
+      <details class="market-sources-details">
+        <summary>Источники ставок и ориентиры рынка</summary>
+        <ul class="market-sources">
+          <li><strong>2 500 ₽/ч</strong> — ставка solo/НПД на этом проекте (себестоимость в КП)</li>
+          <li><strong>4–7 тыс. ₽/ч</strong> — бутик C# + SOLIDWORKS API → <strong>1,8–3,2 млн</strong> на это ТЗ</li>
+          <li><strong>6–10 тыс. ₽/ч</strong> — <a href="https://dipro.ru/" target="_blank" rel="noopener">интеграторы PDM/SW</a> → <strong>2,5–4,5 млн</strong></li>
+          <li><a href="https://ledas.com/ru/expertise/cad/plugin-development/" target="_blank" rel="noopener">ЛЕДАС</a>, <a href="https://pro-tim.ru/products/uslugi/razrabotka-po/razrabotka-plaginov-dlya-bim-i-sapr-cad-sistem/" target="_blank" rel="noopener">PRO ТИМ / ИНФОСАПР</a> — заказная разработка, обычно от ~3 млн</li>
+          <li class="muted"><a href="https://www.weblancer.net/freelance/3d-grafika-12/razrabotka-dlya-sapr-plagin-nadstroika-rasshirenie-dlya-solidvorks-graskho-993638/" target="_blank" rel="noopener">Weblancer</a> — другой класс задач (макрос), не сравнивать с Docs v1</li>
+        </ul>
+      </details>
     </div>
   </section>
 
