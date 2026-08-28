@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
@@ -10,14 +10,18 @@
 <body>
 
   <div class="draft-banner">
-    Черновик для согласования · технологическое бюро · не является офертой
+    Материалы к согласованию · технологическое бюро · август 2026
   </div>
 
   <nav class="site-nav" aria-label="Разделы">
     <div class="wrap site-nav-inner">
-      <a href="#steps">Этапы</a>
+      <a href="#problem">Задача</a>
+      <a href="#video">Демо</a>
+      <a href="#outcome">Итог</a>
       <a href="#benchmark">Замеры</a>
+      <a href="#package">Пакет</a>
       <a href="#dev-market">Стоимость</a>
+      <a href="#next">Дальше</a>
     </div>
   </nav>
 
@@ -28,14 +32,14 @@
         <h1>Один перечень Excel — готовый комплект для лазера и цеха</h1>
         <p class="lead">Между выпуском КБ и запуском листового участка — сотни позиций: DXF на резку, чертежи развёрток, PDF-альбом, раскладка по толщине. До <strong>8 проектов в месяц</strong>, в каждом <strong>100–200 деталей</strong>. Сейчас это часы ручной рутины и риск, что ошибка всплывёт уже у станка.</p>
         <div class="hero-actions">
-          <a class="btn primary" href="#steps">Цепочка этапов</a>
-          <a class="btn" href="#benchmark">Замеры</a>
-          <a class="btn" href="#dev-market">Стоимость</a>
+          <a class="btn primary" href="#outcome">Итог замера</a>
+          <a class="btn" href="#video">Демонстрация</a>
+          <a class="btn" href="#package">Состав пакета</a>
         </div>
       </div>
       <div class="hero-stats">
-        <div class="stat"><em>100–200</em><span>позиций в проекте</span></div>
-        <div class="stat"><em>до 8</em><span>проектов в месяц</span></div>
+        <div class="stat"><em>46 мин</em><span>пакет 150 поз. (замер)</span></div>
+        <div class="stat"><em>6–13×</em><span>быстрее вручную</span></div>
         <div class="stat"><em>1</em><span>запуск на проект</span></div>
       </div>
     </div>
@@ -96,7 +100,446 @@
     </div>
   </section>
 
-  <div class="pipeline" id="steps">
+  <section class="section section-alt" id="outcome">
+    <div class="wrap">
+      <h2>Итог замера</h2>
+      <p class="section-lead">Проверено на перечне <strong>150 позиций</strong> (148 с моделью), SOLIDWORKS 2018 SP3, 28.08.2026.</p>
+      <div class="outcome-grid">
+        <article class="outcome-card">
+          <p class="outcome-label">Было</p>
+          <p class="outcome-value">5–10 ч</p>
+          <p class="outcome-note">вручную на проект</p>
+        </article>
+        <div class="outcome-arrow" aria-hidden="true">→</div>
+        <article class="outcome-card outcome-highlight">
+          <p class="outcome-label">Стало</p>
+          <p class="outcome-value">46 мин</p>
+          <p class="outcome-note">полный пакет плагином</p>
+        </article>
+        <article class="outcome-card">
+          <p class="outcome-label">Выигрыш</p>
+          <p class="outcome-value">6–13×</p>
+          <p class="outcome-note">быстрее ручного прогона</p>
+        </article>
+      </div>
+      <div class="outcome-stats">
+        <span><strong>148</strong> DXF</span>
+        <span><strong>296</strong> стр. PDF</span>
+        <span><strong>2</strong> позиции без модели — отмечены до ухода в цех</span>
+      </div>
+      <p class="note"><a href="#benchmark">Подробная таблица замеров →</a></p>
+    </div>
+  </section>
+
+  <section class="section wrap" id="proof">
+    <h2>Как это выглядит</h2>
+    <p class="section-lead">Скриншоты с реального прогона — экран комплекта, папка «лазер», оглавление PDF.</p>
+    <div class="proof-grid">
+      <figure class="proof-frame">
+        <div class="proof-placeholder">Экран комплекта (preflight)</div>
+        <figcaption>Список позиций до выпуска</figcaption>
+      </figure>
+      <figure class="proof-frame">
+        <div class="proof-placeholder">Папка по толщине + PDF</div>
+        <figcaption>Готовый пакет на «лазер»</figcaption>
+      </figure>
+      <figure class="proof-frame">
+        <div class="proof-placeholder">Оглавление альбома</div>
+        <figcaption>PDF с шифрами из Excel</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="benchmark">
+    <div class="wrap">
+      <h2>Замеры на реальном пакете</h2>
+      <p class="section-lead">Прогон на фикстурах: <strong>148 позиций</strong> из Excel (150 строк, 2 без модели), SOLIDWORKS 2018 SP3, пакеты по 40. Дата: 28.08.2026.</p>
+
+      <div class="benchmark-table-wrap">
+        <table class="benchmark-table">
+          <caption>Сравнение: вручную vs плагин</caption>
+          <thead>
+            <tr>
+              <th scope="col">Показатель</th>
+              <th scope="col">Вручную</th>
+              <th scope="col">Плагин</th>
+              <th scope="col">Выигрыш</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="benchmark-total">
+              <th scope="row">Полный пакет (DXF + чертежи + PDF)</th>
+              <td>5–10 ч</td>
+              <td><strong>46 мин</strong></td>
+              <td class="benchmark-win"><strong>6–13×</strong></td>
+            </tr>
+            <tr>
+              <th scope="row">На 1 позицию (полный цикл)</th>
+              <td>2–4 мин</td>
+              <td><strong>~19 с</strong></td>
+              <td class="benchmark-win">~6–13×</td>
+            </tr>
+            <tr>
+              <th scope="row">Экспорт DXF (только контур)</th>
+              <td>~1–2 мин</td>
+              <td><strong>~3,6 с</strong></td>
+              <td class="benchmark-win">~17–33×</td>
+            </tr>
+            <tr>
+              <th scope="row">PDF-фрагмент (1 лист чертежа)</th>
+              <td>~0,5–1 мин</td>
+              <td><strong>~3,7 с</strong></td>
+              <td class="benchmark-win">~8–16×</td>
+            </tr>
+            <tr>
+              <th scope="row">PDF на позицию (модель + развёртка)</th>
+              <td>~1–2 мин</td>
+              <td><strong>~8 с</strong></td>
+              <td class="benchmark-win">~8–15×</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="benchmark-split">
+        <article class="benchmark-card">
+          <h3>Этап SOLIDWORKS</h3>
+          <p class="benchmark-big">27 мин</p>
+          <ul>
+            <li>148 DXF — 0 ошибок</li>
+            <li>102 чертежа развёрток создано</li>
+            <li>Чистый ExportToDWG2: ~9 мин</li>
+          </ul>
+        </article>
+        <article class="benchmark-card">
+          <h3>Этап PDF-альбом</h3>
+          <p class="benchmark-big">18 мин</p>
+          <ul>
+            <li>295 фрагментов → 296 стр. альбома</li>
+            <li>0 сбоев экспорта</li>
+            <li>Узкое место — серийный SaveAs PDF</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="chart-wrap chart-wrap-inline">
+        <h3 class="chart-subtitle">Масштаб проекта</h3>
+        <p class="section-lead">Время плагина растёт с числом позиций, но остаётся на порядок ниже ручной обработки 100–200 деталей.</p>
+        <canvas id="benefit-chart" role="img" aria-label="График: минуты на пакет от числа позиций"></canvas>
+        <div class="chart-legend" id="chartLegend">
+          <span class="leg leg-auto"><i></i> Плагин</span>
+          <span class="leg leg-man"><i></i> Вручную</span>
+          <span class="leg leg-cur" id="chartCurLabel">Ваш проект: —</span>
+        </div>
+      </div>
+
+      <p class="note">Ручные оценки — по опыту технологического бюро. Повторный прогон быстрее: готовые <code>_развертка.slddrw</code> и кэш PDF-фрагментов.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" id="scope">
+    <h2>Что входит в поставку</h2>
+    <div class="scope-grid">
+      <div class="scope-col scope-in">
+        <h3>Входит</h3>
+        <ul>
+          <li>Excel → DXF, чертежи развёрток, PDF-альбом</li>
+          <li>Поиск моделей в PDM (только чтение)</li>
+          <li>Preflight и флаг неполного альбома</li>
+          <li>Внедрение на SW 2018 SP3, обучение, приёмка</li>
+          <li>Бессрочная лицензия на площадку заказчика</li>
+        </ul>
+      </div>
+      <div class="scope-col scope-out">
+        <h3>Не входит</h3>
+        <ul>
+          <li>Check-in результатов в PDM</li>
+          <li>Гибка, раскрой, CAM</li>
+          <li>Исходный код (лицензия без передачи)</li>
+          <li>Поддержка после приёмки — отдельно</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="package">
+    <div class="wrap">
+      <h2>Полный пакет Docs v1</h2>
+      <p class="section-lead">Единая поставка по ТЗ-DOCS-01: от перечня Excel до папки «лазер».</p>
+      <div class="package-box">
+        <div class="package-price">930 000 ₽</div>
+        <p class="package-price-note">Разовая разработка и внедрение · <a href="#dev-market">ниже оценок интегратора</a></p>
+        <ul>
+          <li>Оплата 40% / 40% / 20%</li>
+          <li>Бессрочная лицензия на площадку ООО «Меркатор Калуга»</li>
+          <li>Исходный код не передаётся</li>
+          <li>ИТ заказчика: TEST vault / папка для отладки</li>
+        </ul>
+        <p class="muted">Подробности: ТЗ-DOCS-01, КП-DOCS-01 (по запросу).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="dev-market">
+    <div class="wrap">
+      <h2>Стоимость разработки</h2>
+      <p class="section-lead">Тот же объём работ — разная цена в зависимости от модели: solo-исполнитель vs команда интегратора с накладными.</p>
+
+      <div class="market-hero">
+        <div class="market-scale" aria-label="Сравнение разовой стоимости внедрения">
+          <div class="market-scale-head">
+            <span>0 ₽</span>
+            <span>1 млн</span>
+            <span>2 млн</span>
+            <span>3 млн</span>
+            <span>4 млн</span>
+          </div>
+          <div class="market-scale-track">
+            <div class="market-scale-seg kp" id="marketScaleKp">
+              <span class="market-scale-seg-label" id="marketScaleKpLabel">930 тыс.</span>
+            </div>
+            <div class="market-scale-seg save" id="marketScaleSave">
+              <span class="market-scale-seg-label" id="marketScaleSaveLabel">экономия</span>
+            </div>
+            <div class="market-scale-pin ref" id="marketScaleRef" title="Черновик партнёра">
+              <span>3,4 млн</span>
+            </div>
+          </div>
+          <div class="market-scale-legend">
+            <span><i class="dot kp"></i> КП — себестоимость исполнителя</span>
+            <span><i class="dot save"></i> Разница с черновиком партнёра</span>
+            <span><i class="dot ref"></i> Ориентир интегратора / студии</span>
+          </div>
+        </div>
+
+        <div class="market-kpi-grid">
+          <article class="market-kpi market-kpi-yours">
+            <p class="market-kpi-tag">Ваше КП</p>
+            <p class="market-kpi-value" id="marketKpValue">930 000 ₽</p>
+            <p class="market-kpi-formula">~46 рабочих дней разработки и внедрения</p>
+            <p class="market-kpi-note">Минимальная модель оплаты, без наценки студии</p>
+          </article>
+          <div class="market-kpi-arrow" aria-hidden="true">→</div>
+          <article class="market-kpi market-kpi-ref">
+            <p class="market-kpi-tag">Черновик партнёра</p>
+            <p class="market-kpi-value">3 400 000 ₽</p>
+            <p class="market-kpi-formula">480 ч × <strong>7 000 ₽/ч</strong></p>
+            <p class="market-kpi-note">Тот же класс задач, команда + PM</p>
+          </article>
+          <article class="market-kpi market-kpi-diff">
+            <p class="market-kpi-tag">Заказчик платит меньше на</p>
+            <p class="market-kpi-value market-kpi-value-save" id="marketSavedValue">2 470 000 ₽</p>
+            <p class="market-kpi-formula" id="marketSavedPct">≈ 73% от оценки партнёра</p>
+            <p class="market-kpi-note">Не «скидка с потолка» — другая модель оплаты</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="market-detail">
+        <details class="market-math-details">
+          <summary>Откуда цифры и сравнение с рынком</summary>
+        <div class="market-math">
+          <h3>Откуда цифры</h3>
+          <div class="market-math-cols">
+            <div class="market-math-col yours">
+              <h4>Себестоимость в КП</h4>
+              <ul>
+                <li>~43–46 рабочих дней разработки и внедрения</li>
+                <li>Ставка НПД: <strong>2 500 ₽/ч</strong> (solo, без офиса и PM)</li>
+                <li>Итого: <strong id="marketMathKp">930 000 ₽</strong></li>
+              </ul>
+            </div>
+            <div class="market-math-col market">
+              <h4>Типичный рынок на это ТЗ</h4>
+              <ul>
+                <li>~450–550 ч с учётом PM, тестов, vault</li>
+                <li>Ставка бутика / интегратора: <strong>4–10 тыс. ₽/ч</strong></li>
+                <li>Диапазон: <strong>1,8–4,5 млн</strong> · черновик партнёра <strong>3,4 млн</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="market-chart-wrap">
+          <h3 class="market-chart-title">Все типы подрядчиков на одной шкале</h3>
+          <canvas id="market-chart" role="img" aria-label="Сравнение разовой стоимости разработки у разных типов подрядчиков"></canvas>
+          <p class="market-chart-note" id="marketChartNote"></p>
+        </div>
+        </details>
+      </div>
+
+      <details class="market-sources-details">
+        <summary>Источники ставок и ориентиры рынка</summary>
+        <ul class="market-sources">
+          <li><strong>2 500 ₽/ч</strong> — ставка solo/НПД на этом проекте (себестоимость в КП)</li>
+          <li><strong>4–7 тыс. ₽/ч</strong> — бутик C# + SOLIDWORKS API → <strong>1,8–3,2 млн</strong> на это ТЗ</li>
+          <li><strong>6–10 тыс. ₽/ч</strong> — <a href="https://dipro.ru/" target="_blank" rel="noopener">интеграторы PDM/SW</a> → <strong>2,5–4,5 млн</strong></li>
+          <li><a href="https://ledas.com/ru/expertise/cad/plugin-development/" target="_blank" rel="noopener">ЛЕДАС</a>, <a href="https://pro-tim.ru/products/uslugi/razrabotka-po/razrabotka-plaginov-dlya-bim-i-sapr-cad-sistem/" target="_blank" rel="noopener">PRO ТИМ / ИНФОСАПР</a> — заказная разработка, обычно от ~3 млн</li>
+          <li class="muted"><a href="https://www.weblancer.net/freelance/3d-grafika-12/razrabotka-dlya-sapr-plagin-nadstroika-rasshirenie-dlya-solidvorks-graskho-993638/" target="_blank" rel="noopener">Weblancer</a> — другой класс задач (макрос), не сравнивать с Docs v1</li>
+        </ul>
+      </details>
+    </div>
+  </section>
+
+  <!-- CALCULATOR_HIDDEN: интерактивный калькулятор убран с публичной версии (остаётся в исходниках для внутренних расчётов).
+  <section class="section wrap calc-section" id="calc">
+    <h2>Калькулятор окупаемости</h2>
+    <p class="section-lead">Три блока эффекта: <strong>отдел технологии</strong> (часы × ставка отдела) → <strong>риски на станке</strong> (срочный лазер, срывы комплекта — оценка) → <strong>срок изделия</strong> (сварка, покраска — без рублей, только пояснение). Стоимость внедрения — см. <a href="#dev-market">график выше</a>.</p>
+
+    <div class="calc-layers-hint">
+      <div class="layer-chip l1"><strong>Отдел технологии</strong> Часы отдела × ставка</div>
+      <div class="layer-chip l2"><strong>Риски на станке</strong> Лазер раньше + меньше дыр в комплекте</div>
+      <div class="layer-chip l3"><strong>Срок изделия</strong> Только если КД на критическом пути</div>
+    </div>
+
+    <div class="calc-layout">
+      <div class="calc-panel calc-panel-inputs">
+        <h3 class="calc-panel-title">Отдел технологии</h3>
+        <label>Проектов в месяц <input type="range" id="projects" min="1" max="8" step="1" value="8" /><output id="projects-out">8</output></label>
+        <label>Позиций в проекте <input type="range" id="models" min="100" max="200" step="10" value="150" /><output id="models-out">150</output></label>
+        <label>Доля готовых чертежей <code>_развертка.slddrw</code>, % <input type="range" id="reusePct" min="0" max="90" step="5" value="0" /><output id="reusePct-out">0</output></label>
+        <p class="field-hint">Влияет на часы вручную и с плагином. Развёртки в моделях всё равно создаются — экономия на чертежах, которые уже лежат в PDM.</p>
+        <label>Кто гоняет пакеты
+          <select id="staffMode">
+            <option value="parallel" selected>8 технологов параллельно (по 1 проекту)</option>
+            <option value="serial">1 технолог — 8 пакетов подряд</option>
+          </select>
+        </label>
+        <label>Часов вручную на 1 пакет <input type="number" id="hoursManualPkg" min="3" max="15" step="0.5" value="8" /></label>
+        <label>Часов с плагином на 1 пакет <input type="number" id="hoursAutoPkg" min="0.5" max="4" step="0.25" value="0.75" /></label>
+        <label>Оклад технолога, ₽/мес <input type="number" id="salaryMonth" min="60000" max="150000" step="5000" value="90000" /></label>
+        <label>Что закладывать в ₽/ч
+          <select id="costMode">
+            <option value="full" selected>Полная стоимость места (оклад + ~30% взносов работодателя)</option>
+            <option value="salary">Только оклад «в руки» (без взносов)</option>
+          </select>
+        </label>
+        <p class="field-hint">Взносы — это ПФР, ФСС, ФОМС: сверх зарплаты работодатель платит ~30%. При окладе 90 000 ₽ место обходится ~117 000 ₽/мес. Для экономии часа отдела берём полную стоимость, иначе занижаем эффект.</p>
+
+        <h3 class="calc-panel-title calc-subtitle">Риски на станке (оценка)</h3>
+        <label>Доля срочных пакетов (лазер ждёт файлы), % <input type="range" id="urgentShare" min="0" max="100" step="5" value="25" /><output id="urgentShare-out">25</output></label>
+        <label>Часов раньше выйти на лазер (на 1 срочный пакет) <input type="number" id="hoursEarlierLaser" min="0" max="24" step="0.5" value="4" /></label>
+        <label>Стоимость часа лазера (станок + оператор), ₽ <input type="number" id="laserHourCost" min="0" max="15000" step="500" value="3500" /></label>
+        <label>Срывов комплекта предотвращено, шт/мес <input type="number" id="kitErrorsMonth" min="0" max="20" step="1" value="2" /></label>
+        <label>Ущерб 1 срыва (переделка, простой гибки…), ₽ <input type="number" id="kitErrorCost" min="0" max="200000" step="5000" value="25000" /></label>
+        <p class="field-hint">Не «весь завод быстрее», а деньги там, где пакет КД был узким местом или ошибка всплыла бы на лазере/гибке. Если лазер всегда в очереди — срочный эффект ≈ 0, срывы комплекта могут остаться.</p>
+
+        <h3 class="calc-panel-title calc-subtitle">Внедрение</h3>
+        <p class="field-hint field-hint-top">По умолчанию <strong>930 000 ₽</strong> — себестоимость (~46 дн. × 2 500 ₽/ч), уже минимум для исполнителя. <a href="#dev-market">Сравнение с рынком</a>.</p>
+        <label>Целевая окупаемость, мес <input type="range" id="targetPayback" min="6" max="24" step="1" value="12" /><output id="targetPayback-out">12</output></label>
+        <p class="field-hint">Влияет на «потолок цены» (экономия × срок), не на стоимость КП.</p>
+        <label>Стоимость внедрения, ₽ <input type="number" id="projectCost" min="100000" max="2000000" step="10000" value="930000" /></label>
+
+        <button type="button" class="calc-btn" id="calcBtn">Рассчитать</button>
+        <p class="field-hint calc-btn-hint">Подставьте параметры и нажмите — справа цифры, ниже пошаговый журнал.</p>
+      </div>
+
+      <div class="calc-panel calc-panel-live" id="calcResults">
+        <h3 class="calc-panel-title">Результаты расчёта</h3>
+        <div class="calc-results-detail">
+
+          <article class="result-detail-card">
+            <header><span class="result-tag">Масштаб</span><h4>Позиций в месяц</h4></header>
+            <p class="result-value"><strong id="positionsMonth">—</strong> <span>шт</span></p>
+            <p class="result-formula" id="descPositions">—</p>
+          </article>
+
+          <article class="result-detail-card">
+            <header><span class="result-tag">Масштаб</span><h4>Развёрток и чертежей</h4></header>
+            <p class="result-value"><strong id="sheetsMonth">—</strong> <span>листов / мес</span></p>
+            <p class="result-formula" id="descSheets">—</p>
+          </article>
+
+          <article class="result-detail-card">
+            <header><span class="result-tag">Отдел</span><h4>Часов экономии отдела</h4></header>
+            <p class="result-value"><strong id="hoursSavedMonth">—</strong> <span>ч / мес</span></p>
+            <p class="result-formula" id="descHours">—</p>
+          </article>
+
+          <article class="result-detail-card card-l1">
+            <header><span class="result-tag">Отдел — ФОТ</span><h4>Экономия по зарплате отдела</h4></header>
+            <p class="result-value"><strong id="savingsFotMonth">—</strong> <span>₽ / мес</span></p>
+            <p class="result-formula" id="descFot">—</p>
+            <p class="result-extra" id="descFotYear">—</p>
+          </article>
+
+          <article class="result-detail-card card-l2">
+            <header><span class="result-tag">Станок</span><h4>Экономия на производстве</h4></header>
+            <p class="result-value"><strong id="savingsFactoryMonth">—</strong> <span>₽ / мес · оценка</span></p>
+            <p class="result-formula" id="descFactory">—</p>
+            <p class="result-extra" id="descFactoryYear">—</p>
+          </article>
+
+          <article class="result-detail-card card-total">
+            <header><span class="result-tag">Итого</span><h4>Суммарная экономия</h4></header>
+            <p class="result-value"><strong id="savingsTotalMonth">—</strong> <span>₽ / мес</span></p>
+            <p class="result-formula" id="descTotal">—</p>
+            <p class="result-extra" id="descTotalYear">—</p>
+          </article>
+
+          <article class="result-detail-card card-cost">
+            <header><span class="result-tag">Внедрение</span><h4>Стоимость в КП</h4></header>
+            <p class="result-value"><strong id="resultProjectCost">—</strong> <span>₽</span></p>
+            <p class="result-formula" id="descProjectCost">—</p>
+          </article>
+
+          <article class="result-detail-card">
+            <header><span class="result-tag">Окупаемость</span><h4>Только отдел технологии</h4></header>
+            <p class="result-value"><strong id="paybackFot">—</strong> <span>мес</span></p>
+            <p class="result-formula" id="descPaybackFot">—</p>
+          </article>
+
+          <article class="result-detail-card">
+            <header><span class="result-tag">Окупаемость</span><h4>Отдел + станок</h4></header>
+            <p class="result-value"><strong id="paybackTotal">—</strong> <span>мес</span></p>
+            <p class="result-formula" id="descPaybackTotal">—</p>
+          </article>
+
+          <article class="result-detail-card">
+            <header><span class="result-tag">Целевой срок</span><h4>Потолок цены при цели</h4></header>
+            <p class="result-value"><strong id="maxPriceTotal">—</strong> <span>₽</span></p>
+            <p class="result-formula" id="descMaxPrice">—</p>
+            <p class="result-extra muted" id="descMaxPriceHint">Не путать со стоимостью КП — это расчётный потолок из экономии × срок.</p>
+          </article>
+
+        </div>
+
+        <p class="calc-note" id="calcVerdict"></p>
+      </div>
+
+      <div class="calc-panel calc-panel-log">
+        <div class="log-panel-head">
+          <h3 class="calc-panel-title">Журнал расчёта</h3>
+          <button type="button" class="calc-btn-secondary" id="exportPdfBtn" disabled>Экспорт журнала в PDF</button>
+        </div>
+        <p class="field-hint log-export-hint">Сначала нажмите «Рассчитать». PDF — через диалог печати браузера («Сохранить как PDF»).</p>
+        <div class="calc-log" id="calcLog" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <section class="section wrap" id="next">
+    <div class="cta-box">
+      <h2>Следующий шаг</h2>
+      <p class="section-lead">Согласовать ТЗ-DOCS-01, тестовый vault и сроки внедрения на вашей площадке.</p>
+      <ul class="cta-list">
+        <li>Демо на вашем перечне (TEST vault)</li>
+        <li>Уточнение КП и графика оплат</li>
+        <li>Пилотный прогон перед полной приёмкой</li>
+      </ul>
+      <p class="muted">Контакт: Воробьёв А.С. · через технологическое бюро ООО «Меркатор Калуга»</p>
+    </div>
+  </section>
+
+
+  <section class="section wrap" id="appendix">
+    <h2>Подробности для технологического бюро</h2>
+    <p class="section-lead muted">Цепочка этапов, PDM, переиспользование чертежей и структура папок — для инженеров ТБ.</p>
+
+    <details class="appendix-block">
+      <summary>Цепочка Docs v1 — 7 этапов</summary>
+      <div class="pipeline" id="steps">
     <div class="wrap pipeline-intro">
       <h2>Цепочка Docs v1</h2>
       <p class="section-lead">Автоматизация всей цепочки — от Excel до папки «лазер». Каждый этап — отдельный блок; стрелки показывают, что куда идёт.</p>
@@ -261,8 +704,12 @@
       </div>
     </section>
   </div>
+    </details>
 
-  <section class="section wrap" id="pdm">
+    <details class="appendix-block">
+      <summary>PDM, чертежи развёрток, структура папок</summary>
+
+  <section class="section wrap appendix-inner" id="pdm">
     <h2>Почему PDM обязателен</h2>
     <p class="section-lead">Без хранилища нельзя гарантировать версию и конфигурацию детали на лазере. Плагин не заменяет PDM — он берёт из vault правильные файлы. Результаты в PDM не сдаём (check-in не делаем).</p>
     <div class="cards three">
@@ -304,356 +751,11 @@
         Перечень_2026-08-28_14-30.pdf</code></pre>
     </div>
   </section>
-
-  <section class="section section-alt" id="benchmark">
-    <div class="wrap">
-      <h2>Замеры на реальном пакете</h2>
-      <p class="section-lead">Прогон на фикстурах: <strong>148 позиций</strong> из Excel (150 строк, 2 без модели), SOLIDWORKS 2018 SP3, пакеты по 40. Дата: 28.08.2026.</p>
-
-      <div class="benchmark-table-wrap">
-        <table class="benchmark-table">
-          <caption>Сравнение: вручную vs плагин</caption>
-          <thead>
-            <tr>
-              <th scope="col">Показатель</th>
-              <th scope="col">Вручную</th>
-              <th scope="col">Плагин</th>
-              <th scope="col">Выигрыш</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="benchmark-total">
-              <th scope="row">Полный пакет (DXF + чертежи + PDF)</th>
-              <td>5–10 ч</td>
-              <td><strong>46 мин</strong></td>
-              <td class="benchmark-win"><strong>6–13×</strong></td>
-            </tr>
-            <tr>
-              <th scope="row">На 1 позицию (полный цикл)</th>
-              <td>2–4 мин</td>
-              <td><strong>~19 с</strong></td>
-              <td class="benchmark-win">~6–13×</td>
-            </tr>
-            <tr>
-              <th scope="row">Экспорт DXF (только контур)</th>
-              <td>~1–2 мин</td>
-              <td><strong>~3,6 с</strong></td>
-              <td class="benchmark-win">~17–33×</td>
-            </tr>
-            <tr>
-              <th scope="row">PDF-фрагмент (1 лист чертежа)</th>
-              <td>~0,5–1 мин</td>
-              <td><strong>~3,7 с</strong></td>
-              <td class="benchmark-win">~8–16×</td>
-            </tr>
-            <tr>
-              <th scope="row">PDF на позицию (модель + развёртка)</th>
-              <td>~1–2 мин</td>
-              <td><strong>~8 с</strong></td>
-              <td class="benchmark-win">~8–15×</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="benchmark-split">
-        <article class="benchmark-card">
-          <h3>Этап SOLIDWORKS</h3>
-          <p class="benchmark-big">27 мин</p>
-          <ul>
-            <li>148 DXF — 0 ошибок</li>
-            <li>102 чертежа развёрток создано</li>
-            <li>Чистый ExportToDWG2: ~9 мин</li>
-          </ul>
-        </article>
-        <article class="benchmark-card">
-          <h3>Этап PDF-альбом</h3>
-          <p class="benchmark-big">18 мин</p>
-          <ul>
-            <li>295 фрагментов → 296 стр. альбома</li>
-            <li>0 сбоев экспорта</li>
-            <li>Узкое место — серийный SaveAs PDF</li>
-          </ul>
-        </article>
-      </div>
-
-      <p class="note">Ручные оценки — по опыту технологического бюро (поиск в PDM, DXF, развёртка, PDF, раскладка). Повторный прогон быстрее: готовые <code>_развертка.slddrw</code> и кэш PDF-фрагментов.</p>
-    </div>
+    </details>
   </section>
-
-  <section class="section section-alt" id="chart">
-    <div class="wrap">
-      <h2>Масштаб проекта</h2>
-      <p class="section-lead">Время плагина растёт с числом позиций в проекте, но остаётся на порядки ниже ручной обработки 100–200 деталей.</p>
-      <div class="chart-wrap">
-        <canvas id="benefit-chart" role="img" aria-label="График: минуты на пакет от числа позиций"></canvas>
-        <div class="chart-legend" id="chartLegend">
-          <span class="leg leg-auto"><i></i> Плагин</span>
-          <span class="leg leg-man"><i></i> Вручную</span>
-          <span class="leg leg-cur" id="chartCurLabel">Ваш проект: —</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="dev-market">
-    <div class="wrap">
-      <h2>Стоимость разработки vs рынок</h2>
-      <p class="section-lead">Один и тот же объём работ — разная цена в зависимости от того, <strong>кто</strong> делает: solo/НПД по себестоимости или команда интегратора с накладными.</p>
-
-      <div class="market-hero">
-        <div class="market-scale" aria-label="Сравнение разовой стоимости внедрения">
-          <div class="market-scale-head">
-            <span>0 ₽</span>
-            <span>1 млн</span>
-            <span>2 млн</span>
-            <span>3 млн</span>
-            <span>4 млн</span>
-          </div>
-          <div class="market-scale-track">
-            <div class="market-scale-seg kp" id="marketScaleKp">
-              <span class="market-scale-seg-label" id="marketScaleKpLabel">930 тыс.</span>
-            </div>
-            <div class="market-scale-seg save" id="marketScaleSave">
-              <span class="market-scale-seg-label" id="marketScaleSaveLabel">экономия</span>
-            </div>
-            <div class="market-scale-pin ref" id="marketScaleRef" title="Черновик партнёра">
-              <span>3,4 млн</span>
-            </div>
-          </div>
-          <div class="market-scale-legend">
-            <span><i class="dot kp"></i> КП — себестоимость исполнителя</span>
-            <span><i class="dot save"></i> Разница с черновиком партнёра</span>
-            <span><i class="dot ref"></i> Ориентир интегратора / студии</span>
-          </div>
-        </div>
-
-        <div class="market-kpi-grid">
-          <article class="market-kpi market-kpi-yours">
-            <p class="market-kpi-tag">Ваше КП</p>
-            <p class="market-kpi-value" id="marketKpValue">930 000 ₽</p>
-            <p class="market-kpi-formula">46 раб. дн. × 8 ч × <strong>2 500 ₽/ч</strong></p>
-            <p class="market-kpi-note">Минимум исполнителя, без наценки</p>
-          </article>
-          <div class="market-kpi-arrow" aria-hidden="true">→</div>
-          <article class="market-kpi market-kpi-ref">
-            <p class="market-kpi-tag">Черновик партнёра</p>
-            <p class="market-kpi-value">3 400 000 ₽</p>
-            <p class="market-kpi-formula">480 ч × <strong>7 000 ₽/ч</strong></p>
-            <p class="market-kpi-note">Тот же класс задач, команда + PM</p>
-          </article>
-          <article class="market-kpi market-kpi-diff">
-            <p class="market-kpi-tag">Заказчик платит меньше на</p>
-            <p class="market-kpi-value market-kpi-value-save" id="marketSavedValue">2 470 000 ₽</p>
-            <p class="market-kpi-formula" id="marketSavedPct">≈ 73% от оценки партнёра</p>
-            <p class="market-kpi-note">Не «скидка с потолка» — другая модель оплаты</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="market-detail">
-        <div class="market-math">
-          <h3>Откуда цифры</h3>
-          <div class="market-math-cols">
-            <div class="market-math-col yours">
-              <h4>Себестоимость в КП</h4>
-              <ul>
-                <li>~43–46 рабочих дней разработки и внедрения</li>
-                <li>Ставка НПД: <strong>2 500 ₽/ч</strong> (solo, без офиса и PM)</li>
-                <li>Итого: <strong id="marketMathKp">930 000 ₽</strong></li>
-              </ul>
-            </div>
-            <div class="market-math-col market">
-              <h4>Типичный рынок на это ТЗ</h4>
-              <ul>
-                <li>~450–550 ч с учётом PM, тестов, vault</li>
-                <li>Ставка бутика / интегратора: <strong>4–10 тыс. ₽/ч</strong></li>
-                <li>Диапазон: <strong>1,8–4,5 млн</strong> · черновик партнёра <strong>3,4 млн</strong></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="market-chart-wrap">
-          <h3 class="market-chart-title">Все типы подрядчиков на одной шкале</h3>
-          <canvas id="market-chart" role="img" aria-label="Сравнение разовой стоимости разработки у разных типов подрядчиков"></canvas>
-          <p class="market-chart-note" id="marketChartNote"></p>
-        </div>
-      </div>
-
-      <details class="market-sources-details">
-        <summary>Источники ставок и ориентиры рынка</summary>
-        <ul class="market-sources">
-          <li><strong>2 500 ₽/ч</strong> — ставка solo/НПД на этом проекте (себестоимость в КП)</li>
-          <li><strong>4–7 тыс. ₽/ч</strong> — бутик C# + SOLIDWORKS API → <strong>1,8–3,2 млн</strong> на это ТЗ</li>
-          <li><strong>6–10 тыс. ₽/ч</strong> — <a href="https://dipro.ru/" target="_blank" rel="noopener">интеграторы PDM/SW</a> → <strong>2,5–4,5 млн</strong></li>
-          <li><a href="https://ledas.com/ru/expertise/cad/plugin-development/" target="_blank" rel="noopener">ЛЕДАС</a>, <a href="https://pro-tim.ru/products/uslugi/razrabotka-po/razrabotka-plaginov-dlya-bim-i-sapr-cad-sistem/" target="_blank" rel="noopener">PRO ТИМ / ИНФОСАПР</a> — заказная разработка, обычно от ~3 млн</li>
-          <li class="muted"><a href="https://www.weblancer.net/freelance/3d-grafika-12/razrabotka-dlya-sapr-plagin-nadstroika-rasshirenie-dlya-solidvorks-graskho-993638/" target="_blank" rel="noopener">Weblancer</a> — другой класс задач (макрос), не сравнивать с Docs v1</li>
-        </ul>
-      </details>
-    </div>
-  </section>
-
-  <!-- CALCULATOR_HIDDEN: интерактивный калькулятор убран с публичной версии (остаётся в исходниках для внутренних расчётов).
-  <section class="section wrap calc-section" id="calc">
-    <h2>Калькулятор окупаемости</h2>
-    <p class="section-lead">Три блока эффекта: <strong>отдел технологии</strong> (часы × ставка отдела) → <strong>риски на станке</strong> (срочный лазер, срывы комплекта — оценка) → <strong>срок изделия</strong> (сварка, покраска — без рублей, только пояснение). Стоимость внедрения — см. <a href="#dev-market">график выше</a>.</p>
-
-    <div class="calc-layers-hint">
-      <div class="layer-chip l1"><strong>Отдел технологии</strong> Часы отдела × ставка</div>
-      <div class="layer-chip l2"><strong>Риски на станке</strong> Лазер раньше + меньше дыр в комплекте</div>
-      <div class="layer-chip l3"><strong>Срок изделия</strong> Только если КД на критическом пути</div>
-    </div>
-
-    <div class="calc-layout">
-      <div class="calc-panel calc-panel-inputs">
-        <h3 class="calc-panel-title">Отдел технологии</h3>
-        <label>Проектов в месяц <input type="range" id="projects" min="1" max="8" step="1" value="8" /><output id="projects-out">8</output></label>
-        <label>Позиций в проекте <input type="range" id="models" min="100" max="200" step="10" value="150" /><output id="models-out">150</output></label>
-        <label>Доля готовых чертежей <code>_развертка.slddrw</code>, % <input type="range" id="reusePct" min="0" max="90" step="5" value="0" /><output id="reusePct-out">0</output></label>
-        <p class="field-hint">Влияет на часы вручную и с плагином. Развёртки в моделях всё равно создаются — экономия на чертежах, которые уже лежат в PDM.</p>
-        <label>Кто гоняет пакеты
-          <select id="staffMode">
-            <option value="parallel" selected>8 технологов параллельно (по 1 проекту)</option>
-            <option value="serial">1 технолог — 8 пакетов подряд</option>
-          </select>
-        </label>
-        <label>Часов вручную на 1 пакет <input type="number" id="hoursManualPkg" min="3" max="15" step="0.5" value="8" /></label>
-        <label>Часов с плагином на 1 пакет <input type="number" id="hoursAutoPkg" min="0.5" max="4" step="0.25" value="0.75" /></label>
-        <label>Оклад технолога, ₽/мес <input type="number" id="salaryMonth" min="60000" max="150000" step="5000" value="90000" /></label>
-        <label>Что закладывать в ₽/ч
-          <select id="costMode">
-            <option value="full" selected>Полная стоимость места (оклад + ~30% взносов работодателя)</option>
-            <option value="salary">Только оклад «в руки» (без взносов)</option>
-          </select>
-        </label>
-        <p class="field-hint">Взносы — это ПФР, ФСС, ФОМС: сверх зарплаты работодатель платит ~30%. При окладе 90 000 ₽ место обходится ~117 000 ₽/мес. Для экономии часа отдела берём полную стоимость, иначе занижаем эффект.</p>
-
-        <h3 class="calc-panel-title calc-subtitle">Риски на станке (оценка)</h3>
-        <label>Доля срочных пакетов (лазер ждёт файлы), % <input type="range" id="urgentShare" min="0" max="100" step="5" value="25" /><output id="urgentShare-out">25</output></label>
-        <label>Часов раньше выйти на лазер (на 1 срочный пакет) <input type="number" id="hoursEarlierLaser" min="0" max="24" step="0.5" value="4" /></label>
-        <label>Стоимость часа лазера (станок + оператор), ₽ <input type="number" id="laserHourCost" min="0" max="15000" step="500" value="3500" /></label>
-        <label>Срывов комплекта предотвращено, шт/мес <input type="number" id="kitErrorsMonth" min="0" max="20" step="1" value="2" /></label>
-        <label>Ущерб 1 срыва (переделка, простой гибки…), ₽ <input type="number" id="kitErrorCost" min="0" max="200000" step="5000" value="25000" /></label>
-        <p class="field-hint">Не «весь завод быстрее», а деньги там, где пакет КД был узким местом или ошибка всплыла бы на лазере/гибке. Если лазер всегда в очереди — срочный эффект ≈ 0, срывы комплекта могут остаться.</p>
-
-        <h3 class="calc-panel-title calc-subtitle">Внедрение</h3>
-        <p class="field-hint field-hint-top">По умолчанию <strong>930 000 ₽</strong> — себестоимость (~46 дн. × 2 500 ₽/ч), уже минимум для исполнителя. <a href="#dev-market">Сравнение с рынком</a>.</p>
-        <label>Целевая окупаемость, мес <input type="range" id="targetPayback" min="6" max="24" step="1" value="12" /><output id="targetPayback-out">12</output></label>
-        <p class="field-hint">Влияет на «потолок цены» (экономия × срок), не на стоимость КП.</p>
-        <label>Стоимость внедрения, ₽ <input type="number" id="projectCost" min="100000" max="2000000" step="10000" value="930000" /></label>
-
-        <button type="button" class="calc-btn" id="calcBtn">Рассчитать</button>
-        <p class="field-hint calc-btn-hint">Подставьте параметры и нажмите — справа цифры, ниже пошаговый журнал.</p>
-      </div>
-
-      <div class="calc-panel calc-panel-live" id="calcResults">
-        <h3 class="calc-panel-title">Результаты расчёта</h3>
-        <div class="calc-results-detail">
-
-          <article class="result-detail-card">
-            <header><span class="result-tag">Масштаб</span><h4>Позиций в месяц</h4></header>
-            <p class="result-value"><strong id="positionsMonth">—</strong> <span>шт</span></p>
-            <p class="result-formula" id="descPositions">—</p>
-          </article>
-
-          <article class="result-detail-card">
-            <header><span class="result-tag">Масштаб</span><h4>Развёрток и чертежей</h4></header>
-            <p class="result-value"><strong id="sheetsMonth">—</strong> <span>листов / мес</span></p>
-            <p class="result-formula" id="descSheets">—</p>
-          </article>
-
-          <article class="result-detail-card">
-            <header><span class="result-tag">Отдел</span><h4>Часов экономии отдела</h4></header>
-            <p class="result-value"><strong id="hoursSavedMonth">—</strong> <span>ч / мес</span></p>
-            <p class="result-formula" id="descHours">—</p>
-          </article>
-
-          <article class="result-detail-card card-l1">
-            <header><span class="result-tag">Отдел — ФОТ</span><h4>Экономия по зарплате отдела</h4></header>
-            <p class="result-value"><strong id="savingsFotMonth">—</strong> <span>₽ / мес</span></p>
-            <p class="result-formula" id="descFot">—</p>
-            <p class="result-extra" id="descFotYear">—</p>
-          </article>
-
-          <article class="result-detail-card card-l2">
-            <header><span class="result-tag">Станок</span><h4>Экономия на производстве</h4></header>
-            <p class="result-value"><strong id="savingsFactoryMonth">—</strong> <span>₽ / мес · оценка</span></p>
-            <p class="result-formula" id="descFactory">—</p>
-            <p class="result-extra" id="descFactoryYear">—</p>
-          </article>
-
-          <article class="result-detail-card card-total">
-            <header><span class="result-tag">Итого</span><h4>Суммарная экономия</h4></header>
-            <p class="result-value"><strong id="savingsTotalMonth">—</strong> <span>₽ / мес</span></p>
-            <p class="result-formula" id="descTotal">—</p>
-            <p class="result-extra" id="descTotalYear">—</p>
-          </article>
-
-          <article class="result-detail-card card-cost">
-            <header><span class="result-tag">Внедрение</span><h4>Стоимость в КП</h4></header>
-            <p class="result-value"><strong id="resultProjectCost">—</strong> <span>₽</span></p>
-            <p class="result-formula" id="descProjectCost">—</p>
-          </article>
-
-          <article class="result-detail-card">
-            <header><span class="result-tag">Окупаемость</span><h4>Только отдел технологии</h4></header>
-            <p class="result-value"><strong id="paybackFot">—</strong> <span>мес</span></p>
-            <p class="result-formula" id="descPaybackFot">—</p>
-          </article>
-
-          <article class="result-detail-card">
-            <header><span class="result-tag">Окупаемость</span><h4>Отдел + станок</h4></header>
-            <p class="result-value"><strong id="paybackTotal">—</strong> <span>мес</span></p>
-            <p class="result-formula" id="descPaybackTotal">—</p>
-          </article>
-
-          <article class="result-detail-card">
-            <header><span class="result-tag">Целевой срок</span><h4>Потолок цены при цели</h4></header>
-            <p class="result-value"><strong id="maxPriceTotal">—</strong> <span>₽</span></p>
-            <p class="result-formula" id="descMaxPrice">—</p>
-            <p class="result-extra muted" id="descMaxPriceHint">Не путать со стоимостью КП — это расчётный потолок из экономии × срок.</p>
-          </article>
-
-        </div>
-
-        <p class="calc-note" id="calcVerdict"></p>
-      </div>
-
-      <div class="calc-panel calc-panel-log">
-        <div class="log-panel-head">
-          <h3 class="calc-panel-title">Журнал расчёта</h3>
-          <button type="button" class="calc-btn-secondary" id="exportPdfBtn" disabled>Экспорт журнала в PDF</button>
-        </div>
-        <p class="field-hint log-export-hint">Сначала нажмите «Рассчитать». PDF — через диалог печати браузера («Сохранить как PDF»).</p>
-        <div class="calc-log" id="calcLog" aria-live="polite"></div>
-      </div>
-    </div>
-  </section>
-  -->
-
-  <section class="section section-alt" id="package">
-    <div class="wrap">
-      <h2>Полный пакет Docs v1</h2>
-      <p class="section-lead">Единая поставка по ТЗ-DOCS-01: Excel, DXF, чертежи развёрток, PDF-альбом, поиск в PDM, внедрение с ИТ, обучение, приёмка на 2018 SP3.</p>
-      <div class="package-box">
-        <div class="package-price">930 000 ₽</div>
-        <p class="package-price-note">Себестоимость исполнителя · <a href="#dev-market">ниже рынка интегратора</a></p>
-        <ul>
-          <li>~46 рабочих дней × 2 500 ₽/ч (НПД)</li>
-          <li>Оплата 40% / 40% / 20%</li>
-          <li>Бессрочная лицензия на площадку ООО «Меркатор Калуга»</li>
-          <li>Исходный код не передаётся</li>
-          <li>ИТ заказчика: TEST vault / папка для отладки</li>
-        </ul>
-        <p class="muted">Подробности: ТЗ-DOCS-01, КП-DOCS-01 (по запросу).</p>
-      </div>
-    </div>
-  </section>
-
   <footer class="footer">
     <div class="wrap">
-      <p>Надстройка SOLIDWORKS «Пакет в цех» (Docs v1) · черновик презентации</p>
+      <p>Надстройка SOLIDWORKS «Пакет в цех» (Docs v1) · материалы к согласованию</p>
       <p class="muted">Исполнитель: Воробьёв А.С. · ООО «Меркатор Калуга»</p>
       <p><a href="#top">Наверх</a></p>
     </div>
