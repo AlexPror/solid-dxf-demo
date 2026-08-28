@@ -2,50 +2,85 @@
   'use strict';
 
   const TARGET_PAYBACK = 7;
+  const ARTIFACTS_PER_POS = 3; // DXF + чертёж развёртки + лист модели в PDF
 
   const ids = [
-    'runs', 'rowsTyp', 'rowsPeak', 'peakShare',
-    'hoursManualTyp', 'hoursManualPeak', 'hoursAutoTyp', 'hoursAutoPeak',
+    'projects', 'models', 'reusePct',
+    'minManual', 'minAuto',
     'hourlyRate', 'projectCost'
   ];
 
-  const rangeIds = ['runs', 'rowsTyp', 'rowsPeak', 'peakShare'];
+  const rangeIds = ['projects', 'models', 'reusePct'];
 
   function fmt(n) {
     return new Intl.NumberFormat('ru-RU').format(Math.round(n));
+  }
+
+  function fmtDec(n, d) {
+    return new Intl.NumberFormat('ru-RU', {
+      minimumFractionDigits: d,
+      maximumFractionDigits: d
+    }).format(n);
   }
 
   function readNum(id) {
     return parseFloat(document.getElementById(id).value) || 0;
   }
 
-  function calc() {
-    const runs = readNum('runs');
-    const peakShare = readNum('peakShare') / 100;
-    const typShare = 1 - peakShare;
+  function setText(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
 
-    const hManTyp = readNum('hoursManualTyp');
-    const hManPeak = readNum('hoursManualPeak');
-    const hAutoTyp = readNum('hoursAutoTyp');
-    const hAutoPeak = readNum('hoursAutoPeak');
+  function calc() {
+    const projects = readNum('projects');
+    const models = readNum('models');
+    const reuse = readNum('reusePct') / 100;
+    const minManual = readNum('minManual');
+    const minAuto = readNum('minAuto');
     const rate = readNum('hourlyRate');
     const cost = readNum('projectCost');
 
-    const saveTyp = Math.max(0, hManTyp - hAutoTyp);
-    const savePeak = Math.max(0, hManPeak - hAutoPeak);
+    const positionsMonth = projects * models;
+    const artifactsMonth = positionsMonth * ARTIFACTS_PER_POS;
+    const unfoldingsMonth = positionsMonth;
+    const drawingsMonth = positionsMonth;
 
-    const hoursMonth = runs * (typShare * saveTyp + peakShare * savePeak);
-    const savingsMonth = hoursMonth * rate;
+    const minManualEff = minManual * (1 - reuse * 0.6);
+    const minAutoEff = minAuto * (1 - reuse * 0.3);
+
+    const hoursManualMonth = (positionsMonth * minManualEff) / 60;
+    const hoursAutoMonth = (positionsMonth * minAutoEff) / 60;
+    const hoursSavedMonth = Math.max(0, hoursManualMonth - hoursAutoMonth);
+    const savingsMonth = hoursSavedMonth * rate;
 
     const payback = savingsMonth > 0 ? cost / savingsMonth : Infinity;
     const maxPrice = savingsMonth * TARGET_PAYBACK;
-    const costPerRun = runs > 0 ? cost / (runs * 12) : 0;
+    const costPerProject = projects > 0 ? cost / (projects * 12) : 0;
 
-    document.getElementById('savingsMonth').textContent = fmt(savingsMonth);
-    document.getElementById('payback').textContent =
-      payback === Infinity ? '—' : payback.toFixed(1);
-    document.getElementById('maxPrice').textContent = fmt(maxPrice);
-    document.getElementById('costPerRun').textContent = fmt(costPerRun);
+    setText('positionsMonth', fmt(positionsMonth));
+    setText('artifactsMonth', fmt(artifactsMonth));
+    setText('unfoldingsMonth', fmt(unfoldingsMonth));
+    setText('drawingsMonth', fmt(drawingsMonth));
+    setText('hoursManualMonth', fmtDec(hoursManualMonth, 1));
+    setText('hoursAutoMonth', fmtDec(hoursAutoMonth, 1));
+    setText('hoursSavedMonth', fmtDec(hoursSavedMonth, 1));
+    setText('savingsMonth', fmt(savingsMonth));
+    setText('payback', payback === Infinity ? '—' : payback.toFixed(1));
+    setText('maxPrice', fmt(maxPrice));
+    setText('costPerProject', fmt(costPerProject));
+
+    setText('fxProjects', fmt(projects));
+    setText('fxModels', fmt(models));
+    setText('fxPositions', fmt(positionsMonth));
+    setText('fxArtifacts', fmt(artifactsMonth));
+    setText('fxMinMan', fmtDec(minManualEff, 1));
+    setText('fxMinAuto', fmtDec(minAutoEff, 1));
+    setText('fxHoursMan', fmtDec(hoursManualMonth, 1));
+    setText('fxHoursAuto', fmtDec(hoursAutoMonth, 1));
+    setText('fxHoursSave', fmtDec(hoursSavedMonth, 1));
+    setText('fxRate', fmt(rate));
+    setText('fxSavings', fmt(savingsMonth));
 
     const verdict = document.getElementById('calcVerdict');
     if (payback <= TARGET_PAYBACK) {
@@ -55,24 +90,26 @@
       verdict.className = 'calc-note ok';
     } else if (payback < 24) {
       verdict.textContent =
-        'Окупаемость ' + payback.toFixed(1) + ' мес — обсудить график оплаты или уточнить часы на пиковых пакетах 100–200 позиций.';
+        'Окупаемость ' + payback.toFixed(1) + ' мес — обсудить график оплаты ' +
+        'или уточнить минуты на позицию при ' + fmt(models) + ' деталях в проекте.';
       verdict.className = 'calc-note warn';
     } else {
       verdict.textContent =
-        'При текущих допущениях (переиспользование развёрток, 5–10 ч вручную) экономия в основном в контроле и PDM, не только в часах. Уточните замеры на 150 позициях.';
+        'При переиспользовании развёрток экономия в часах может быть скромной. ' +
+        'Выгода также в контроле ' + fmt(positionsMonth) + ' позиций/мес и связке с PDM.';
       verdict.className = 'calc-note warn';
     }
 
-    drawChart(readNum('rowsTyp'), readNum('rowsPeak'));
+    drawChart(models, projects);
   }
 
-  function drawChart(rowsTyp, rowsPeak) {
+  function drawChart(models, projects) {
     const canvas = document.getElementById('benefit-chart');
     if (!canvas || !canvas.getContext) return;
     const ctx = canvas.getContext('2d');
     const w = canvas.width;
     const h = canvas.height;
-    const pad = { l: 48, r: 24, t: 24, b: 40 };
+    const pad = { l: 52, r: 24, t: 28, b: 44 };
     const plotW = w - pad.l - pad.r;
     const plotH = h - pad.t - pad.b;
 
@@ -80,16 +117,16 @@
     ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, w, h);
 
-    const maxRows = 200;
+    const maxModels = 200;
     const points = [];
-    for (let r = 10; r <= maxRows; r += 5) {
-      const pluginMin = 30 + (r / maxRows) * 50 + (r > 100 ? (r - 100) * 0.15 : 0);
-      const controlIdx = 20 + (r / maxRows) * 80;
-      points.push({ r, pluginMin, controlIdx });
+    for (let m = 50; m <= maxModels; m += 10) {
+      const pluginMin = 20 + m * 0.35 + (m > 120 ? (m - 120) * 0.2 : 0);
+      const manualH = 4 + m * 0.025;
+      points.push({ m, pluginMin, manualH: manualH * 60 });
     }
 
-    const maxY = 120;
-    function x(r) { return pad.l + (r / maxRows) * plotW; }
+    const maxY = 180;
+    function x(m) { return pad.l + ((m - 50) / (maxModels - 50)) * plotW; }
     function y(v) { return pad.t + plotH - (v / maxY) * plotH; }
 
     ctx.strokeStyle = '#e5e7eb';
@@ -106,46 +143,48 @@
     ctx.lineWidth = 2.5;
     ctx.beginPath();
     points.forEach((p, i) => {
-      const px = x(p.r);
+      const px = x(p.m);
       const py = y(p.pluginMin);
       if (i === 0) ctx.moveTo(px, py);
       else ctx.lineTo(px, py);
     });
     ctx.stroke();
 
-    ctx.strokeStyle = '#e87722';
+    ctx.strokeStyle = '#b45309';
     ctx.lineWidth = 2.5;
+    ctx.setLineDash([6, 4]);
     ctx.beginPath();
     points.forEach((p, i) => {
-      const px = x(p.r);
-      const py = y(p.controlIdx);
+      const px = x(p.m);
+      const py = y(p.manualH);
       if (i === 0) ctx.moveTo(px, py);
       else ctx.lineTo(px, py);
     });
     ctx.stroke();
+    ctx.setLineDash([]);
 
-    [rowsTyp, rowsPeak].forEach((r, i) => {
-      const p = points.find(pt => pt.r >= r) || points[points.length - 1];
-      ctx.fillStyle = i === 0 ? '#155a86' : '#e87722';
-      ctx.beginPath();
-      ctx.arc(x(r), y(p.pluginMin), 5, 0, Math.PI * 2);
-      ctx.fill();
-    });
+    const cur = points.find(pt => pt.m >= models) || points[points.length - 1];
+    ctx.fillStyle = '#155a86';
+    ctx.beginPath();
+    ctx.arc(x(models), y(cur.pluginMin), 6, 0, Math.PI * 2);
+    ctx.fill();
 
     ctx.fillStyle = '#5a6573';
     ctx.font = '11px Segoe UI, sans-serif';
-    ctx.fillText('Позиций в Excel →', pad.l, h - 10);
+    ctx.fillText('Позиций в проекте →', pad.l, h - 12);
     ctx.save();
     ctx.translate(14, pad.t + plotH / 2);
     ctx.rotate(-Math.PI / 2);
-    ctx.fillText('мин / индекс', 0, 0);
+    ctx.fillText('минут на проект', 0, 0);
     ctx.restore();
 
     ctx.font = '10px Segoe UI, sans-serif';
     ctx.fillStyle = '#155a86';
-    ctx.fillText('— время плагина', pad.l, 16);
-    ctx.fillStyle = '#e87722';
-    ctx.fillText('— контроль комплекта', pad.l + 130, 16);
+    ctx.fillText('— плагин', pad.l, 18);
+    ctx.fillStyle = '#b45309';
+    ctx.fillText('— вручную (оценка)', pad.l + 80, 18);
+    ctx.fillStyle = '#5a6573';
+    ctx.fillText('сейчас: ' + models + ' поз. × ' + projects + ' пр./мес', pad.l + 220, 18);
   }
 
   function bind() {
