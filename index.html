@@ -13,6 +13,15 @@
     Черновик для согласования · технологическое бюро · не является офертой
   </div>
 
+  <nav class="site-nav" aria-label="Разделы">
+    <div class="wrap site-nav-inner">
+      <a href="#steps">Этапы</a>
+      <a href="#benchmark">Замеры</a>
+      <a href="#calc">Калькулятор</a>
+      <a href="#dev-market">Стоимость</a>
+    </div>
+  </nav>
+
   <header class="hero" id="top">
     <div class="wrap hero-grid">
       <div>
@@ -21,6 +30,7 @@
         <p class="lead">Один запуск на проект: Excel и корень «лазер». На выходе — до 200 развёрток и столько же чертежей, DXF по толщине, PDF-альбом. До 8 таких проектов в месяц.</p>
         <div class="hero-actions">
           <a class="btn primary" href="#steps">Цепочка этапов</a>
+          <a class="btn" href="#benchmark">Замеры</a>
           <a class="btn" href="#calc">Калькулятор</a>
         </div>
       </div>
@@ -279,6 +289,82 @@
     </div>
   </section>
 
+  <section class="section section-alt" id="benchmark">
+    <div class="wrap">
+      <h2>Замеры на реальном пакете</h2>
+      <p class="section-lead">Прогон на фикстурах: <strong>148 позиций</strong> из Excel (150 строк, 2 без модели), SOLIDWORKS 2018 SP3, пакеты по 40. Дата: 28.08.2026.</p>
+
+      <div class="benchmark-table-wrap">
+        <table class="benchmark-table">
+          <caption>Сравнение: вручную vs плагин</caption>
+          <thead>
+            <tr>
+              <th scope="col">Показатель</th>
+              <th scope="col">Вручную</th>
+              <th scope="col">Плагин</th>
+              <th scope="col">Выигрыш</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="benchmark-total">
+              <th scope="row">Полный пакет (DXF + чертежи + PDF)</th>
+              <td>5–10 ч</td>
+              <td><strong>46 мин</strong></td>
+              <td class="benchmark-win"><strong>6–13×</strong></td>
+            </tr>
+            <tr>
+              <th scope="row">На 1 позицию (полный цикл)</th>
+              <td>2–4 мин</td>
+              <td><strong>~19 с</strong></td>
+              <td class="benchmark-win">~6–13×</td>
+            </tr>
+            <tr>
+              <th scope="row">Экспорт DXF (только контур)</th>
+              <td>~1–2 мин</td>
+              <td><strong>~3,6 с</strong></td>
+              <td class="benchmark-win">~17–33×</td>
+            </tr>
+            <tr>
+              <th scope="row">PDF-фрагмент (1 лист чертежа)</th>
+              <td>~0,5–1 мин</td>
+              <td><strong>~3,7 с</strong></td>
+              <td class="benchmark-win">~8–16×</td>
+            </tr>
+            <tr>
+              <th scope="row">PDF на позицию (модель + развёртка)</th>
+              <td>~1–2 мин</td>
+              <td><strong>~8 с</strong></td>
+              <td class="benchmark-win">~8–15×</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="benchmark-split">
+        <article class="benchmark-card">
+          <h3>Этап SOLIDWORKS</h3>
+          <p class="benchmark-big">27 мин</p>
+          <ul>
+            <li>148 DXF — 0 ошибок</li>
+            <li>102 чертежа развёрток создано</li>
+            <li>Чистый ExportToDWG2: ~9 мин</li>
+          </ul>
+        </article>
+        <article class="benchmark-card">
+          <h3>Этап PDF-альбом</h3>
+          <p class="benchmark-big">18 мин</p>
+          <ul>
+            <li>295 фрагментов → 296 стр. альбома</li>
+            <li>0 сбоев экспорта</li>
+            <li>Узкое место — серийный SaveAs PDF</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="note">Ручные оценки — по опыту технологического бюро (поиск в PDM, DXF, развёртка, PDF, раскладка). Повторный прогон быстрее: готовые <code>_развертка.slddrw</code> и кэш PDF-фрагментов.</p>
+    </div>
+  </section>
+
   <section class="section section-alt" id="chart">
     <div class="wrap">
       <h2>Масштаб проекта</h2>
@@ -416,7 +502,7 @@
           </select>
         </label>
         <label>Часов вручную на 1 пакет <input type="number" id="hoursManualPkg" min="3" max="15" step="0.5" value="8" /></label>
-        <label>Часов с плагином на 1 пакет <input type="number" id="hoursAutoPkg" min="0.5" max="4" step="0.25" value="1.5" /></label>
+        <label>Часов с плагином на 1 пакет <input type="number" id="hoursAutoPkg" min="0.5" max="4" step="0.25" value="0.75" /></label>
         <label>Оклад технолога, ₽/мес <input type="number" id="salaryMonth" min="60000" max="150000" step="5000" value="90000" /></label>
         <label>Что закладывать в ₽/ч
           <select id="costMode">
