@@ -333,9 +333,12 @@
 
         <h3 class="calc-panel-title calc-subtitle">Внедрение</h3>
         <label>Стоимость внедрения, ₽ <input type="number" id="projectCost" min="100000" max="2000000" step="10000" value="930000" /></label>
+
+        <button type="button" class="calc-btn" id="calcBtn">Рассчитать</button>
+        <p class="field-hint calc-btn-hint">Подставьте параметры и нажмите — справа цифры, ниже пошаговый журнал.</p>
       </div>
 
-      <div class="calc-panel calc-panel-live">
+      <div class="calc-panel calc-panel-live" id="calcResults">
         <h3 class="calc-panel-title">Результат и формулы</h3>
         <div class="calc-results-compact">
           <div class="result-card"><span class="result-label">Позиций / мес</span><strong id="positionsMonth">—</strong></div>

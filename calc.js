@@ -59,7 +59,9 @@
     return { manual, auto };
   }
 
-  function calc() {
+  function calc(options) {
+    const scroll = options && options.scroll;
+    const flash = options && options.flash;
     clearLog();
 
     const projects = readNum('projects');
@@ -236,6 +238,19 @@
     }
 
     drawChart(models, pkg.manual, pkg.auto);
+
+    if (flash) {
+      const panel = document.getElementById('calcResults');
+      if (panel) {
+        panel.classList.remove('calc-flash');
+        void panel.offsetWidth;
+        panel.classList.add('calc-flash');
+      }
+    }
+    if (scroll) {
+      const target = document.getElementById('calcResults') || document.getElementById('calcLog');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   function drawChart(models, hoursMan, hoursAuto) {
@@ -316,6 +331,11 @@
   }
 
   function bind() {
+    const btn = document.getElementById('calcBtn');
+    if (btn) {
+      btn.addEventListener('click', () => calc({ scroll: true, flash: true }));
+    }
+
     ids.forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
@@ -325,7 +345,6 @@
           const out = document.getElementById(id + '-out');
           if (out) out.textContent = el.value;
         }
-        calc();
       });
     });
     rangeIds.forEach(id => {
@@ -333,7 +352,7 @@
       const el = document.getElementById(id);
       if (out && el) out.textContent = el.value;
     });
-    calc();
+    calc({ scroll: false, flash: false });
   }
 
   if (document.readyState === 'loading') {
