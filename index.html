@@ -290,53 +290,64 @@
     </div>
   </section>
 
-  <section class="section wrap" id="calc">
+  <section class="section wrap calc-section" id="calc">
     <h2>Калькулятор окупаемости</h2>
-    <p class="section-lead">Считаем от <strong>позиций в проекте</strong> и <strong>числа проектов в месяц</strong>. Формулы видны ниже — можно проверить на калькуляторе.</p>
-    <div class="calc-grid">
-      <div class="calc-inputs">
-        <label>Проектов в месяц <input type="range" id="projects" min="1" max="8" step="1" value="6" /><output id="projects-out">6</output></label>
+    <p class="section-lead">Считаем <strong>часы на пакет (проект)</strong>, не «минуты × все позиции отдела». 8 проектов = 8 запусков плагина; в ФОТ идёт сумма высвобождённых часов, не ×8 зарплат. Цена 930 тыс. — от разработки; окупаемость по ФОТ — отдельная строка.</p>
+
+    <div class="calc-layout">
+      <div class="calc-panel calc-panel-inputs">
+        <h3 class="calc-panel-title">Вводные</h3>
+        <label>Проектов в месяц <input type="range" id="projects" min="1" max="8" step="1" value="8" /><output id="projects-out">8</output></label>
         <label>Позиций в проекте <input type="range" id="models" min="100" max="200" step="10" value="150" /><output id="models-out">150</output></label>
-        <label>Доля готовых развёрток, % <input type="range" id="reusePct" min="0" max="90" step="5" value="60" /><output id="reusePct-out">60</output></label>
-        <label>Минут вручную на 1 позицию <input type="number" id="minManual" min="1" max="10" step="0.5" value="3" /></label>
-        <label>Минут с плагином на 1 позицию <input type="number" id="minAuto" min="0.2" max="3" step="0.1" value="0.6" /></label>
-        <label>Ставка часа технолога, ₽ <input type="number" id="hourlyRate" min="300" max="1500" step="50" value="500" /></label>
-        <label>Стоимость внедрения (полный пакет), ₽ <input type="number" id="projectCost" min="100000" max="2000000" step="10000" value="930000" /></label>
+        <label>Доля готовых развёрток, % <input type="range" id="reusePct" min="0" max="90" step="5" value="0" /><output id="reusePct-out">0</output></label>
+        <label>Кто гоняет пакеты
+          <select id="staffMode">
+            <option value="parallel" selected>8 технологов параллельно (по 1 проекту)</option>
+            <option value="serial">1 технолог — 8 пакетов подряд</option>
+          </select>
+        </label>
+        <label>Часов вручную на 1 пакет <input type="number" id="hoursManualPkg" min="3" max="15" step="0.5" value="8" /></label>
+        <label>Часов с плагином на 1 пакет <input type="number" id="hoursAutoPkg" min="0.5" max="4" step="0.25" value="1.5" /></label>
+        <label>Оклад технолога, ₽/мес <input type="number" id="salaryMonth" min="60000" max="150000" step="5000" value="90000" /></label>
+        <label>Коэф. взносов (× к окладу) <input type="number" id="employerCoeff" min="1" max="1.5" step="0.05" value="1.3" /></label>
+        <label>Стоимость внедрения, ₽ <input type="number" id="projectCost" min="100000" max="2000000" step="10000" value="930000" /></label>
       </div>
-      <div class="calc-results">
-        <div class="result-card"><span class="result-label">Позиций в месяц</span><strong id="positionsMonth">—</strong><span class="result-sub">шт</span></div>
-        <div class="result-card"><span class="result-label">Развёрток + чертежей</span><strong id="unfoldingsMonth">—</strong><span class="result-sub">листов в месяц (по 1 на позицию)</span></div>
-        <div class="result-card"><span class="result-label">Экономия</span><strong id="savingsMonth">—</strong><span class="result-sub">₽/мес</span></div>
-        <div class="result-card"><span class="result-label">Окупаемость</span><strong id="payback">—</strong><span class="result-sub">мес (цель 7)</span></div>
-        <div class="result-card"><span class="result-label">При 7 мес макс. цена</span><strong id="maxPrice">—</strong><span class="result-sub">₽</span></div>
-        <div class="result-card"><span class="result-label">Стоимость 1 проекта</span><strong id="costPerProject">—</strong><span class="result-sub">₽/год при текущей частоте</span></div>
+
+      <div class="calc-panel calc-panel-live">
+        <h3 class="calc-panel-title">Результат и формулы</h3>
+        <div class="calc-results-compact">
+          <div class="result-card"><span class="result-label">Позиций / мес</span><strong id="positionsMonth">—</strong></div>
+          <div class="result-card"><span class="result-label">Развёрток + черт.</span><strong id="sheetsMonth">—</strong></div>
+          <div class="result-card"><span class="result-label">Часов экономии</span><strong id="hoursSavedMonth">—</strong><span class="result-sub">ч/мес отдела</span></div>
+          <div class="result-card highlight"><span class="result-label">Экономия ФОТ</span><strong id="savingsFotMonth">—</strong><span class="result-sub">₽/мес · <span id="savingsFotYear">—</span> ₽/год</span></div>
+          <div class="result-card"><span class="result-label">Окупаемость по ФОТ</span><strong id="paybackFot">—</strong><span class="result-sub">мес (цель 7)</span></div>
+          <div class="result-card"><span class="result-label">Макс. цена при 7 мес</span><strong id="maxPriceFot">—</strong><span class="result-sub">только по ФОТ</span></div>
+        </div>
+
+        <dl class="formula-list formula-inline">
+          <dt>Позиций</dt>
+          <dd><code><span id="fxProjects">8</span> пр. × <span id="fxModels">150</span> поз. = <strong id="fxPositions">1 200</strong></code></dd>
+          <dt>Листов</dt>
+          <dd><code><strong id="fxSheets">1 200</strong> развёрток + чертежей (1:1 к позициям)</code></dd>
+          <dt>1 пакет</dt>
+          <dd><code>вручную <span id="fxHoursManPkg">8.0</span> ч → плагин <span id="fxHoursAutoPkg">1.5</span> ч → −<span id="fxHoursSavePkg">6.5</span> ч</code></dd>
+          <dt>Отдел / мес</dt>
+          <dd><code>проектов × экономия_пакета = <strong id="fxHoursSaveMo">52.0</strong> ч</code></dd>
+          <dt>Ставка</dt>
+          <dd><code><span id="fxSalary">90 000</span> ÷ 168 = <span id="fxHourSal">536</span> ₽/ч × <span id="fxCoeff">1.30</span> = <span id="fxHourFot">697</span> ₽/ч ФОТ</code></dd>
+          <dt>ФОТ / мес</dt>
+          <dd><code><span id="fxHoursSaveMo">52.0</span> ч × <span id="fxHourFot">697</span> = <strong id="fxSavingsFot">36 244</strong> ₽</code></dd>
+          <dt>Окупаемость</dt>
+          <dd><code><span id="fxCost">930 000</span> ÷ <span id="fxSavingsFot">36 244</span> = <strong id="paybackFotInline">—</strong> мес</code></dd>
+        </dl>
+
         <p class="calc-note" id="calcVerdict"></p>
       </div>
-    </div>
 
-    <div class="calc-formulas">
-      <h3>Формулы расчёта</h3>
-      <dl class="formula-list">
-        <dt>Позиций в месяц</dt>
-        <dd><code>проекты × позиций = <span id="fxProjects">6</span> × <span id="fxModels">150</span> = <strong id="fxPositions">900</strong></code></dd>
-
-        <dt>Выходов на позицию</dt>
-        <dd><code>1 DXF + 1 чертёж развёртки + 1 лист модели в PDF = 3</code></dd>
-
-        <dt>Всего артефактов в месяц</dt>
-        <dd><code>позиций_в_месяц × 3 = <strong id="fxArtifacts">2 700</strong></code></dd>
-
-        <dt>Минут на позицию (с учётом готовых развёрток)</dt>
-        <dd><code>вручную: <span id="fxMinMan">3.0</span> мин · плагин: <span id="fxMinAuto">0.6</span> мин</code><br />
-          <span class="formula-hint">Готовая <code>_развертка.slddrw</code> снижает минуты вручную до −60%, с плагином до −30%.</span></dd>
-
-        <dt>Часов в месяц</dt>
-        <dd><code>вручную: позиций × мин_вручную ÷ 60 = <strong id="fxHoursMan">45.0</strong> ч</code><br />
-          <code>плагин: позиций × мин_плагин ÷ 60 = <strong id="fxHoursAuto">9.0</strong> ч</code></dd>
-
-        <dt>Экономия</dt>
-        <dd><code>(<span id="fxHoursSave">36.0</span> ч) × <span id="fxRate">500</span> ₽/ч = <strong id="fxSavings">18 000</strong> ₽/мес</code></dd>
-      </dl>
+      <div class="calc-panel calc-panel-log">
+        <h3 class="calc-panel-title">Журнал расчёта <span class="log-hint">(и в F12 → Console)</span></h3>
+        <div class="calc-log" id="calcLog" aria-live="polite"></div>
+      </div>
     </div>
   </section>
 
