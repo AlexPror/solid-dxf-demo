@@ -35,7 +35,7 @@
       var placeholder = document.createElement('div');
       placeholder.className = 'video-placeholder';
       placeholder.setAttribute('aria-label', 'Видео будет добавлено');
-      placeholder.innerHTML = '<span>▶</span><p>' + escapeHtml(title) + '</p>';
+      placeholder.innerHTML = '<span>▶</span>';
       if (openUrl) {
         var link = document.createElement('a');
         link.className = 'video-open-link';
@@ -44,11 +44,6 @@
         link.rel = 'noopener noreferrer';
         link.textContent = 'Смотреть на Яндекс.Диске';
         placeholder.appendChild(link);
-      } else {
-        var hint = document.createElement('p');
-        hint.className = 'video-placeholder-hint';
-        hint.textContent = 'После записи — ссылка с Яндекс.Диска (без YouTube, VPN не нужен).';
-        placeholder.appendChild(hint);
       }
       root.appendChild(placeholder);
     }
