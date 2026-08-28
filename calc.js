@@ -6,6 +6,9 @@
   const DEV_COST_DEFAULT = 930000;
   const DEV_HOURLY_NPD = 2500;
   const MARKET_INTEGRATOR_REF = 3400000;
+  const BENCH_MANUAL_PKG_HOURS = 8;
+  const BENCH_AUTO_PKG_HOURS = 0.75;
+  const BENCH_MODELS = 150;
 
   const MARKET_TIERS = [
     { label: 'Биржа / VBA', low: 600000, high: 1200000, rate: '1,5–3,5 тыс. ₽/ч', dim: true },
@@ -42,7 +45,16 @@
   }
 
   function readNum(id) {
-    return parseFloat(document.getElementById(id).value) || 0;
+    const el = document.getElementById(id);
+    if (!el) return 0;
+    return parseFloat(el.value) || 0;
+  }
+
+  function benchInput(id, fallback) {
+    const el = document.getElementById(id);
+    if (!el) return fallback;
+    const v = parseFloat(el.value);
+    return Number.isFinite(v) ? v : fallback;
   }
 
   function setText(id, text) {
@@ -464,7 +476,7 @@
     const note = document.getElementById('marketChartNote');
     if (note) {
       note.innerHTML =
-        '<strong>Зелёная полоса и линия «КП»</strong> — цена из калькулятора (<strong>' + fmt(cost) + ' ₽</strong>). ' +
+        '<strong>Зелёная полоса и линия «КП»</strong> — цена в КП (<strong>' + fmt(cost) + ' ₽</strong>). ' +
         'Оранжевая отметка — черновик партнёра. Между ними <strong>' + fmt(saved) + ' ₽</strong> — ' +
         'это не скидка «с потолка», а разница моделей: solo по себестоимости vs команда с PM и накладными.';
     }
@@ -502,8 +514,11 @@
     const minX = 100;
     const maxX = 200;
     const points = [];
+    const reusePct = benchInput('reusePct', 0);
+    const baseManual = benchInput('hoursManualPkg', BENCH_MANUAL_PKG_HOURS);
+    const baseAuto = benchInput('hoursAutoPkg', BENCH_AUTO_PKG_HOURS);
     for (let m = minX; m <= maxX; m += 10) {
-      const pkg = packageHours(m, readNum('reusePct'), readNum('hoursManualPkg'), readNum('hoursAutoPkg'));
+      const pkg = packageHours(m, reusePct, baseManual, baseAuto);
       points.push({ m, manual: pkg.manual * 60, auto: pkg.auto * 60 });
     }
 
@@ -721,11 +736,18 @@
       const el = document.getElementById(id);
       if (out && el) out.textContent = el.value;
     });
-    calc({ scroll: false, flash: false });
+
+    const calcEnabled = !!document.getElementById('calcBtn');
+    if (calcEnabled) {
+      calc({ scroll: false, flash: false });
+      hasCalculated = true;
+      const exportBtnInit = document.getElementById('exportPdfBtn');
+      if (exportBtnInit) exportBtnInit.disabled = false;
+    } else {
+      drawChart(BENCH_MODELS);
+    }
+
     drawMarketChart(DEV_COST_DEFAULT);
-    hasCalculated = true;
-    const exportBtnInit = document.getElementById('exportPdfBtn');
-    if (exportBtnInit) exportBtnInit.disabled = false;
   }
 
   if (document.readyState === 'loading') {
