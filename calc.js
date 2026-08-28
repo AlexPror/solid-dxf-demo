@@ -6,12 +6,15 @@
   const DEV_COST_DEFAULT = 930000;
 
   const ids = [
-    'projects', 'models', 'reusePct', 'staffMode',
+    'projects', 'models', 'reusePct', 'staffMode', 'costMode',
     'hoursManualPkg', 'hoursAutoPkg',
-    'salaryMonth', 'employerCoeff', 'projectCost'
+    'salaryMonth',
+    'urgentShare', 'hoursEarlierLaser', 'laserHourCost',
+    'kitErrorsMonth', 'kitErrorCost',
+    'projectCost'
   ];
 
-  const rangeIds = ['projects', 'models', 'reusePct'];
+  const rangeIds = ['projects', 'models', 'reusePct', 'urgentShare'];
 
   function fmt(n) {
     return new Intl.NumberFormat('ru-RU').format(Math.round(n));
@@ -66,8 +69,15 @@
     const baseManual = readNum('hoursManualPkg');
     const baseAuto = readNum('hoursAutoPkg');
     const salaryMonth = readNum('salaryMonth');
-    const employerCoeff = readNum('employerCoeff');
+    const costMode = document.getElementById('costMode')?.value || 'full';
+    const employerCoeff = costMode === 'full' ? 1.3 : 1.0;
     const cost = readNum('projectCost') || DEV_COST_DEFAULT;
+
+    const urgentShare = readNum('urgentShare');
+    const hoursEarlierLaser = readNum('hoursEarlierLaser');
+    const laserHourCost = readNum('laserHourCost');
+    const kitErrorsMonth = readNum('kitErrorsMonth');
+    const kitErrorCost = readNum('kitErrorCost');
 
     const hourlySalary = salaryMonth / HOURS_MONTH;
     const hourlyFot = hourlySalary * employerCoeff;
@@ -89,14 +99,33 @@
     const maxPriceFot = savingsFotMonth * TARGET_PAYBACK;
     const savingsFotYear = savingsFotMonth * 12;
 
+    const urgentRuns = projects * (urgentShare / 100);
+    const savingsLaserMonth = urgentRuns * hoursEarlierLaser * laserHourCost;
+    const savingsKitMonth = kitErrorsMonth * kitErrorCost;
+    const savingsFactoryMonth = savingsLaserMonth + savingsKitMonth;
+    const savingsFactoryYear = savingsFactoryMonth * 12;
+    const savingsTotalMonth = savingsFotMonth + savingsFactoryMonth;
+    const savingsTotalYear = savingsTotalMonth * 12;
+
+    const paybackTotal = savingsTotalMonth > 0 ? cost / savingsTotalMonth : Infinity;
+    const maxPriceTotal = savingsTotalMonth * TARGET_PAYBACK;
+
     setText('positionsMonth', fmt(positionsMonth));
     setText('sheetsMonth', fmt(sheetsMonth));
     setText('hoursSavedMonth', fmtDec(hoursSavedMonth, 1));
     setText('savingsFotMonth', fmt(savingsFotMonth));
-    setText('savingsFotYear', fmt(savingsFotYear));
     setText('paybackFot', paybackFot === Infinity ? '—' : paybackFot.toFixed(1));
-    setText('paybackFotInline', paybackFot === Infinity ? '—' : paybackFot.toFixed(1));
     setText('maxPriceFot', fmt(maxPriceFot));
+    setText('savingsFactoryMonth', fmt(savingsFactoryMonth));
+    setText('savingsFactoryYear', fmt(savingsFactoryYear));
+    setText('savingsTotalMonth', fmt(savingsTotalMonth));
+    setText('savingsTotalYear', fmt(savingsTotalYear));
+    setText('paybackTotal', paybackTotal === Infinity ? '—' : paybackTotal.toFixed(1));
+    setText('maxPriceTotal', fmt(maxPriceTotal));
+    setText('fxUrgentRuns', fmtDec(urgentRuns, 1));
+    setText('fxLaserSave', fmt(savingsLaserMonth));
+    setText('fxKitSave', fmt(savingsKitMonth));
+    setText('fxFactoryTotal', fmt(savingsFactoryMonth));
     setText('hourlySalary', fmtDec(hourlySalary, 0));
     setText('hourlyFot', fmtDec(hourlyFot, 0));
 
@@ -111,7 +140,7 @@
     setText('fxHoursAutoMo', fmtDec(hoursAutoMonth, 1));
     setText('fxHoursSaveMo', fmtDec(hoursSavedMonth, 1));
     setText('fxSalary', fmt(salaryMonth));
-    setText('fxCoeff', fmtDec(employerCoeff, 2));
+    setText('fxCoeff', costMode === 'full' ? '1,30 (взносы)' : '1,00 (только оклад)');
     setText('fxHourSal', fmtDec(hourlySalary, 0));
     setText('fxHourFot', fmtDec(hourlyFot, 0));
     setText('fxSavingsFot', fmt(savingsFotMonth));
@@ -140,10 +169,12 @@
       fmt(projects) + ' × ' + fmtDec(hoursSavedPkg, 1) + ' ч = <b>' +
       fmtDec(hoursSavedMonth, 1) + ' ч</b> высвобождается.');
 
-    logLine('<span class="log-step">5</span> <b>Ставка</b>: оклад ' + fmt(salaryMonth) +
-      ' ₽ ÷ ' + HOURS_MONTH + ' ч = <b>' + fmtDec(hourlySalary, 0) +
-      ' ₽/ч</b> по окладу; × ' + fmtDec(employerCoeff, 2) +
-      ' (взносы) = <b>' + fmtDec(hourlyFot, 0) + ' ₽/ч</b> полная стоимость часа.');
+    logLine('<span class="log-step">5</span> <b>Ставка технолога</b>: оклад ' + fmt(salaryMonth) +
+      ' ₽ ÷ ' + HOURS_MONTH + ' ч = <b>' + fmtDec(hourlySalary, 0) + ' ₽/ч</b> «в руки». ' +
+      (costMode === 'full'
+        ? 'Работодатель сверх оклада платит ~30% взносов (ПФР, ФСС, ФОМС) → полная стоимость места <b>' +
+          fmt(Math.round(salaryMonth * employerCoeff)) + ' ₽/мес</b> → <b>' + fmtDec(hourlyFot, 0) + ' ₽/ч</b>.'
+        : 'Считаем только оклад, без взносов работодателя → <b>' + fmtDec(hourlyFot, 0) + ' ₽/ч</b>.'));
 
     logLine('<span class="log-step">6</span> <b>Экономия ФОТ</b>: ' +
       fmtDec(hoursSavedMonth, 1) + ' ч × ' + fmtDec(hourlyFot, 0) +
@@ -151,42 +182,56 @@
       fmt(savingsFotYear) + ' ₽/год). По окладу без взносов: ' +
       fmt(savingsSalaryMonth) + ' ₽/мес.');
 
-    logLine('<span class="log-step">7</span> <b>Окупаемость по ФОТ</b>: ' +
-      fmt(cost) + ' ÷ ' + fmt(savingsFotMonth) + ' = <b>' +
-      (paybackFot === Infinity ? '—' : paybackFot.toFixed(1)) + ' мес</b>. ' +
-      'При цели ' + TARGET_PAYBACK + ' мес макс. цена по ФОТ: <b>' +
-      fmt(maxPriceFot) + ' ₽</b>.');
+    logLine('<span class="log-step">7</span> <b>Слой 1 — ФОТ технологии</b>: ' +
+      fmtDec(hoursSavedMonth, 1) + ' ч × ' + fmtDec(hourlyFot, 0) +
+      ' ₽/ч = <b>' + fmt(savingsFotMonth) + ' ₽/мес</b> (' +
+      fmt(savingsFotYear) + ' ₽/год). Окупаемость только по ФОТ: <b>' +
+      (paybackFot === Infinity ? '—' : paybackFot.toFixed(1)) + ' мес</b>.');
 
-    logLine('<span class="log-step">8</span> <b>Почему в КП ' + fmt(DEV_COST_DEFAULT) +
-      ' ₽</b>: это себестоимость разработки (~46 раб. дней), не «окупаемость за 7 мес по часам». ' +
-      'Эффект на цех (комплект, ревизия PDM, меньше брака) — отдельный слой, в рублях здесь не считаем.');
+    logLine('<span class="log-step">8</span> <b>Слой 2 — производство</b> (оценка, не автоматический эффект на весь завод): ' +
+      'срочных пакетов ' + fmtDec(urgentRuns, 1) + ' (' + urgentShare + '%) × ' +
+      hoursEarlierLaser + ' ч раньше на лазер × ' + fmt(laserHourCost) + ' ₽/ч = <b>' +
+      fmt(savingsLaserMonth) + ' ₽</b>; предотвращённых срывов комплекта ' +
+      fmt(kitErrorsMonth) + ' × ' + fmt(kitErrorCost) + ' ₽ = <b>' +
+      fmt(savingsKitMonth) + ' ₽</b>. Итого слой 2: <b>' + fmt(savingsFactoryMonth) + ' ₽/мес</b>.');
+
+    logLine('<span class="log-step">9</span> <b>Слой 1 + 2</b>: ' + fmt(savingsFotMonth) + ' + ' +
+      fmt(savingsFactoryMonth) + ' = <b>' + fmt(savingsTotalMonth) + ' ₽/мес</b> (' +
+      fmt(savingsTotalYear) + ' ₽/год). Окупаемость суммарно: <b>' +
+      (paybackTotal === Infinity ? '—' : paybackTotal.toFixed(1)) + ' мес</b>. ' +
+      'При ' + TARGET_PAYBACK + ' мес макс. цена: <b>' + fmt(maxPriceTotal) + ' ₽</b>.');
+
+    logLine('<span class="log-step">10</span> <b>Слой 3 — весь завод</b> (сварка, покраска, закуп листа): ' +
+      'в рублях <b>не считаем</b> — ускорение есть только если КД на критическом пути. ' +
+      'Если лазер и так в очереди на дни, выигрыш = ёмкость технологии, не −N дней по цеху. ' +
+      'Цена КП ' + fmt(DEV_COST_DEFAULT) + ' ₽ — себестоимость разработки (~46 дн).');
 
     if (typeof console !== 'undefined' && console.groupCollapsed) {
       console.groupCollapsed('[Калькулятор Docs] ' + new Date().toLocaleTimeString('ru'));
       console.table({
-        projects, models, reusePct, staffMode,
+        projects, models, reusePct, staffMode, costMode,
         hoursManualPkg: pkg.manual, hoursAutoPkg: pkg.auto,
-        hoursSavedMonth, hourlyFot, savingsFotMonth, paybackFot, cost
+        hoursSavedMonth, hourlyFot, savingsFotMonth, savingsFactoryMonth,
+        savingsTotalMonth, paybackFot, paybackTotal, cost
       });
       console.groupEnd();
     }
 
     const verdict = document.getElementById('calcVerdict');
-    if (paybackFot <= TARGET_PAYBACK) {
+    if (paybackTotal <= TARGET_PAYBACK) {
       verdict.textContent =
-        'По одному ФОТ окупаемость укладывается в ' + TARGET_PAYBACK + ' мес. — редкий случай при таких вводных.';
+        'Суммарно (ФОТ + производство) окупаемость ' + paybackTotal.toFixed(1) +
+        ' мес — при ваших вводных по срочным заказам и срывам комплекта.';
       verdict.className = 'calc-note ok';
-    } else if (paybackFot < 36) {
+    } else if (paybackTotal < paybackFot) {
       verdict.textContent =
-        'По ФОТ окупаемость ' + paybackFot.toFixed(1) +
-        ' мес — это нормально: цена 930 тыс. заложена от разработки, не от «сэкономили все технологи». ' +
-        'Для директора добавляем контроль ' + fmt(positionsMonth) + ' поз./мес и риски на лазере.';
+        'Только ФОТ — ' + paybackFot.toFixed(1) + ' мес; с производством — ' +
+        paybackTotal.toFixed(1) + ' мес. Слой 2 не «ускоряет весь завод», только срочные пакеты и меньше брака на лазере/гибке.';
       verdict.className = 'calc-note warn';
     } else {
       verdict.textContent =
-        'При переиспользовании развёрток часы падают — по ФОТ окупаемость длинная. ' +
-        'Обоснование цены: снятие тяжёлой рутины + PDM + комплект на ' +
-        fmt(positionsMonth) + ' поз., не только часы.';
+        'По ФОТ одному — ' + paybackFot.toFixed(1) + ' мес. Увеличьте долю срочных или ущерб срыва комплекта, ' +
+        'если хотите показать эффект на производство. Сварка/покраска в расчёт не входят.';
       verdict.className = 'calc-note warn';
     }
 

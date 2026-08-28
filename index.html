@@ -292,11 +292,17 @@
 
   <section class="section wrap calc-section" id="calc">
     <h2>Калькулятор окупаемости</h2>
-    <p class="section-lead">Считаем <strong>часы на пакет (проект)</strong>, не «минуты × все позиции отдела». 8 проектов = 8 запусков плагина; в ФОТ идёт сумма высвобождённых часов, не ×8 зарплат. Цена 930 тыс. — от разработки; окупаемость по ФОТ — отдельная строка.</p>
+    <p class="section-lead">Три слоя: <strong>ФОТ технологии</strong> (считаем честно) → <strong>производство</strong> (срочные пакеты, срывы на лазере — оценка) → <strong>весь завод</strong> (сварка, покраска — не в рублях, только пояснение). Цена 930 тыс. — от разработки.</p>
+
+    <div class="calc-layers-hint">
+      <div class="layer-chip l1"><strong>Слой 1</strong> Часы отдела × ставка</div>
+      <div class="layer-chip l2"><strong>Слой 2</strong> Лазер раньше + меньше дыр в комплекте</div>
+      <div class="layer-chip l3"><strong>Слой 3</strong> Срок изделия — только если КД на критическом пути</div>
+    </div>
 
     <div class="calc-layout">
       <div class="calc-panel calc-panel-inputs">
-        <h3 class="calc-panel-title">Вводные</h3>
+        <h3 class="calc-panel-title">Слой 1 — технологи (ФОТ)</h3>
         <label>Проектов в месяц <input type="range" id="projects" min="1" max="8" step="1" value="8" /><output id="projects-out">8</output></label>
         <label>Позиций в проекте <input type="range" id="models" min="100" max="200" step="10" value="150" /><output id="models-out">150</output></label>
         <label>Доля готовых развёрток, % <input type="range" id="reusePct" min="0" max="90" step="5" value="0" /><output id="reusePct-out">0</output></label>
@@ -309,7 +315,23 @@
         <label>Часов вручную на 1 пакет <input type="number" id="hoursManualPkg" min="3" max="15" step="0.5" value="8" /></label>
         <label>Часов с плагином на 1 пакет <input type="number" id="hoursAutoPkg" min="0.5" max="4" step="0.25" value="1.5" /></label>
         <label>Оклад технолога, ₽/мес <input type="number" id="salaryMonth" min="60000" max="150000" step="5000" value="90000" /></label>
-        <label>Коэф. взносов (× к окладу) <input type="number" id="employerCoeff" min="1" max="1.5" step="0.05" value="1.3" /></label>
+        <label>Что закладывать в ₽/ч
+          <select id="costMode">
+            <option value="full" selected>Полная стоимость места (оклад + ~30% взносов работодателя)</option>
+            <option value="salary">Только оклад «в руки» (без взносов)</option>
+          </select>
+        </label>
+        <p class="field-hint">Взносы — это ПФР, ФСС, ФОМС: сверх зарплаты работодатель платит ~30%. При окладе 90 000 ₽ место обходится ~117 000 ₽/мес. Для экономии часа отдела берём полную стоимость, иначе занижаем эффект.</p>
+
+        <h3 class="calc-panel-title calc-subtitle">Слой 2 — производство (оценка)</h3>
+        <label>Доля срочных пакетов (лазер ждёт файлы), % <input type="range" id="urgentShare" min="0" max="100" step="5" value="25" /><output id="urgentShare-out">25</output></label>
+        <label>Часов раньше выйти на лазер (на 1 срочный пакет) <input type="number" id="hoursEarlierLaser" min="0" max="24" step="0.5" value="4" /></label>
+        <label>Стоимость часа лазера (станок + оператор), ₽ <input type="number" id="laserHourCost" min="0" max="15000" step="500" value="3500" /></label>
+        <label>Срывов комплекта предотвращено, шт/мес <input type="number" id="kitErrorsMonth" min="0" max="20" step="1" value="2" /></label>
+        <label>Ущерб 1 срыва (переделка, простой гибки…), ₽ <input type="number" id="kitErrorCost" min="0" max="200000" step="5000" value="25000" /></label>
+        <p class="field-hint">Слой 2 — не «весь завод быстрее», а деньги там, где пакет КД был узким местом или ошибка всплыла бы на станке.</p>
+
+        <h3 class="calc-panel-title calc-subtitle">Внедрение</h3>
         <label>Стоимость внедрения, ₽ <input type="number" id="projectCost" min="100000" max="2000000" step="10000" value="930000" /></label>
       </div>
 
@@ -319,9 +341,12 @@
           <div class="result-card"><span class="result-label">Позиций / мес</span><strong id="positionsMonth">—</strong></div>
           <div class="result-card"><span class="result-label">Развёрток + черт.</span><strong id="sheetsMonth">—</strong></div>
           <div class="result-card"><span class="result-label">Часов экономии</span><strong id="hoursSavedMonth">—</strong><span class="result-sub">ч/мес отдела</span></div>
-          <div class="result-card highlight"><span class="result-label">Экономия ФОТ</span><strong id="savingsFotMonth">—</strong><span class="result-sub">₽/мес · <span id="savingsFotYear">—</span> ₽/год</span></div>
-          <div class="result-card"><span class="result-label">Окупаемость по ФОТ</span><strong id="paybackFot">—</strong><span class="result-sub">мес (цель 7)</span></div>
-          <div class="result-card"><span class="result-label">Макс. цена при 7 мес</span><strong id="maxPriceFot">—</strong><span class="result-sub">только по ФОТ</span></div>
+          <div class="result-card highlight"><span class="result-label">Слой 1 — ФОТ</span><strong id="savingsFotMonth">—</strong><span class="result-sub">₽/мес</span></div>
+          <div class="result-card highlight-factory"><span class="result-label">Слой 2 — производство</span><strong id="savingsFactoryMonth">—</strong><span class="result-sub">₽/мес · оценка</span></div>
+          <div class="result-card highlight-total"><span class="result-label">Слой 1 + 2</span><strong id="savingsTotalMonth">—</strong><span class="result-sub">₽/мес · <span id="savingsTotalYear">—</span> ₽/год</span></div>
+          <div class="result-card"><span class="result-label">Окупаемость ФОТ</span><strong id="paybackFot">—</strong><span class="result-sub">мес</span></div>
+          <div class="result-card"><span class="result-label">Окупаемость 1+2</span><strong id="paybackTotal">—</strong><span class="result-sub">мес (цель 7)</span></div>
+          <div class="result-card"><span class="result-label">Макс. цена при 7 мес</span><strong id="maxPriceTotal">—</strong><span class="result-sub">по слоям 1+2</span></div>
         </div>
 
         <dl class="formula-list formula-inline">
@@ -334,11 +359,16 @@
           <dt>Отдел / мес</dt>
           <dd><code>проектов × экономия_пакета = <strong id="fxHoursSaveMo">52.0</strong> ч</code></dd>
           <dt>Ставка</dt>
-          <dd><code><span id="fxSalary">90 000</span> ÷ 168 = <span id="fxHourSal">536</span> ₽/ч × <span id="fxCoeff">1.30</span> = <span id="fxHourFot">697</span> ₽/ч ФОТ</code></dd>
-          <dt>ФОТ / мес</dt>
-          <dd><code><span id="fxHoursSaveMo">52.0</span> ч × <span id="fxHourFot">697</span> = <strong id="fxSavingsFot">36 244</strong> ₽</code></dd>
-          <dt>Окупаемость</dt>
-          <dd><code><span id="fxCost">930 000</span> ÷ <span id="fxSavingsFot">36 244</span> = <strong id="paybackFotInline">—</strong> мес</code></dd>
+          <dd><code><span id="fxSalary">90 000</span> ÷ 168 → <span id="fxHourSal">536</span> ₽/ч; режим: <span id="fxCoeff">1,30 (взносы)</span> → <span id="fxHourFot">697</span> ₽/ч</code></dd>
+          <dt>Слой 1</dt>
+          <dd><code><span id="fxHoursSaveMo">52.0</span> ч × <span id="fxHourFot">697</span> = <strong id="fxSavingsFot">36 244</strong> ₽/мес</code></dd>
+          <dt>Слой 2</dt>
+          <dd><code>лазер: <span id="fxUrgentRuns">2.0</span> срочн. × 4 ч × 3 500 = <span id="fxLaserSave">28 000</span> ₽</code><br />
+            <code>комплект: 2 × 25 000 = <span id="fxKitSave">50 000</span> ₽ → итого <strong id="fxFactoryTotal">78 000</strong> ₽/мес</code></dd>
+          <dt>Слой 1+2</dt>
+          <dd><code><strong id="savingsTotalMonth">114 244</strong> ₽/мес → окупаемость <strong id="paybackTotal">—</strong> мес</code></dd>
+          <dt>Слой 3</dt>
+          <dd class="layer3-note">Сварка, покраска, закуп листа — <strong>не суммируем в ₽</strong>. Ускорение завода только если КД ждали лазер/гибку.</dd>
         </dl>
 
         <p class="calc-note" id="calcVerdict"></p>
