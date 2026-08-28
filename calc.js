@@ -529,6 +529,12 @@
     const reusePct = benchInput('reusePct', 0);
     const baseManual = benchInput('hoursManualPkg', BENCH_MANUAL_PKG_HOURS);
     const baseAuto = benchInput('hoursAutoPkg', BENCH_AUTO_PKG_HOURS);
+    models = Number.isFinite(models) ? models : benchInput('models', BENCH_MODELS);
+    if (!Number.isFinite(hoursMan) || !Number.isFinite(hoursAuto)) {
+      const pkgCur = packageHours(models, reusePct, baseManual, baseAuto);
+      hoursMan = pkgCur.manual;
+      hoursAuto = pkgCur.auto;
+    }
     for (let m = minX; m <= maxX; m += 10) {
       const pkg = packageHours(m, reusePct, baseManual, baseAuto);
       points.push({ m, manual: pkg.manual * 60, auto: pkg.auto * 60 });
