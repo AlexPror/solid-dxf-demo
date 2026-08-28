@@ -143,48 +143,36 @@
     const costModeLabel = costMode === 'full' ? 'оклад + ~30% взносов' : 'только оклад';
 
     setHtml('descPositions',
-      '<b>Формула:</b> проектов_в_мес × позиций_в_проекте = ' +
-      fmt(projects) + ' × ' + fmt(models) + ' = <b>' + fmt(positionsMonth) + '</b> шт.');
+      '<span class="f-eq">' + fmt(projects) + ' пр. × ' + fmt(models) + ' поз. = ' + fmt(positionsMonth) + ' шт.</span>');
     setHtml('descSheets',
-      '<b>Формула:</b> позиций_в_мес × 1 = <b>' + fmt(sheetsMonth) + '</b> листов ' +
-      '(на каждую позицию — чертёж развёртки + лист модели в PDF).');
+      'По 1 листу на позицию: развёртка + модель в PDF.');
     setHtml('descHours',
-      '<b>Формула:</b> проектов × (часы_вручную_пакет − часы_плагин_пакет) = ' +
-      fmt(projects) + ' × (' + fmtDec(pkg.manual, 1) + ' − ' + fmtDec(pkg.auto, 1) + ') = ' +
-      '<b>' + fmtDec(hoursSavedMonth, 1) + '</b> ч. Поправка на ' + reusePct + '% готовых развёрток.');
+      '<span class="f-eq">' + fmt(projects) + ' × (' + fmtDec(pkg.manual, 1) + ' − ' + fmtDec(pkg.auto, 1) + ') ч = ' +
+      fmtDec(hoursSavedMonth, 1) + ' ч/мес</span>Учтено ' + reusePct + '% готовых развёрток.');
     setHtml('descFot',
-      '<b>Формула (слой 1):</b> часы_экономии × ставка_ФОТ = ' +
-      fmtDec(hoursSavedMonth, 1) + ' × ' + fmtDec(hourlyFot, 0) + ' ₽/ч. ' +
-      'Ставка: ' + fmt(salaryMonth) + ' ÷ 168 × ' + (costMode === 'full' ? '1,3' : '1') +
-      ' (' + costModeLabel + ').');
+      '<span class="f-eq">' + fmtDec(hoursSavedMonth, 1) + ' ч × ' + fmtDec(hourlyFot, 0) + ' ₽/ч = ' +
+      fmt(savingsFotMonth) + ' ₽/мес</span>Ставка: ' + fmt(salaryMonth) + ' ÷ 168 (' + costModeLabel + ').');
     setHtml('descFotYear',
-      'В год: <b>' + fmt(savingsFotYear) + ' ₽</b>. Окупаемость только ФОТ: ' +
-      fmt(cost) + ' ÷ ' + fmt(savingsFotMonth) + ' = <b>' + paybackFotStr + ' мес</b>.');
+      'В год ' + fmt(savingsFotYear) + ' ₽ · окупаемость по ФОТ: ' + paybackFotStr + ' мес.');
     setHtml('descFactory',
-      '<b>Формула (слой 2):</b> лазер + комплект. ' +
-      'Лазер: ' + fmtDec(urgentRuns, 1) + ' срочн. × ' + hoursEarlierLaser + ' ч × ' +
-      fmt(laserHourCost) + ' = ' + fmt(savingsLaserMonth) + ' ₽. ' +
-      'Комплект: ' + fmt(kitErrorsMonth) + ' × ' + fmt(kitErrorCost) + ' = ' +
-      fmt(savingsKitMonth) + ' ₽.');
+      '<span class="f-eq">лазер ' + fmt(savingsLaserMonth) + ' + комплект ' + fmt(savingsKitMonth) + ' = ' +
+      fmt(savingsFactoryMonth) + ' ₽/мес</span>' +
+      fmtDec(urgentRuns, 1) + ' срочн. × ' + hoursEarlierLaser + ' ч × ' + fmt(laserHourCost) + ' ₽; ' +
+      fmt(kitErrorsMonth) + ' срыв. × ' + fmt(kitErrorCost) + ' ₽.');
     setHtml('descFactoryYear',
-      'Слой 2 в год: <b>' + fmt(savingsFactoryYear) + ' ₽</b>. ' +
-      'Не ускоряет весь завод — только срочные пакеты и предотвращённые срывы на станке.');
+      'В год ' + fmt(savingsFactoryYear) + ' ₽. Только срочные пакеты и срывы на станке.');
     setHtml('descTotal',
-      '<b>Формула:</b> слой_1 + слой_2 = ' + fmt(savingsFotMonth) + ' + ' +
-      fmt(savingsFactoryMonth) + ' = <b>' + fmt(savingsTotalMonth) + ' ₽/мес</b>.');
+      '<span class="f-eq">' + fmt(savingsFotMonth) + ' + ' + fmt(savingsFactoryMonth) + ' = ' +
+      fmt(savingsTotalMonth) + ' ₽/мес</span>');
     setHtml('descTotalYear',
-      'В год: <b>' + fmt(savingsTotalYear) + ' ₽</b>. Слой 3 (сварка, покраска) в сумму не входит.');
+      'В год ' + fmt(savingsTotalYear) + ' ₽. Слой 3 (сварка, покраска) не входит.');
     setHtml('descPaybackFot',
-      '<b>Формула:</b> стоимость_внедрения ÷ экономия_ФОТ_мес = ' +
-      fmt(cost) + ' ÷ ' + fmt(savingsFotMonth) + ' = <b>' + paybackFotStr + ' мес</b>.');
+      '<span class="f-eq">' + fmt(cost) + ' ÷ ' + fmt(savingsFotMonth) + ' = ' + paybackFotStr + ' мес</span>Только слой 1.');
     setHtml('descPaybackTotal',
-      '<b>Формула:</b> ' + fmt(cost) + ' ÷ ' + fmt(savingsTotalMonth) +
-      ' = <b>' + paybackTotalStr + ' мес</b>. Цель окупаемости: <b>' + targetPayback + ' мес</b>.');
+      '<span class="f-eq">' + fmt(cost) + ' ÷ ' + fmt(savingsTotalMonth) + ' = ' + paybackTotalStr + ' мес</span>Цель: ' + targetPayback + ' мес.');
     setHtml('descMaxPrice',
-      '<b>Формула:</b> экономия_(1+2)_мес × целевой_срок = ' + fmt(savingsTotalMonth) +
-      ' × ' + targetPayback + ' = <b>' + fmt(maxPriceTotal) + ' ₽</b>. ' +
-      'При внедрении ' + fmt(cost) + ' ₽ ' +
-      (paybackTotal <= targetPayback ? 'укладывается в цель.' : 'цель не достигнута при этих вводных.'));
+      '<span class="f-eq">' + fmt(savingsTotalMonth) + ' × ' + targetPayback + ' = ' + fmt(maxPriceTotal) + ' ₽</span>' +
+      (paybackTotal <= targetPayback ? 'Внедрение укладывается в цель.' : 'При ' + fmt(cost) + ' ₽ цель не достигнута.'));
 
     lastSnapshot = {
       projects, models, reusePct, staffMode, staffLabel, baseManual, baseAuto,
@@ -196,66 +184,30 @@
       urgentRuns, savingsLaserMonth, savingsKitMonth, verdict: ''
     };
 
-    logLine('<span class="log-step">1</span> <b>Масштаб</b>: ' +
-      fmt(projects) + ' проект(ов)/мес × ' + fmt(models) + ' поз. = <b>' +
-      fmt(positionsMonth) + '</b> поз./мес, <b>' + fmt(sheetsMonth) +
-      '</b> развёрток + чертежей (по 1 на позицию).');
-
-    logLine('<span class="log-step">2</span> <b>Часы на 1 пакет</b> (проект): вручную <b>' +
-      fmtDec(pkg.manual, 1) + ' ч</b>, с плагином <b>' + fmtDec(pkg.auto, 1) +
-      ' ч</b>, экономия <b>' + fmtDec(hoursSavedPkg, 1) + ' ч</b>. ' +
-      'База: ' + fmtDec(baseManual, 1) + '/' + fmtDec(baseAuto, 1) +
-      ' ч; поправка на ' + fmt(models) + ' поз. и ' + reusePct + '% готовых развёрток.');
-
     const staffNote = staffMode === 'parallel'
-      ? fmt(projects) + ' технолог(ов) параллельно — по одному пакету каждый. ' +
-        'В ФОТ считаем <b>сумму часов отдела</b>, не ×8 зарплат.'
-      : '1 технолог гоняет ' + fmt(projects) +
-        ' пакет(ов) подряд — те же <b>' + fmtDec(hoursSavedMonth, 1) +
-        ' ч/мес</b> экономии отдела.';
-    logLine('<span class="log-step">3</span> <b>Кто работает</b>: ' + staffNote);
+      ? fmt(projects) + ' технолог(ов) параллельно — в ФОТ сумма часов отдела, не × зарплат.'
+      : '1 технолог, ' + fmt(projects) + ' пакет(ов) подряд — те же ' + fmtDec(hoursSavedMonth, 1) + ' ч/мес.';
 
-    logLine('<span class="log-step">4</span> <b>Часы отдела в месяц</b>: ' +
-      fmt(projects) + ' × ' + fmtDec(hoursSavedPkg, 1) + ' ч = <b>' +
-      fmtDec(hoursSavedMonth, 1) + ' ч</b> высвобождается.');
+    logLine('<span class="log-step">1</span><b>Масштаб.</b> ' + fmt(projects) + ' × ' + fmt(models) + ' = <b>' + fmt(positionsMonth) + '</b> поз./мес, <b>' + fmt(sheetsMonth) + '</b> листов.');
 
-    logLine('<span class="log-step">5</span> <b>Ставка технолога</b>: оклад ' + fmt(salaryMonth) +
-      ' ₽ ÷ ' + HOURS_MONTH + ' ч = <b>' + fmtDec(hourlySalary, 0) + ' ₽/ч</b> «в руки». ' +
-      (costMode === 'full'
-        ? 'Работодатель сверх оклада платит ~30% взносов (ПФР, ФСС, ФОМС) → полная стоимость места <b>' +
-          fmt(Math.round(salaryMonth * employerCoeff)) + ' ₽/мес</b> → <b>' + fmtDec(hourlyFot, 0) + ' ₽/ч</b>.'
-        : 'Считаем только оклад, без взносов работодателя → <b>' + fmtDec(hourlyFot, 0) + ' ₽/ч</b>.'));
+    logLine('<span class="log-step">2</span><b>1 пакет.</b> Вручную <b>' + fmtDec(pkg.manual, 1) + ' ч</b>, плагин <b>' + fmtDec(pkg.auto, 1) + ' ч</b>, экономия <b>' + fmtDec(hoursSavedPkg, 1) + ' ч</b> (reuse ' + reusePct + '%).');
 
-    logLine('<span class="log-step">6</span> <b>Экономия ФОТ</b>: ' +
-      fmtDec(hoursSavedMonth, 1) + ' ч × ' + fmtDec(hourlyFot, 0) +
-      ' ₽/ч = <b>' + fmt(savingsFotMonth) + ' ₽/мес</b> (' +
-      fmt(savingsFotYear) + ' ₽/год). По окладу без взносов: ' +
-      fmt(savingsSalaryMonth) + ' ₽/мес.');
+    logLine('<span class="log-step">3</span><b>Кто работает.</b> ' + staffNote);
 
-    logLine('<span class="log-step">7</span> <b>Слой 1 — ФОТ технологии</b>: ' +
-      fmtDec(hoursSavedMonth, 1) + ' ч × ' + fmtDec(hourlyFot, 0) +
-      ' ₽/ч = <b>' + fmt(savingsFotMonth) + ' ₽/мес</b> (' +
-      fmt(savingsFotYear) + ' ₽/год). Окупаемость только по ФОТ: <b>' +
-      (paybackFot === Infinity ? '—' : paybackFot.toFixed(1)) + ' мес</b>.');
+    logLine('<span class="log-step">4</span><b>Часы отдела.</b> ' + fmt(projects) + ' × ' + fmtDec(hoursSavedPkg, 1) + ' = <b>' + fmtDec(hoursSavedMonth, 1) + ' ч/мес</b>.');
 
-    logLine('<span class="log-step">8</span> <b>Слой 2 — производство</b> (оценка, не автоматический эффект на весь завод): ' +
-      'срочных пакетов ' + fmtDec(urgentRuns, 1) + ' (' + urgentShare + '%) × ' +
-      hoursEarlierLaser + ' ч раньше на лазер × ' + fmt(laserHourCost) + ' ₽/ч = <b>' +
-      fmt(savingsLaserMonth) + ' ₽</b>; предотвращённых срывов комплекта ' +
-      fmt(kitErrorsMonth) + ' × ' + fmt(kitErrorCost) + ' ₽ = <b>' +
-      fmt(savingsKitMonth) + ' ₽</b>. Итого слой 2: <b>' + fmt(savingsFactoryMonth) + ' ₽/мес</b>.');
+    logLine('<span class="log-step">5</span><b>Ставка.</b> ' + fmt(salaryMonth) + ' ÷ 168 = ' + fmtDec(hourlySalary, 0) + ' ₽/ч' +
+      (costMode === 'full' ? ', × 1,3 → <b>' + fmtDec(hourlyFot, 0) + ' ₽/ч</b> с взносами.' : '.'));
 
-    logLine('<span class="log-step">9</span> <b>Слой 1 + 2</b>: ' + fmt(savingsFotMonth) + ' + ' +
-      fmt(savingsFactoryMonth) + ' = <b>' + fmt(savingsTotalMonth) + ' ₽/мес</b> (' +
-      fmt(savingsTotalYear) + ' ₽/год). Окупаемость суммарно: <b>' +
-      (paybackTotal === Infinity ? '—' : paybackTotal.toFixed(1)) + ' мес</b>. ' +
-      'При ' + targetPayback + ' мес макс. цена: <b>' + fmt(maxPriceTotal) + ' ₽</b> ' +
-      '(экономия × ' + targetPayback + ' = ' + fmt(savingsTotalMonth) + ' × ' + targetPayback + ').');
+    logLine('<span class="log-step">6</span><b>Слой 1 — ФОТ.</b> ' + fmtDec(hoursSavedMonth, 1) + ' × ' + fmtDec(hourlyFot, 0) + ' = <b>' + fmt(savingsFotMonth) + ' ₽/мес</b> (' + fmt(savingsFotYear) + ' ₽/год).');
 
-    logLine('<span class="log-step">10</span> <b>Слой 3 — весь завод</b> (сварка, покраска, закуп листа): ' +
-      'в рублях <b>не считаем</b> — ускорение есть только если КД на критическом пути. ' +
-      'Если лазер и так в очереди на дни, выигрыш = ёмкость технологии, не −N дней по цеху. ' +
-      'Цена КП ' + fmt(DEV_COST_DEFAULT) + ' ₽ — себестоимость разработки (~46 дн).');
+    logLine('<span class="log-step">7</span><b>Окупаемость ФОТ.</b> ' + fmt(cost) + ' ÷ ' + fmt(savingsFotMonth) + ' = <b>' + paybackFotStr + ' мес</b>.');
+
+    logLine('<span class="log-step">8</span><b>Слой 2.</b> Лазер <b>' + fmt(savingsLaserMonth) + ' ₽</b> + комплект <b>' + fmt(savingsKitMonth) + ' ₽</b> = <b>' + fmt(savingsFactoryMonth) + ' ₽/мес</b>.');
+
+    logLine('<span class="log-step">9</span><b>Слои 1+2.</b> ' + fmt(savingsFotMonth) + ' + ' + fmt(savingsFactoryMonth) + ' = <b>' + fmt(savingsTotalMonth) + ' ₽/мес</b>. Окупаемость <b>' + paybackTotalStr + ' мес</b>. Макс. цена при ' + targetPayback + ' мес: <b>' + fmt(maxPriceTotal) + ' ₽</b>.');
+
+    logLine('<span class="log-step">10</span><b>Слой 3.</b> Сварка и покраска в ₽ не считаем. КП ' + fmt(DEV_COST_DEFAULT) + ' ₽ — себестоимость разработки.');
 
     if (typeof console !== 'undefined' && console.groupCollapsed) {
       console.groupCollapsed('[Калькулятор Docs] ' + new Date().toLocaleTimeString('ru'));
@@ -310,44 +262,94 @@
     }
   }
 
+  function niceStep(maxVal) {
+    const raw = maxVal / 5;
+    const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    const norm = raw / mag;
+    const step = norm <= 1 ? mag : norm <= 2 ? 2 * mag : norm <= 5 ? 5 * mag : 10 * mag;
+    return Math.max(step, 1);
+  }
+
   function drawChart(models, hoursMan, hoursAuto) {
     const canvas = document.getElementById('benefit-chart');
     if (!canvas || !canvas.getContext) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const cssW = canvas.parentElement ? canvas.parentElement.clientWidth - 40 : 800;
+    const cssH = 400;
+    canvas.width = Math.round(cssW * dpr);
+    canvas.height = Math.round(cssH * dpr);
+    canvas.style.width = cssW + 'px';
+    canvas.style.height = cssH + 'px';
+
     const ctx = canvas.getContext('2d');
-    const w = canvas.width;
-    const h = canvas.height;
-    const pad = { l: 52, r: 24, t: 28, b: 44 };
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const w = cssW;
+    const h = cssH;
+    const pad = { l: 58, r: 28, t: 36, b: 52 };
     const plotW = w - pad.l - pad.r;
     const plotH = h - pad.t - pad.b;
+
+    const minX = 100;
+    const maxX = 200;
+    const points = [];
+    for (let m = minX; m <= maxX; m += 10) {
+      const pkg = packageHours(m, readNum('reusePct'), readNum('hoursManualPkg'), readNum('hoursAutoPkg'));
+      points.push({ m, manual: pkg.manual * 60, auto: pkg.auto * 60 });
+    }
+
+    const maxY = Math.max(...points.map(p => p.manual)) * 1.08;
+    const yStep = niceStep(maxY);
+    const yMax = Math.ceil(maxY / yStep) * yStep;
+
+    function x(m) { return pad.l + ((m - minX) / (maxX - minX)) * plotW; }
+    function y(v) { return pad.t + plotH - (v / yMax) * plotH; }
 
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, w, h);
 
-    const maxModels = 200;
-    const points = [];
-    for (let m = 100; m <= maxModels; m += 10) {
-      const pkg = packageHours(m, readNum('reusePct'), readNum('hoursManualPkg'), readNum('hoursAutoPkg'));
-      points.push({ m, manual: pkg.manual * 60, auto: pkg.auto * 60 });
-    }
-
-    const maxY = Math.max(600, ...points.map(p => p.manual)) * 1.1;
-    function x(m) { return pad.l + ((m - 100) / (maxModels - 100)) * plotW; }
-    function y(v) { return pad.t + plotH - (v / maxY) * plotH; }
-
-    ctx.strokeStyle = '#e5e7eb';
+    ctx.strokeStyle = '#e8ecf0';
     ctx.lineWidth = 1;
-    for (let i = 0; i <= 4; i++) {
-      const yy = pad.t + (plotH * i) / 4;
+    ctx.fillStyle = '#5a6573';
+    ctx.font = '12px Segoe UI, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+
+    for (let v = 0; v <= yMax; v += yStep) {
+      const yy = y(v);
       ctx.beginPath();
       ctx.moveTo(pad.l, yy);
       ctx.lineTo(w - pad.r, yy);
       ctx.stroke();
+      ctx.fillText(String(Math.round(v)), pad.l - 8, yy);
     }
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    for (let m = minX; m <= maxX; m += 25) {
+      const xx = x(m);
+      ctx.beginPath();
+      ctx.moveTo(xx, pad.t);
+      ctx.lineTo(xx, pad.t + plotH);
+      ctx.stroke();
+      ctx.fillText(String(m), xx, pad.t + plotH + 8);
+    }
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#1a2430';
+    ctx.font = '13px Segoe UI, sans-serif';
+    ctx.fillText('Позиций в проекте', pad.l + plotW / 2, h - 14);
+    ctx.save();
+    ctx.translate(16, pad.t + plotH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('Минут на пакет', 0, 0);
+    ctx.restore();
 
     function drawLine(key, color, dash) {
       ctx.strokeStyle = color;
-      ctx.lineWidth = 2.5;
+      ctx.lineWidth = 3;
       ctx.setLineDash(dash || []);
       ctx.beginPath();
       points.forEach((p, i) => {
@@ -361,31 +363,51 @@
     }
 
     drawLine('auto', '#155a86', []);
-    drawLine('manual', '#b45309', [6, 4]);
+    drawLine('manual', '#b45309', [8, 5]);
+
+    const curMan = hoursMan * 60;
+    const curAuto = hoursAuto * 60;
+    const cx = x(models);
+
+    ctx.strokeStyle = '#d5dbe3';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(cx, pad.t);
+    ctx.lineTo(cx, pad.t + plotH);
+    ctx.stroke();
+    ctx.setLineDash([]);
 
     ctx.fillStyle = '#155a86';
     ctx.beginPath();
-    ctx.arc(x(models), y(hoursAuto * 60), 6, 0, Math.PI * 2);
+    ctx.arc(cx, y(curAuto), 7, 0, Math.PI * 2);
     ctx.fill();
     ctx.fillStyle = '#b45309';
     ctx.beginPath();
-    ctx.arc(x(models), y(hoursMan * 60), 6, 0, Math.PI * 2);
+    ctx.arc(cx, y(curMan), 7, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.fillStyle = '#5a6573';
-    ctx.font = '11px Segoe UI, sans-serif';
-    ctx.fillText('Позиций в проекте →', pad.l, h - 12);
-    ctx.save();
-    ctx.translate(14, pad.t + plotH / 2);
-    ctx.rotate(-Math.PI / 2);
-    ctx.fillText('минут на пакет', 0, 0);
-    ctx.restore();
-    ctx.font = '10px Segoe UI, sans-serif';
-    ctx.fillStyle = '#155a86';
-    ctx.fillText('— плагин', pad.l, 18);
-    ctx.fillStyle = '#b45309';
-    ctx.fillText('— вручную', pad.l + 72, 18);
+    ctx.fillStyle = '#1a2430';
+    ctx.font = '12px Segoe UI, sans-serif';
+    ctx.textAlign = 'left';
+    const labelY = Math.min(y(curAuto), y(curMan)) - 10;
+    ctx.fillText(models + ' поз.: плагин ' + Math.round(curAuto) + ' мин, вручную ' + Math.round(curMan) + ' мин', cx + 10, Math.max(pad.t + 4, labelY));
+
+    const leg = document.getElementById('chartCurLabel');
+    if (leg) {
+      leg.textContent = 'Ваш проект: ' + models + ' поз. — плагин ' + Math.round(curAuto) + ' мин / вручную ' + Math.round(curMan) + ' мин';
+    }
   }
+
+  let chartResizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(chartResizeTimer);
+    chartResizeTimer = setTimeout(() => {
+      const m = readNum('models');
+      const pkg = packageHours(m, readNum('reusePct'), readNum('hoursManualPkg'), readNum('hoursAutoPkg'));
+      drawChart(m, pkg.manual, pkg.auto);
+    }, 150);
+  });
 
   function buildPdfHtml() {
     if (!lastSnapshot || !logEntries.length) return '';

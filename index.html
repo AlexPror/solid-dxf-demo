@@ -284,8 +284,12 @@
       <h2>Масштаб проекта</h2>
       <p class="section-lead">Время плагина растёт с числом позиций в проекте, но остаётся на порядки ниже ручной обработки 100–200 деталей.</p>
       <div class="chart-wrap">
-        <canvas id="benefit-chart" width="640" height="320" role="img" aria-label="График: время плагина и вручную от числа позиций в проекте"></canvas>
-        <p class="chart-caption">Синяя линия — оценка времени плагина на проект (мин). Пунктир — оценка ручной работы. Точка — ваши параметры из калькулятора.</p>
+        <canvas id="benefit-chart" role="img" aria-label="График: минуты на пакет от числа позиций"></canvas>
+        <div class="chart-legend" id="chartLegend">
+          <span class="leg leg-auto"><i></i> Плагин</span>
+          <span class="leg leg-man"><i></i> Вручную</span>
+          <span class="leg leg-cur" id="chartCurLabel">Ваш проект: —</span>
+        </div>
       </div>
     </div>
   </section>
