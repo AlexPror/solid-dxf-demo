@@ -502,8 +502,16 @@ h2 {
   gap: 16px;
 }
 
+.task-facets {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
 @media (max-width: 700px) {
   .cards.three { grid-template-columns: 1fr; }
+  .task-facets { grid-template-columns: 1fr; }
 }
 
 .card {
