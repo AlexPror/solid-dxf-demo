@@ -10,15 +10,14 @@
 <body>
 
   <div class="draft-banner">
-    Материалы к согласованию · технологическое бюро · август 2026
+    Материалы к согласованию · сайт v1.4 · 28.08.2026 · технологическое бюро
   </div>
 
   <nav class="site-nav" aria-label="Разделы">
     <div class="wrap site-nav-inner">
       <a href="#problem">Задача</a>
-      <a href="#video">Демо</a>
       <a href="#outcome">Итог</a>
-      <a href="#benchmark">Замеры</a>
+      <a href="#approval">Согласование</a>
       <a href="#package">Пакет</a>
       <a href="#dev-market">Стоимость</a>
       <a href="#next">Дальше</a>
@@ -44,12 +43,6 @@
       </div>
     </div>
   </header>
-
-  <section class="video-block wrap" id="video">
-    <h2>Демонстрация</h2>
-    <p class="section-lead">Запись экрана — на <strong>Яндекс.Диске</strong> (без YouTube: у руководства не требуется VPN). Можно встроить плеер на эту страницу или дать кнопку «открыть на Диске».</p>
-    <div id="videoMount"></div>
-  </section>
 
   <section class="section wrap" id="problem">
     <h2>Задача</h2>
@@ -131,23 +124,33 @@
     </div>
   </section>
 
+  <section class="video-block wrap" id="video">
+    <h2>Демонстрация</h2>
+    <p class="section-lead">Запись экрана на <strong>Яндекс.Диске</strong> (без VPN). Полный прогон: Excel → проверка → папка «лазер» → PDF-альбом.</p>
+    <div id="videoMount"></div>
+  </section>
+
   <section class="section wrap" id="proof">
     <h2>Как это выглядит</h2>
     <p class="section-lead">Скриншоты с реального прогона — экран комплекта, папка «лазер», оглавление PDF.</p>
-    <div class="proof-grid">
+    <div class="proof-grid" id="proofGrid">
       <figure class="proof-frame">
+        <img src="img/preflight.png" alt="Экран комплекта перед выпуском" loading="lazy" onerror="this.replaceWith(this.nextElementSibling)" />
         <div class="proof-placeholder">Экран комплекта (preflight)</div>
         <figcaption>Список позиций до выпуска</figcaption>
       </figure>
       <figure class="proof-frame">
+        <img src="img/folders.png" alt="Папка лазер по толщине" loading="lazy" onerror="this.replaceWith(this.nextElementSibling)" />
         <div class="proof-placeholder">Папка по толщине + PDF</div>
         <figcaption>Готовый пакет на «лазер»</figcaption>
       </figure>
       <figure class="proof-frame">
+        <img src="img/toc.png" alt="Оглавление PDF-альбома" loading="lazy" onerror="this.replaceWith(this.nextElementSibling)" />
         <div class="proof-placeholder">Оглавление альбома</div>
         <figcaption>PDF с шифрами из Excel</figcaption>
       </figure>
     </div>
+    <p class="note proof-note muted">Положите файлы <code>preflight.png</code>, <code>folders.png</code>, <code>toc.png</code> в папку <code>img/</code> — плейсхолдеры заменятся автоматически.</p>
   </section>
 
   <section class="section section-alt" id="benchmark">
@@ -238,25 +241,25 @@
   </section>
 
   <section class="section wrap" id="scope">
-    <h2>Что входит в поставку</h2>
+    <h2>Границы поставки</h2>
+    <p class="section-lead">Что входит в договор и ТЗ-DOCS-01 — и что сознательно оставлено за рамками v1.</p>
     <div class="scope-grid">
       <div class="scope-col scope-in">
-        <h3>Входит</h3>
+        <h3>В scope v1</h3>
         <ul>
-          <li>Excel → DXF, чертежи развёрток, PDF-альбом</li>
-          <li>Поиск моделей в PDM (только чтение)</li>
-          <li>Preflight и флаг неполного альбома</li>
-          <li>Внедрение на SW 2018 SP3, обучение, приёмка</li>
-          <li>Бессрочная лицензия на площадку заказчика</li>
+          <li>Цепочка «перечень Excel → папка лазер» на SW 2018 SP3</li>
+          <li>PDM: только чтение, без check-in результатов</li>
+          <li>Внедрение, обучение, приёмка на площадке заказчика</li>
+          <li>Бессрочная лицензия на ООО «Меркатор Калуга»</li>
         </ul>
       </div>
       <div class="scope-col scope-out">
-        <h3>Не входит</h3>
+        <h3>Вне scope v1</h3>
         <ul>
-          <li>Check-in результатов в PDM</li>
-          <li>Гибка, раскрой, CAM</li>
-          <li>Исходный код (лицензия без передачи)</li>
-          <li>Поддержка после приёмки — отдельно</li>
+          <li>Гибка, раскрой, CAM, nesting, интеграция с 1С</li>
+          <li>Сдача результатов в PDM, миграция на SW 2024+</li>
+          <li>Исходный код и сопровождение после приёмки</li>
+          <li>Расширение на другие площадки группы компаний</li>
         </ul>
       </div>
     </div>
@@ -272,7 +275,79 @@
         <li><strong>Готовый продукт</strong> — нет цепочки Excel → PDM → толщина → PDF под ваши правила</li>
         <li><strong>Интегратор</strong> — тот же класс задач, <a href="#dev-market">другая цена</a></li>
       </ul>
-      <p class="decision-close">Разовая разработка по ТЗ-DOCS-01 уже прогнана на <a href="#benchmark">150 позициях</a> — ниже коммерческое предложение.</p>
+      <p class="decision-close">Разовая разработка по ТЗ-DOCS-01 уже прогнана на <a href="#benchmark">150 позициях</a> — ниже запрос на согласование и коммерческое предложение.</p>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="approval">
+    <div class="wrap">
+    <div class="approval-head">
+      <h2>Запрос на согласование</h2>
+      <button type="button" class="btn btn-summary-pdf" id="exportSummaryPdf">Скачать резюме (PDF)</button>
+    </div>
+
+    <div class="approval-ask">
+      <p class="approval-ask-label">Запрос к руководству</p>
+      <p class="approval-ask-text">Согласовать <strong>КП-DOCS-01</strong> (930 000 ₽) и <strong>ТЗ-DOCS-01</strong>, выделить <strong>TEST vault</strong> / папку для пилотной приёмки. Ориентир старта <strong>T0 — 01.09.2026</strong>, приёмка — <strong>10.11.2026</strong> (коридор до 04.12.2026).</p>
+    </div>
+
+    <p class="approval-economics" id="execEconomics">…</p>
+
+    <div class="approval-grid">
+      <div class="approval-card">
+        <h3>Сроки (при T0 = 01.09.2026)</h3>
+        <table class="approval-table">
+          <thead>
+            <tr><th>Этап</th><th>Ориентир</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Согласование + аванс 40%</td><td>нед. 1</td></tr>
+            <tr><td>Excel, DXF, чертежи, PDF</td><td>нед. 2–8 (~46 раб. дн.)</td></tr>
+            <tr><td>PDM (при доступном vault)</td><td>нед. 7–9</td></tr>
+            <tr><td>Обучение + приёмка SP3</td><td><strong>10.11.2026</strong></td></tr>
+            <tr><td>Финальный платёж 20%</td><td>после акта</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="approval-card">
+        <h3>Критерии приёмки</h3>
+        <ul class="approval-list">
+          <li>Прогон согласованного Excel на TEST vault / локальной папке</li>
+          <li>DXF в подпапках по толщине; контур без фасок и резьб</li>
+          <li>PDF-альбом с оглавлением по шифрам из Excel</li>
+          <li>Preflight и флаг неполного альбома до ухода в цех</li>
+          <li>Обучение технологов, акт на SOLIDWORKS 2018 SP3</li>
+        </ul>
+        <p class="muted approval-ref">Полный перечень: протокол П-01…П-08 в ТЗ-DOCS-01.</p>
+      </div>
+    </div>
+
+    <div class="approval-grid approval-grid-2">
+      <div class="approval-card">
+        <h3>Риски и митигация</h3>
+        <table class="approval-table">
+          <thead>
+            <tr><th>Риск</th><th>Как снимаем</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Не взлетит на ваших моделях</td><td>Пилот на TEST vault до финального платежа</td></tr>
+            <tr><td>Ошибки в комплекте</td><td>Preflight + «альбом неполный» до цеха</td></tr>
+            <tr><td>Задержка из‑за ИТ / КБ</td><td>Коридор до 04.12; этапы без PDM идут параллельно</td></tr>
+            <tr><td>Привязка к SW 2018</td><td>Зафиксировано в ТЗ и договоре; апгрейд — отдельное ТЗ</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="approval-card">
+        <h3>Участники согласования</h3>
+        <ul class="approval-stakeholders">
+          <li><strong>Руководство</strong> — бюджет, go/no-go</li>
+          <li><strong>Технологическое бюро</strong> — владелец процесса, приёмка</li>
+          <li><strong>ИТ</strong> — TEST vault, установка на рабочие места</li>
+          <li><strong>КБ</strong> — образец Excel, эталонные модели</li>
+        </ul>
+        <p class="approval-v2 muted"><strong>После v1:</strong> Docs v1 закрывает «перечень → лазер». Раскрой/CAM, check-in в PDM, SW 2024+ — опционально, отдельные ТЗ после стабилизации.</p>
+      </div>
+    </div>
     </div>
   </section>
 

@@ -10,6 +10,18 @@
   const BENCH_AUTO_PKG_HOURS = 0.75;
   const BENCH_MODELS = 150;
 
+  /** Параметры для строки экономики на сайте (те же, что в скрытом калькуляторе по умолчанию). */
+  const EXEC_DEFAULTS = {
+    projects: 8,
+    models: BENCH_MODELS,
+    reusePct: 0,
+    hoursManualPkg: BENCH_MANUAL_PKG_HOURS,
+    hoursAutoPkg: BENCH_AUTO_PKG_HOURS,
+    salaryMonth: 90000,
+    employerCoeff: 1.3,
+    cost: DEV_COST_DEFAULT
+  };
+
   const MARKET_TIERS = [
     { label: 'Биржа / VBA', low: 600000, high: 1200000, rate: '1,5–3,5 тыс. ₽/ч', dim: true },
     { label: 'КП, себестоимость', low: DEV_COST_DEFAULT, high: DEV_COST_DEFAULT, rate: DEV_HOURLY_NPD + ' ₽/ч', highlight: true },
@@ -707,6 +719,93 @@
     setTimeout(() => { w.print(); }, 400);
   }
 
+  function computeExecutiveEconomics(overrides) {
+    const p = Object.assign({}, EXEC_DEFAULTS, overrides || {});
+    const pkg = packageHours(p.models, p.reusePct, p.hoursManualPkg, p.hoursAutoPkg);
+    const hoursSavedPkg = Math.max(0, pkg.manual - pkg.auto);
+    const hoursSavedMonth = p.projects * hoursSavedPkg;
+    const hourlyFot = (p.salaryMonth / HOURS_MONTH) * p.employerCoeff;
+    const savingsFotMonth = hoursSavedMonth * hourlyFot;
+    const paybackMonths = savingsFotMonth > 0 ? p.cost / savingsFotMonth : Infinity;
+    const annualFot = savingsFotMonth * 12;
+    return {
+      projects: p.projects,
+      models: p.models,
+      hoursSavedMonth,
+      savingsFotMonth,
+      paybackMonths,
+      annualFot,
+      cost: p.cost
+    };
+  }
+
+  function renderExecutiveSummary() {
+    const el = document.getElementById('execEconomics');
+    if (!el) return;
+    const e = computeExecutiveEconomics();
+    const paybackStr = e.paybackMonths === Infinity ? '—' : fmtDec(e.paybackMonths, 1);
+    el.innerHTML =
+      'При <strong>' + e.projects + ' проектах</strong> в месяц экономия отдела технологии — порядка ' +
+      '<strong>' + fmtDec(e.hoursSavedMonth, 0) + ' ч/мес</strong> (оценка ТБ, полная стоимость места). ' +
+      'Разовые <strong>' + fmt(e.cost) + ' ₽</strong> — около <strong>' + paybackStr +
+      ' мес.</strong> условной нагрузки отдела по ФОТ; в год — порядка <strong>' + fmt(e.annualFot) + ' ₽</strong>.';
+    window.__docsExecEconomics = e;
+  }
+
+  function buildExecutiveSummaryPdf() {
+    const e = window.__docsExecEconomics || computeExecutiveEconomics();
+    const paybackStr = e.paybackMonths === Infinity ? '—' : fmtDec(e.paybackMonths, 1);
+    const dateStr = new Date().toLocaleDateString('ru-RU');
+    return '<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><title>Docs v1 — резюме</title><style>' +
+      'body{font:11pt/1.45 Segoe UI,sans-serif;color:#1a2430;max-width:210mm;margin:16mm auto}' +
+      'h1{font-size:16pt;margin:0 0 4px}h2{font-size:12pt;margin:20px 0 8px;color:#0e3a5a}' +
+      'table{width:100%;border-collapse:collapse;font-size:10pt;margin:8px 0}' +
+      'th,td{border:1px solid #d5dbe3;padding:6px 8px;text-align:left;vertical-align:top}' +
+      'th{background:#f4f6f8}.ask{background:#f0f5f9;border-left:4px solid #0e3a5a;padding:12px 14px;margin:12px 0}' +
+      '.muted{color:#5a6573;font-size:9.5pt}ul{margin:6px 0;padding-left:1.2em}li{margin:4px 0}' +
+      '@media print{body{margin:12mm}}</style></head><body>' +
+      '<h1>Пакет в цех · Docs v1</h1>' +
+      '<p class="muted">ООО «Меркатор Калуга» · материалы к согласованию · ' + dateStr + '</p>' +
+      '<div class="ask"><strong>Запрос:</strong> согласовать КП-DOCS-01 (930 000 ₽), ТЗ-DOCS-01 и выделение TEST vault для пилотной приёмки (ориентир T0 — 01.09.2026).</div>' +
+      '<h2>Итог замера</h2><ul>' +
+      '<li>150 позиций (148 с моделью) → полный пакет за <strong>46 мин</strong> vs 5–10 ч вручную</li>' +
+      '<li>148 DXF, 296 стр. PDF, SW 2018 SP3</li></ul>' +
+      '<h2>Экономика отдела технологии</h2><p>' +
+      e.projects + ' проектов/мес → ~' + fmtDec(e.hoursSavedMonth, 0) + ' ч/мес экономии; ' +
+      'окупаемость ' + paybackStr + ' мес. по ФОТ (~' + fmt(e.annualFot) + ' ₽/год).</p>' +
+      '<h2>Коммерческое предложение</h2><ul>' +
+      '<li>Полный пакет Docs v1: <strong>930 000 ₽</strong></li>' +
+      '<li>Оплата 40% / 40% / 20%</li>' +
+      '<li>~46 раб. дней; приёмка ориентир 10.11.2026</li></ul>' +
+      '<h2>Критерии приёмки (кратко)</h2><ul>' +
+      '<li>Прогон согласованного Excel на TEST vault / локальной папке</li>' +
+      '<li>DXF в подпапках по толщине, контур без фасок и резьб</li>' +
+      '<li>PDF-альбом с оглавлением по шифрам из Excel</li>' +
+      '<li>Preflight и флаг неполного альбома до ухода в цех</li>' +
+      '<li>Обучение технологов, акт на SW 2018 SP3</li></ul>' +
+      '<h2>Участники согласования</h2><table><tr><th>Роль</th><th>Зона ответственности</th></tr>' +
+      '<tr><td>Руководство</td><td>Бюджет, go/no-go</td></tr>' +
+      '<tr><td>Технологическое бюро</td><td>Владелец процесса, приёмка</td></tr>' +
+      '<tr><td>ИТ</td><td>TEST vault, установка на рабочие места</td></tr>' +
+      '<tr><td>КБ</td><td>Образец Excel, эталонные модели</td></tr></table>' +
+      '<p class="muted">Полные условия: ТЗ-DOCS-01, КП-DOCS-01. Демо: alexpror.github.io/solid-dxf-demo/</p>' +
+      '</body></html>';
+  }
+
+  function exportExecutiveSummaryPdf() {
+    const html = buildExecutiveSummaryPdf();
+    const w = window.open('', '_blank', 'width=800,height=900');
+    if (!w) {
+      alert('Разрешите всплывающие окна для экспорта PDF.');
+      return;
+    }
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+    w.focus();
+    setTimeout(() => { w.print(); }, 400);
+  }
+
   function bind() {
     const btn = document.getElementById('calcBtn');
     if (btn) {
@@ -715,6 +814,10 @@
     const exportBtn = document.getElementById('exportPdfBtn');
     if (exportBtn) {
       exportBtn.addEventListener('click', exportJournalPdf);
+    }
+    const summaryPdfBtn = document.getElementById('exportSummaryPdf');
+    if (summaryPdfBtn) {
+      summaryPdfBtn.addEventListener('click', exportExecutiveSummaryPdf);
     }
 
     ids.forEach(id => {
@@ -748,6 +851,7 @@
     }
 
     drawMarketChart(DEV_COST_DEFAULT);
+    renderExecutiveSummary();
   }
 
   if (document.readyState === 'loading') {
