@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Пакет в цех · Docs v1 · ООО «Меркатор Калуга»</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="draft-banner">
+    Черновик для согласования · технологическое бюро · не является офертой
+  </div>
+
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">SOLIDWORKS 2018 SP3 · надстройка «Пакет в цех»</p>
+        <h1>Из перечня Excel — DXF на лазер и альбом чертежей в папку «лазер»</h1>
+        <p class="lead">Один запуск для технолога: выбор Excel и корня «лазер». Внутри — поиск в PDM, проверка комплекта, DXF, развёртки, PDF с оглавлением и раскладка по папкам даты и толщины.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#steps">Семь этапов</a>
+          <a class="btn" href="#calc">Калькулятор</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><em>1</em><span>Excel</span></div>
+        <div class="stat"><em>до 200</em><span>позиций в пике</span></div>
+        <div class="stat"><em>1</em><span>папка даты + PDF</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="video-block wrap" id="video">
+    <h2>Демонстрация</h2>
+    <p class="section-lead">Видео с экрана будет добавлено после записи. Ниже — пошаговое описание процесса.</p>
+    <div class="video-placeholder" aria-label="Место для видео">
+      <span>▶</span>
+      <p>Запись экрана: Excel → проверка → папки «лазер» → PDF</p>
+    </div>
+  </section>
+
+  <section class="section wrap" id="problem">
+    <h2>Задача</h2>
+    <p class="section-lead">Перечни «Перечень листов…» приходят из 1С в Excel. Технолог готовит пакет на лазер и комплект чертежей для цеха. Ошибки неочевидны: пропущенная позиция, не та ревизия из PDM, DXF не в папке толщины.</p>
+    <div class="compare">
+      <div class="compare-card before">
+        <h3>Сейчас (вручную)</h3>
+        <ul>
+          <li>Поиск моделей в PDM или папке</li>
+          <li>DXF по одной детали</li>
+          <li>Развёртки — если нет готовых</li>
+          <li>PDF и оглавление вручную</li>
+          <li>Раскладка по папкам даты / толщины</li>
+          <li class="muted">Ориентир: 5–10 ч на пакет (при переиспользовании готовых развёрток)</li>
+        </ul>
+      </div>
+      <div class="compare-arrow" aria-hidden="true">→</div>
+      <div class="compare-card after">
+        <h3>С плагином</h3>
+        <ul>
+          <li>Один запуск: Excel + папка «лазер»</li>
+          <li>Проверка комплекта и отчёт</li>
+          <li>PDM: версия и конфигурация</li>
+          <li>Готовые развёртки не пересоздаём</li>
+          <li>Структура папок и PDF автоматически</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="steps">
+    <div class="wrap">
+      <h2>Семь этапов за одним запуском</h2>
+      <p class="section-lead">Для руководства это не «одна кнопка за 930 тысяч», а автоматизация всей цепочки Docs v1.</p>
+      <ol class="steps">
+        <li><span class="step-n">1</span><div><strong>Вход</strong><p>Чтение Excel, шифр = первое слово в ячейке.</p></div></li>
+        <li><span class="step-n">2</span><div><strong>Поиск</strong><p>Модели в SOLIDWORKS PDM по шифру (только чтение).</p></div></li>
+        <li><span class="step-n">3</span><div><strong>Проверка</strong><p>Экран комплекта: нет модели, нет чертежа, выбор исполнения.</p></div></li>
+        <li><span class="step-n">4</span><div><strong>DXF</strong><p>Контуры резки, без фасок и резьб на контуре.</p></div></li>
+        <li><span class="step-n">5</span><div><strong>Развёртка</strong><p>Создаём только если есть гибы и нет файла <code>_развертка.slddrw</code>.</p></div></li>
+        <li><span class="step-n">6</span><div><strong>PDF-альбом</strong><p>Один PDF на Excel, оглавление, порядок «модель → развёртка».</p></div></li>
+        <li><span class="step-n">7</span><div><strong>Папки</strong><p><code>дата\Лист Nмм\</code> и <code>PDF\</code> на «лазер».</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section wrap" id="pdm">
+    <h2>Почему PDM обязателен</h2>
+    <p class="section-lead">Без хранилища нельзя гарантировать версию и конфигурацию детали на лазере. Плагин не заменяет PDM — он берёт из vault правильные файлы. Результаты в PDM не сдаём (check-in не делаем).</p>
+    <div class="cards three">
+      <article class="card"><h3>Версия</h3><p>Режем и кладём в альбом ту ревизию, что в vault.</p></article>
+      <article class="card"><h3>Конфигурация</h3><p>Исполнения -01, -02 — выбор на экране комплекта.</p></article>
+      <article class="card"><h3>Только чтение</h3><p>Поиск по шифру по всему vault, без записи в PDM.</p></article>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="reuse">
+    <div class="wrap">
+      <h2>Переиспользование развёрток</h2>
+      <p class="section-lead">В пакете на 100–200 позиций многие детали уже встречались в прошлых проектах. Плагин не затирает чужую работу.</p>
+      <div class="reuse-viz">
+        <div class="reuse-bar" id="reuse-bar">
+          <span class="reuse-existing" style="width:75%"></span>
+          <span class="reuse-new" style="width:25%"></span>
+        </div>
+        <div class="reuse-legend">
+          <span><i class="dot existing"></i> Уже есть <code>_развертка.slddrw</code> — в альбом</span>
+          <span><i class="dot new"></i> Новая с гибами — создаём один раз</span>
+        </div>
+      </div>
+      <p class="note">Режимы на экране комплекта: <strong>только новые</strong> (по умолчанию), обновить отмеченные, пересоздать все.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" id="folders">
+    <h2>Структура папок на «лазер»</h2>
+    <p class="section-lead">Плагин создаёт папку даты и раскладывает DXF по толщине. PDF — в подпапку <code>PDF</code>.</p>
+    <div class="folder-tree">
+      <pre><code>\\лазер\{yyyy-MM-dd}\
+    Лист 2мм\
+        ШИФР-01.dxf
+        ШИФР-02.dxf
+    Лист 3мм\
+        …
+    PDF\
+        Перечень_2026-08-28_14-30.pdf</code></pre>
+    </div>
+    <div class="folder-flow" aria-hidden="true">
+      <span class="flow-item">Excel</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-item">SW + PDM</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-item">DXF</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-item">PDF</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-item highlight">папка даты</span>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="chart">
+    <div class="wrap">
+      <h2>Масштаб пакета и контроль</h2>
+      <p class="section-lead">При переиспользовании готовых развёрток ручное время часто остаётся в диапазоне 5–10 ч. Выгода плагина — не только часы, но и контроль на 100–200 позициях и связка с PDM.</p>
+      <div class="chart-wrap">
+        <canvas id="benefit-chart" width="640" height="320" role="img" aria-label="График: время плагина и индекс контроля от числа позиций"></canvas>
+        <p class="chart-caption">Синяя линия — время работы плагина (мин). Оранжевая — условный индекс контроля комплекта (пропуски, ревизии).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="calc">
+    <h2>Калькулятор окупаемости</h2>
+    <p class="section-lead">Подставьте свои параметры. Целевая окупаемость — 7 месяцев. Цифры ориентировочные, для обсуждения.</p>
+    <div class="calc-grid">
+      <div class="calc-inputs">
+        <label>Запусков в месяц <input type="range" id="runs" min="5" max="8" step="1" value="6" /><output id="runs-out">6</output></label>
+        <label>Строк в типичном Excel <input type="range" id="rowsTyp" min="10" max="30" step="1" value="15" /><output id="rowsTyp-out">15</output></label>
+        <label>Строк в пиковом Excel <input type="range" id="rowsPeak" min="80" max="200" step="10" value="150" /><output id="rowsPeak-out">150</output></label>
+        <label>Доля пиковых запусков, % <input type="range" id="peakShare" min="0" max="100" step="5" value="30" /><output id="peakShare-out">30</output></label>
+        <label>Часов вручную (типичный пакет) <input type="number" id="hoursManualTyp" min="3" max="15" step="0.5" value="7.5" /></label>
+        <label>Часов вручную (пиковый, при переиспользовании) <input type="number" id="hoursManualPeak" min="3" max="15" step="0.5" value="8" /></label>
+        <label>Часов с плагином (типичный) <input type="number" id="hoursAutoTyp" min="0.25" max="3" step="0.25" value="1" /></label>
+        <label>Часов с плагином (пиковый + PDM) <input type="number" id="hoursAutoPeak" min="0.5" max="4" step="0.25" value="1.5" /></label>
+        <label>Ставка часа технолога, ₽ <input type="number" id="hourlyRate" min="300" max="1500" step="50" value="500" /></label>
+        <label>Стоимость внедрения (полный пакет), ₽ <input type="number" id="projectCost" min="100000" max="2000000" step="10000" value="930000" /></label>
+      </div>
+      <div class="calc-results">
+        <div class="result-card"><span class="result-label">Экономия</span><strong id="savingsMonth">—</strong><span class="result-sub">₽/мес</span></div>
+        <div class="result-card"><span class="result-label">Окупаемость</span><strong id="payback">—</strong><span class="result-sub">мес</span></div>
+        <div class="result-card"><span class="result-label">При 7 мес макс. цена</span><strong id="maxPrice">—</strong><span class="result-sub">₽</span></div>
+        <div class="result-card"><span class="result-label">Стоимость 1 запуска</span><strong id="costPerRun">—</strong><span class="result-sub">₽/год при текущих запусках</span></div>
+        <p class="calc-note" id="calcVerdict"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="package">
+    <div class="wrap">
+      <h2>Полный пакет Docs v1</h2>
+      <p class="section-lead">Единая поставка по ТЗ-DOCS-01: Excel, DXF, чертежи развёрток, PDF-альбом, поиск в PDM, внедрение с ИТ, обучение, приёмка на 2018 SP3.</p>
+      <div class="package-box">
+        <div class="package-price">930 000 ₽</div>
+        <ul>
+          <li>~46 рабочих дней разработки и внедрения</li>
+          <li>Оплата 40% / 40% / 20%</li>
+          <li>Бессрочная лицензия на площадку ООО «Меркатор Калуга»</li>
+          <li>Исходный код не передаётся</li>
+          <li>ИТ заказчика: TEST vault / папка для отладки</li>
+        </ul>
+        <p class="muted">Подробности: ТЗ-DOCS-01, КП-DOCS-01 (по запросу).</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>Надстройка SOLIDWORKS «Пакет в цех» (Docs v1) · черновик презентации</p>
+      <p class="muted">Исполнитель: Воробьёв А.С. · ООО «Меркатор Калуга»</p>
+      <p><a href="#top">Наверх</a></p>
+    </div>
+  </footer>
+
+  <script src="calc.js"></script>
+</body>
+</html>
