@@ -294,19 +294,37 @@
     </div>
   </section>
 
+  <section class="section section-alt" id="dev-market">
+    <div class="wrap">
+      <h2>Стоимость разработки vs рынок</h2>
+      <p class="section-lead">930 000 ₽ — не наценка, а <strong>минимальная себестоимость</strong> исполнителя: ~46 рабочих дней по 2 500 ₽/ч. На том же ТЗ (~450–550 ч с PM и тестами) интегратор или студия обычно закладывают в разы больше.</p>
+      <div class="market-chart-wrap">
+        <canvas id="market-chart" role="img" aria-label="Сравнение разовой стоимости разработки у разных типов подрядчиков"></canvas>
+        <p class="market-chart-note" id="marketChartNote"></p>
+      </div>
+      <ul class="market-sources">
+        <li><strong>2 500 ₽/ч</strong> — ставка solo/НПД на этом проекте (себестоимость в КП)</li>
+        <li><strong>4–7 тыс. ₽/ч</strong> — бутик C# + SOLIDWORKS API → оценка <strong>1,8–3,2 млн</strong> на это ТЗ</li>
+        <li><strong>6–10 тыс. ₽/ч</strong> — <a href="https://dipro.ru/" target="_blank" rel="noopener">интеграторы PDM/SW</a> в РФ → <strong>2,5–4,5 млн</strong></li>
+        <li>Студии: <a href="https://ledas.com/ru/expertise/cad/plugin-development/" target="_blank" rel="noopener">ЛЕДАС</a> (плагины САПР), <a href="https://pro-tim.ru/products/uslugi/razrabotka-po/razrabotka-plaginov-dlya-bim-i-sapr-cad-sistem/" target="_blank" rel="noopener">PRO ТИМ / ИНФОСАПР</a> — заказная разработка, как правило от ~3 млн</li>
+        <li class="muted">Для сравнения: биржевой заказ «макрос SolidWorks» — <a href="https://www.weblancer.net/freelance/3d-grafika-12/razrabotka-dlya-sapr-plagin-nadstroika-rasshirenie-dlya-solidvorks-graskho-993638/" target="_blank" rel="noopener">другой класс задач</a>, не поставка в цех</li>
+      </ul>
+    </div>
+  </section>
+
   <section class="section wrap calc-section" id="calc">
     <h2>Калькулятор окупаемости</h2>
-    <p class="section-lead">Три слоя: <strong>ФОТ технологии</strong> (считаем честно) → <strong>производство</strong> (срочные пакеты, срывы на лазере — оценка) → <strong>весь завод</strong> (сварка, покраска — не в рублях, только пояснение). Цена 930 тыс. — от разработки.</p>
+    <p class="section-lead">Три блока эффекта: <strong>отдел технологии</strong> (часы × ставка отдела) → <strong>риски на станке</strong> (срочный лазер, срывы комплекта — оценка) → <strong>срок изделия</strong> (сварка, покраска — без рублей, только пояснение). Стоимость внедрения — см. <a href="#dev-market">график выше</a>.</p>
 
     <div class="calc-layers-hint">
-      <div class="layer-chip l1"><strong>Слой 1</strong> Часы отдела × ставка</div>
-      <div class="layer-chip l2"><strong>Слой 2</strong> Лазер раньше + меньше дыр в комплекте</div>
-      <div class="layer-chip l3"><strong>Слой 3</strong> Срок изделия — только если КД на критическом пути</div>
+      <div class="layer-chip l1"><strong>Отдел технологии</strong> Часы отдела × ставка</div>
+      <div class="layer-chip l2"><strong>Риски на станке</strong> Лазер раньше + меньше дыр в комплекте</div>
+      <div class="layer-chip l3"><strong>Срок изделия</strong> Только если КД на критическом пути</div>
     </div>
 
     <div class="calc-layout">
       <div class="calc-panel calc-panel-inputs">
-        <h3 class="calc-panel-title">Слой 1 — технологи (ФОТ)</h3>
+        <h3 class="calc-panel-title">Отдел технологии</h3>
         <label>Проектов в месяц <input type="range" id="projects" min="1" max="8" step="1" value="8" /><output id="projects-out">8</output></label>
         <label>Позиций в проекте <input type="range" id="models" min="100" max="200" step="10" value="150" /><output id="models-out">150</output></label>
         <label>Доля готовых развёрток, % <input type="range" id="reusePct" min="0" max="90" step="5" value="0" /><output id="reusePct-out">0</output></label>
@@ -327,15 +345,16 @@
         </label>
         <p class="field-hint">Взносы — это ПФР, ФСС, ФОМС: сверх зарплаты работодатель платит ~30%. При окладе 90 000 ₽ место обходится ~117 000 ₽/мес. Для экономии часа отдела берём полную стоимость, иначе занижаем эффект.</p>
 
-        <h3 class="calc-panel-title calc-subtitle">Слой 2 — производство (оценка)</h3>
+        <h3 class="calc-panel-title calc-subtitle">Риски на станке (оценка)</h3>
         <label>Доля срочных пакетов (лазер ждёт файлы), % <input type="range" id="urgentShare" min="0" max="100" step="5" value="25" /><output id="urgentShare-out">25</output></label>
         <label>Часов раньше выйти на лазер (на 1 срочный пакет) <input type="number" id="hoursEarlierLaser" min="0" max="24" step="0.5" value="4" /></label>
         <label>Стоимость часа лазера (станок + оператор), ₽ <input type="number" id="laserHourCost" min="0" max="15000" step="500" value="3500" /></label>
         <label>Срывов комплекта предотвращено, шт/мес <input type="number" id="kitErrorsMonth" min="0" max="20" step="1" value="2" /></label>
         <label>Ущерб 1 срыва (переделка, простой гибки…), ₽ <input type="number" id="kitErrorCost" min="0" max="200000" step="5000" value="25000" /></label>
-        <p class="field-hint">Слой 2 — не «весь завод быстрее», а деньги там, где пакет КД был узким местом или ошибка всплыла бы на станке.</p>
+        <p class="field-hint">Не «весь завод быстрее», а деньги там, где пакет КД был узким местом или ошибка всплыла бы на лазере/гибке. Если лазер всегда в очереди — срочный эффект ≈ 0, срывы комплекта могут остаться.</p>
 
         <h3 class="calc-panel-title calc-subtitle">Внедрение</h3>
+        <p class="field-hint field-hint-top">По умолчанию <strong>930 000 ₽</strong> — себестоимость (~46 дн. × 2 500 ₽/ч), уже минимум для исполнителя. <a href="#dev-market">Сравнение с рынком</a>.</p>
         <label>Целевая окупаемость, мес <input type="range" id="targetPayback" min="6" max="24" step="1" value="12" /><output id="targetPayback-out">12</output></label>
         <label>Стоимость внедрения, ₽ <input type="number" id="projectCost" min="100000" max="2000000" step="10000" value="930000" /></label>
 
@@ -360,40 +379,40 @@
           </article>
 
           <article class="result-detail-card">
-            <header><span class="result-tag">Слой 1</span><h4>Часов экономии отдела</h4></header>
+            <header><span class="result-tag">Отдел</span><h4>Часов экономии отдела</h4></header>
             <p class="result-value"><strong id="hoursSavedMonth">—</strong> <span>ч / мес</span></p>
             <p class="result-formula" id="descHours">—</p>
           </article>
 
           <article class="result-detail-card card-l1">
-            <header><span class="result-tag">Слой 1 — ФОТ</span><h4>Экономия по зарплате отдела</h4></header>
+            <header><span class="result-tag">Отдел — ФОТ</span><h4>Экономия по зарплате отдела</h4></header>
             <p class="result-value"><strong id="savingsFotMonth">—</strong> <span>₽ / мес</span></p>
             <p class="result-formula" id="descFot">—</p>
             <p class="result-extra" id="descFotYear">—</p>
           </article>
 
           <article class="result-detail-card card-l2">
-            <header><span class="result-tag">Слой 2 — цех</span><h4>Экономия на производстве</h4></header>
+            <header><span class="result-tag">Станок</span><h4>Экономия на производстве</h4></header>
             <p class="result-value"><strong id="savingsFactoryMonth">—</strong> <span>₽ / мес · оценка</span></p>
             <p class="result-formula" id="descFactory">—</p>
             <p class="result-extra" id="descFactoryYear">—</p>
           </article>
 
           <article class="result-detail-card card-total">
-            <header><span class="result-tag">Слой 1 + 2</span><h4>Суммарная экономия</h4></header>
+            <header><span class="result-tag">Итого</span><h4>Суммарная экономия</h4></header>
             <p class="result-value"><strong id="savingsTotalMonth">—</strong> <span>₽ / мес</span></p>
             <p class="result-formula" id="descTotal">—</p>
             <p class="result-extra" id="descTotalYear">—</p>
           </article>
 
           <article class="result-detail-card">
-            <header><span class="result-tag">Окупаемость</span><h4>Только по ФОТ (слой 1)</h4></header>
+            <header><span class="result-tag">Окупаемость</span><h4>Только отдел технологии</h4></header>
             <p class="result-value"><strong id="paybackFot">—</strong> <span>мес</span></p>
             <p class="result-formula" id="descPaybackFot">—</p>
           </article>
 
           <article class="result-detail-card">
-            <header><span class="result-tag">Окупаемость</span><h4>По слоям 1 + 2</h4></header>
+            <header><span class="result-tag">Окупаемость</span><h4>Отдел + станок</h4></header>
             <p class="result-value"><strong id="paybackTotal">—</strong> <span>мес</span></p>
             <p class="result-formula" id="descPaybackTotal">—</p>
           </article>
@@ -426,8 +445,9 @@
       <p class="section-lead">Единая поставка по ТЗ-DOCS-01: Excel, DXF, чертежи развёрток, PDF-альбом, поиск в PDM, внедрение с ИТ, обучение, приёмка на 2018 SP3.</p>
       <div class="package-box">
         <div class="package-price">930 000 ₽</div>
+        <p class="package-price-note">Себестоимость исполнителя · <a href="#dev-market">ниже рынка интегратора</a></p>
         <ul>
-          <li>~46 рабочих дней разработки и внедрения</li>
+          <li>~46 рабочих дней × 2 500 ₽/ч (НПД)</li>
           <li>Оплата 40% / 40% / 20%</li>
           <li>Бессрочная лицензия на площадку ООО «Меркатор Калуга»</li>
           <li>Исходный код не передаётся</li>

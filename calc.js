@@ -4,6 +4,16 @@
   const TARGET_PAYBACK_DEFAULT = 7;
   const HOURS_MONTH = 168;
   const DEV_COST_DEFAULT = 930000;
+  const DEV_HOURLY_NPD = 2500;
+  const MARKET_INTEGRATOR_REF = 3400000;
+
+  const MARKET_TIERS = [
+    { label: 'Биржа / VBA', low: 600000, high: 1200000, rate: '1,5–3,5 тыс. ₽/ч', dim: true },
+    { label: 'КП, себестоимость', low: DEV_COST_DEFAULT, high: DEV_COST_DEFAULT, rate: DEV_HOURLY_NPD + ' ₽/ч', highlight: true },
+    { label: 'Бутик SW API', low: 1800000, high: 3200000, rate: '4–7 тыс. ₽/ч' },
+    { label: 'Интегратор PDM', low: 2500000, high: 4500000, rate: '6–10 тыс. ₽/ч' },
+    { label: 'Черновик партнёра', low: 3400000, high: 3400000, rate: '480 ч × 7 000 ₽', ref: true }
+  ];
 
   const ids = [
     'projects', 'models', 'reusePct', 'staffMode', 'costMode',
@@ -165,9 +175,9 @@
       '<span class="f-eq">' + fmt(savingsFotMonth) + ' + ' + fmt(savingsFactoryMonth) + ' = ' +
       fmt(savingsTotalMonth) + ' ₽/мес</span>');
     setHtml('descTotalYear',
-      'В год ' + fmt(savingsTotalYear) + ' ₽. Слой 3 (сварка, покраска) не входит.');
+      'В год ' + fmt(savingsTotalYear) + ' ₽. Срок изделия (сварка, покраска) не входит.');
     setHtml('descPaybackFot',
-      '<span class="f-eq">' + fmt(cost) + ' ÷ ' + fmt(savingsFotMonth) + ' = ' + paybackFotStr + ' мес</span>Только слой 1.');
+      '<span class="f-eq">' + fmt(cost) + ' ÷ ' + fmt(savingsFotMonth) + ' = ' + paybackFotStr + ' мес</span>Только отдел технологии.');
     setHtml('descPaybackTotal',
       '<span class="f-eq">' + fmt(cost) + ' ÷ ' + fmt(savingsTotalMonth) + ' = ' + paybackTotalStr + ' мес</span>Цель: ' + targetPayback + ' мес.');
     setHtml('descMaxPrice',
@@ -199,15 +209,15 @@
     logLine('<span class="log-step">5</span><b>Ставка.</b> ' + fmt(salaryMonth) + ' ÷ 168 = ' + fmtDec(hourlySalary, 0) + ' ₽/ч' +
       (costMode === 'full' ? ', × 1,3 → <b>' + fmtDec(hourlyFot, 0) + ' ₽/ч</b> с взносами.' : '.'));
 
-    logLine('<span class="log-step">6</span><b>Слой 1 — ФОТ.</b> ' + fmtDec(hoursSavedMonth, 1) + ' × ' + fmtDec(hourlyFot, 0) + ' = <b>' + fmt(savingsFotMonth) + ' ₽/мес</b> (' + fmt(savingsFotYear) + ' ₽/год).');
+    logLine('<span class="log-step">6</span><b>Отдел технологии.</b> ' + fmtDec(hoursSavedMonth, 1) + ' × ' + fmtDec(hourlyFot, 0) + ' = <b>' + fmt(savingsFotMonth) + ' ₽/мес</b> (' + fmt(savingsFotYear) + ' ₽/год).');
 
-    logLine('<span class="log-step">7</span><b>Окупаемость ФОТ.</b> ' + fmt(cost) + ' ÷ ' + fmt(savingsFotMonth) + ' = <b>' + paybackFotStr + ' мес</b>.');
+    logLine('<span class="log-step">7</span><b>Окупаемость по отделу.</b> ' + fmt(cost) + ' ÷ ' + fmt(savingsFotMonth) + ' = <b>' + paybackFotStr + ' мес</b>.');
 
-    logLine('<span class="log-step">8</span><b>Слой 2.</b> Лазер <b>' + fmt(savingsLaserMonth) + ' ₽</b> + комплект <b>' + fmt(savingsKitMonth) + ' ₽</b> = <b>' + fmt(savingsFactoryMonth) + ' ₽/мес</b>.');
+    logLine('<span class="log-step">8</span><b>Риски на станке.</b> Лазер <b>' + fmt(savingsLaserMonth) + ' ₽</b> + комплект <b>' + fmt(savingsKitMonth) + ' ₽</b> = <b>' + fmt(savingsFactoryMonth) + ' ₽/мес</b>.');
 
-    logLine('<span class="log-step">9</span><b>Слои 1+2.</b> ' + fmt(savingsFotMonth) + ' + ' + fmt(savingsFactoryMonth) + ' = <b>' + fmt(savingsTotalMonth) + ' ₽/мес</b>. Окупаемость <b>' + paybackTotalStr + ' мес</b>. Макс. цена при ' + targetPayback + ' мес: <b>' + fmt(maxPriceTotal) + ' ₽</b>.');
+    logLine('<span class="log-step">9</span><b>Отдел + станок.</b> ' + fmt(savingsFotMonth) + ' + ' + fmt(savingsFactoryMonth) + ' = <b>' + fmt(savingsTotalMonth) + ' ₽/мес</b>. Окупаемость <b>' + paybackTotalStr + ' мес</b>. Макс. цена при ' + targetPayback + ' мес: <b>' + fmt(maxPriceTotal) + ' ₽</b>.');
 
-    logLine('<span class="log-step">10</span><b>Слой 3.</b> Сварка и покраска в ₽ не считаем. КП ' + fmt(DEV_COST_DEFAULT) + ' ₽ — себестоимость разработки.');
+    logLine('<span class="log-step">10</span><b>Срок изделия.</b> Сварка и покраска в ₽ не считаем. Внедрение <b>' + fmt(cost) + ' ₽</b> — себестоимость (рынок интегратора ~' + fmt(MARKET_INTEGRATOR_REF) + ' ₽, см. график выше).');
 
     if (typeof console !== 'undefined' && console.groupCollapsed) {
       console.groupCollapsed('[Калькулятор Docs] ' + new Date().toLocaleTimeString('ru'));
@@ -229,14 +239,14 @@
       verdict.className = 'calc-note ok';
     } else if (paybackTotal < paybackFot) {
       verdictText =
-        'Только ФОТ — ' + paybackFotStr + ' мес; с производством — ' +
+        'Только отдел — ' + paybackFotStr + ' мес; с производством — ' +
         paybackTotalStr + ' мес (цель ' + targetPayback + '). ' +
-        'Слой 2 — срочные пакеты и меньше брака на лазере/гибке.';
+        'Станок — срочные пакеты и меньше брака на лазере/гибке.';
       verdict.className = 'calc-note warn';
     } else {
       verdictText =
-        'По ФОТ одному — ' + paybackFotStr + ' мес. Уточните срочные пакеты и ущерб срыва комплекта. ' +
-        'Сварка/покраска в расчёт не входят (слой 3).';
+        'По отделу одному — ' + paybackFotStr + ' мес. Уточните срочные пакеты и ущерб срыва комплекта. ' +
+        'Сварка/покраска в расчёт не входят (срок изделия).';
       verdict.className = 'calc-note warn';
     }
     verdict.textContent = verdictText;
@@ -247,6 +257,7 @@
     if (exportBtn) exportBtn.disabled = false;
 
     drawChart(models, pkg.manual, pkg.auto);
+    drawMarketChart(cost);
 
     if (flash) {
       const panel = document.getElementById('calcResults');
@@ -259,6 +270,122 @@
     if (scroll) {
       const target = document.getElementById('calcResults') || document.getElementById('calcLog');
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function drawMarketChart(kpCost) {
+    const canvas = document.getElementById('market-chart');
+    if (!canvas || !canvas.getContext) return;
+
+    const cost = kpCost || readNum('projectCost') || DEV_COST_DEFAULT;
+    const dpr = window.devicePixelRatio || 1;
+    const cssW = canvas.parentElement ? canvas.parentElement.clientWidth - 8 : 800;
+    const rowH = 44;
+    const cssH = MARKET_TIERS.length * rowH + 72;
+    canvas.width = Math.round(cssW * dpr);
+    canvas.height = Math.round(cssH * dpr);
+    canvas.style.width = cssW + 'px';
+    canvas.style.height = cssH + 'px';
+
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const w = cssW;
+    const h = cssH;
+    const pad = { l: 168, r: 24, t: 28, b: 36 };
+    const plotW = w - pad.l - pad.r;
+    const maxX = 4800000;
+
+    function xVal(v) { return pad.l + (v / maxX) * plotW; }
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.strokeStyle = '#e8ecf0';
+    ctx.fillStyle = '#5a6573';
+    ctx.font = '11px Segoe UI, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    for (let v = 0; v <= maxX; v += 1000000) {
+      const xx = xVal(v);
+      ctx.beginPath();
+      ctx.moveTo(xx, pad.t);
+      ctx.lineTo(xx, h - pad.b);
+      ctx.stroke();
+      ctx.fillText((v / 1000000) + ' млн', xx, h - pad.b + 6);
+    }
+
+    const refX = xVal(MARKET_INTEGRATOR_REF);
+    ctx.strokeStyle = '#c45f12';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    ctx.moveTo(refX, pad.t - 4);
+    ctx.lineTo(refX, h - pad.b);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#c45f12';
+    ctx.font = '10px Segoe UI, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('ориентир интегратора', refX, 6);
+
+    MARKET_TIERS.forEach((tier, i) => {
+      const y = pad.t + i * rowH + 10;
+      const barH = 22;
+      const x0 = xVal(tier.low);
+      const x1 = xVal(tier.high);
+      const isPoint = tier.low === tier.high;
+
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = tier.dim ? '#8a939e' : '#1a2430';
+      ctx.font = tier.highlight ? 'bold 12px Segoe UI, sans-serif' : '12px Segoe UI, sans-serif';
+      ctx.fillText(tier.label, pad.l - 10, y + barH / 2);
+
+      if (tier.highlight) {
+        ctx.fillStyle = '#e87722';
+        ctx.fillRect(pad.l, y, x1 - pad.l, barH);
+        ctx.strokeStyle = '#0e3a5a';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(pad.l, y, x1 - pad.l, barH);
+      } else if (tier.ref) {
+        ctx.fillStyle = 'rgba(196, 95, 18, 0.25)';
+        ctx.fillRect(x0 - 2, y, 4, barH);
+      } else if (isPoint) {
+        ctx.fillStyle = tier.dim ? '#b8c0c8' : '#155a86';
+        ctx.fillRect(pad.l, y, x1 - pad.l, barH);
+      } else {
+        ctx.fillStyle = tier.dim ? 'rgba(90, 101, 115, 0.35)' : 'rgba(21, 90, 134, 0.55)';
+        ctx.fillRect(x0, y, x1 - x0, barH);
+      }
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#5a6573';
+      ctx.font = '10px Segoe UI, sans-serif';
+      const labelX = Math.min(x1 + 6, w - pad.r - 80);
+      const priceStr = isPoint
+        ? fmt(tier.low) + ' ₽'
+        : fmt(tier.low) + '–' + fmt(tier.high) + ' ₽';
+      ctx.fillText(priceStr + ' · ' + tier.rate, labelX, y + barH / 2);
+    });
+
+    const kpX = xVal(cost);
+    ctx.strokeStyle = '#1f7a4d';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4, 3]);
+    ctx.beginPath();
+    ctx.moveTo(kpX, pad.t - 2);
+    ctx.lineTo(kpX, h - pad.b);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    const saved = Math.max(0, MARKET_INTEGRATOR_REF - cost);
+    const note = document.getElementById('marketChartNote');
+    if (note) {
+      note.innerHTML = 'Зелёная линия — ваша цена внедрения в калькуляторе (<strong>' + fmt(cost) + ' ₽</strong>). ' +
+        'Относительно черновика партнёра (~' + fmt(MARKET_INTEGRATOR_REF) + ' ₽) заказчик платит на <strong>' +
+        fmt(saved) + ' ₽</strong> меньше — это уже минимум исполнителя, не скидка «с потолка».';
     }
   }
 
@@ -406,6 +533,7 @@
       const m = readNum('models');
       const pkg = packageHours(m, readNum('reusePct'), readNum('hoursManualPkg'), readNum('hoursAutoPkg'));
       drawChart(m, pkg.manual, pkg.auto);
+      drawMarketChart(readNum('projectCost') || DEV_COST_DEFAULT);
     }, 150);
   });
 
@@ -452,15 +580,15 @@
 
       '<h2>Итоговые показатели</h2>' +
       '<div class="result-row"><span class="tag">Масштаб</span> Позиций/мес: <b>' + fmt(s.positionsMonth) + '</b></div>' +
-      '<div class="result-row"><span class="tag">Слой 1</span> ФОТ: <b>' + fmt(s.savingsFotMonth) + ' ₽/мес</b> (' + fmt(s.savingsFotYear) + ' ₽/год)</div>' +
-      '<div class="result-row"><span class="tag">Слой 2</span> Производство: <b>' + fmt(s.savingsFactoryMonth) + ' ₽/мес</b></div>' +
-      '<div class="result-row"><span class="tag">1+2</span> Суммарно: <b>' + fmt(s.savingsTotalMonth) + ' ₽/мес</b> · окупаемость <b>' +
+      '<div class="result-row"><span class="tag">Отдел</span> ФОТ: <b>' + fmt(s.savingsFotMonth) + ' ₽/мес</b> (' + fmt(s.savingsFotYear) + ' ₽/год)</div>' +
+      '<div class="result-row"><span class="tag">Станок</span> Производство: <b>' + fmt(s.savingsFactoryMonth) + ' ₽/мес</b></div>' +
+      '<div class="result-row"><span class="tag">Итого</span> Суммарно: <b>' + fmt(s.savingsTotalMonth) + ' ₽/мес</b> · окупаемость <b>' +
       (s.paybackTotal === Infinity ? '—' : s.paybackTotal.toFixed(1)) + ' мес</b></div>' +
       '<div class="result-row"><span class="tag">Цель</span> Макс. цена при ' + s.targetPayback + ' мес: <b>' + fmt(s.maxPriceTotal) + ' ₽</b></div>' +
       '<p><b>Вывод:</b> ' + s.verdict + '</p>' +
 
       '<h2>Пошаговый журнал</h2>' + logHtml +
-      '<p class="muted">Слой 3 (весь завод: сварка, покраска) в рублях не считается.</p>' +
+      '<p class="muted">Срок изделия (сварка, покраска) в рублях не считается. Внедрение ' + fmt(s.cost) + ' ₽ — себестоимость исполнителя.</p>' +
       '</body></html>';
   }
 
@@ -501,6 +629,9 @@
           const out = document.getElementById(id + '-out');
           if (out) out.textContent = el.value;
         }
+        if (id === 'projectCost') {
+          drawMarketChart(readNum('projectCost') || DEV_COST_DEFAULT);
+        }
       });
     });
     rangeIds.forEach(id => {
@@ -509,6 +640,7 @@
       if (out && el) out.textContent = el.value;
     });
     calc({ scroll: false, flash: false });
+    drawMarketChart(DEV_COST_DEFAULT);
     hasCalculated = true;
     const exportBtnInit = document.getElementById('exportPdfBtn');
     if (exportBtnInit) exportBtnInit.disabled = false;
