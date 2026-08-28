@@ -1,14 +1,14 @@
 (function () {
   'use strict';
 
-  const TARGET_PAYBACK = 7;
+  const TARGET_PAYBACK_DEFAULT = 7;
   const HOURS_MONTH = 168;
   const DEV_COST_DEFAULT = 930000;
 
   const ids = [
     'projects', 'models', 'reusePct', 'staffMode', 'costMode',
     'hoursManualPkg', 'hoursAutoPkg',
-    'salaryMonth',
+    'salaryMonth', 'targetPayback',
     'urgentShare', 'hoursEarlierLaser', 'laserHourCost',
     'kitErrorsMonth', 'kitErrorCost',
     'projectCost'
@@ -74,6 +74,7 @@
     const costMode = document.getElementById('costMode')?.value || 'full';
     const employerCoeff = costMode === 'full' ? 1.3 : 1.0;
     const cost = readNum('projectCost') || DEV_COST_DEFAULT;
+    const targetPayback = readNum('targetPayback') || TARGET_PAYBACK_DEFAULT;
 
     const urgentShare = readNum('urgentShare');
     const hoursEarlierLaser = readNum('hoursEarlierLaser');
@@ -98,7 +99,7 @@
 
     const paybackFot = savingsFotMonth > 0 ? cost / savingsFotMonth : Infinity;
     const paybackSalary = savingsSalaryMonth > 0 ? cost / savingsSalaryMonth : Infinity;
-    const maxPriceFot = savingsFotMonth * TARGET_PAYBACK;
+    const maxPriceFot = savingsFotMonth * targetPayback;
     const savingsFotYear = savingsFotMonth * 12;
 
     const urgentRuns = projects * (urgentShare / 100);
@@ -110,7 +111,7 @@
     const savingsTotalYear = savingsTotalMonth * 12;
 
     const paybackTotal = savingsTotalMonth > 0 ? cost / savingsTotalMonth : Infinity;
-    const maxPriceTotal = savingsTotalMonth * TARGET_PAYBACK;
+    const maxPriceTotal = savingsTotalMonth * targetPayback;
 
     setText('positionsMonth', fmt(positionsMonth));
     setText('sheetsMonth', fmt(sheetsMonth));
@@ -123,7 +124,13 @@
     setText('savingsTotalMonth', fmt(savingsTotalMonth));
     setText('savingsTotalYear', fmt(savingsTotalYear));
     setText('paybackTotal', paybackTotal === Infinity ? '—' : paybackTotal.toFixed(1));
+    setText('paybackTotalDup', paybackTotal === Infinity ? '—' : paybackTotal.toFixed(1));
     setText('maxPriceTotal', fmt(maxPriceTotal));
+    setText('maxPriceTotalInline', fmt(maxPriceTotal));
+    setText('savingsTotalMonthDup', fmt(savingsTotalMonth));
+    setText('targetPaybackLabel', String(targetPayback));
+    setText('maxPriceGoalLabel', String(targetPayback));
+    setText('fxTargetPayback', String(targetPayback));
     setText('fxUrgentRuns', fmtDec(urgentRuns, 1));
     setText('fxLaserSave', fmt(savingsLaserMonth));
     setText('fxKitSave', fmt(savingsKitMonth));
@@ -201,7 +208,8 @@
       fmt(savingsFactoryMonth) + ' = <b>' + fmt(savingsTotalMonth) + ' ₽/мес</b> (' +
       fmt(savingsTotalYear) + ' ₽/год). Окупаемость суммарно: <b>' +
       (paybackTotal === Infinity ? '—' : paybackTotal.toFixed(1)) + ' мес</b>. ' +
-      'При ' + TARGET_PAYBACK + ' мес макс. цена: <b>' + fmt(maxPriceTotal) + ' ₽</b>.');
+      'При ' + targetPayback + ' мес макс. цена: <b>' + fmt(maxPriceTotal) + ' ₽</b> ' +
+      '(экономия × ' + targetPayback + ' = ' + fmt(savingsTotalMonth) + ' × ' + targetPayback + ').');
 
     logLine('<span class="log-step">10</span> <b>Слой 3 — весь завод</b> (сварка, покраска, закуп листа): ' +
       'в рублях <b>не считаем</b> — ускорение есть только если КД на критическом пути. ' +
@@ -214,21 +222,22 @@
         projects, models, reusePct, staffMode, costMode,
         hoursManualPkg: pkg.manual, hoursAutoPkg: pkg.auto,
         hoursSavedMonth, hourlyFot, savingsFotMonth, savingsFactoryMonth,
-        savingsTotalMonth, paybackFot, paybackTotal, cost
+        savingsTotalMonth, paybackFot, paybackTotal, targetPayback, cost
       });
       console.groupEnd();
     }
 
     const verdict = document.getElementById('calcVerdict');
-    if (paybackTotal <= TARGET_PAYBACK) {
+    if (paybackTotal <= targetPayback) {
       verdict.textContent =
         'Суммарно (ФОТ + производство) окупаемость ' + paybackTotal.toFixed(1) +
-        ' мес — при ваших вводных по срочным заказам и срывам комплекта.';
+        ' мес — укладывается в цель ' + targetPayback + ' мес.';
       verdict.className = 'calc-note ok';
     } else if (paybackTotal < paybackFot) {
       verdict.textContent =
         'Только ФОТ — ' + paybackFot.toFixed(1) + ' мес; с производством — ' +
-        paybackTotal.toFixed(1) + ' мес. Слой 2 не «ускоряет весь завод», только срочные пакеты и меньше брака на лазере/гибке.';
+        paybackTotal.toFixed(1) + ' мес (цель ' + targetPayback + '). ' +
+        'Слой 2 — срочные пакеты и меньше брака на лазере/гибке.';
       verdict.className = 'calc-note warn';
     } else {
       verdict.textContent =

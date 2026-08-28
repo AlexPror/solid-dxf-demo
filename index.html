@@ -332,6 +332,16 @@
         <p class="field-hint">Слой 2 — не «весь завод быстрее», а деньги там, где пакет КД был узким местом или ошибка всплыла бы на станке.</p>
 
         <h3 class="calc-panel-title calc-subtitle">Внедрение</h3>
+        <label>Целевая окупаемость, мес
+          <select id="targetPayback">
+            <option value="6">6 месяцев</option>
+            <option value="7" selected>7 месяцев</option>
+            <option value="12">12 месяцев</option>
+            <option value="18">18 месяцев</option>
+            <option value="24">24 месяца</option>
+            <option value="36">36 месяцев</option>
+          </select>
+        </label>
         <label>Стоимость внедрения, ₽ <input type="number" id="projectCost" min="100000" max="2000000" step="10000" value="930000" /></label>
 
         <button type="button" class="calc-btn" id="calcBtn">Рассчитать</button>
@@ -348,8 +358,8 @@
           <div class="result-card highlight-factory"><span class="result-label">Слой 2 — производство</span><strong id="savingsFactoryMonth">—</strong><span class="result-sub">₽/мес · оценка</span></div>
           <div class="result-card highlight-total"><span class="result-label">Слой 1 + 2</span><strong id="savingsTotalMonth">—</strong><span class="result-sub">₽/мес · <span id="savingsTotalYear">—</span> ₽/год</span></div>
           <div class="result-card"><span class="result-label">Окупаемость ФОТ</span><strong id="paybackFot">—</strong><span class="result-sub">мес</span></div>
-          <div class="result-card"><span class="result-label">Окупаемость 1+2</span><strong id="paybackTotal">—</strong><span class="result-sub">мес (цель 7)</span></div>
-          <div class="result-card"><span class="result-label">Макс. цена при 7 мес</span><strong id="maxPriceTotal">—</strong><span class="result-sub">по слоям 1+2</span></div>
+          <div class="result-card"><span class="result-label">Окупаемость 1+2</span><strong id="paybackTotal">—</strong><span class="result-sub">мес (цель <span id="targetPaybackLabel">7</span>)</span></div>
+          <div class="result-card"><span class="result-label">Макс. цена при <span id="maxPriceGoalLabel">7</span> мес</span><strong id="maxPriceTotal">—</strong><span class="result-sub">по слоям 1+2</span></div>
         </div>
 
         <dl class="formula-list formula-inline">
@@ -369,7 +379,9 @@
           <dd><code>лазер: <span id="fxUrgentRuns">2.0</span> срочн. × 4 ч × 3 500 = <span id="fxLaserSave">28 000</span> ₽</code><br />
             <code>комплект: 2 × 25 000 = <span id="fxKitSave">50 000</span> ₽ → итого <strong id="fxFactoryTotal">78 000</strong> ₽/мес</code></dd>
           <dt>Слой 1+2</dt>
-          <dd><code><strong id="savingsTotalMonth">114 244</strong> ₽/мес → окупаемость <strong id="paybackTotal">—</strong> мес</code></dd>
+          <dd><code><strong id="savingsTotalMonthDup">—</strong> ₽/мес → окупаемость <strong id="paybackTotalDup">—</strong> мес</code></dd>
+          <dt>Макс. цена</dt>
+          <dd><code>экономия × <span id="fxTargetPayback">7</span> мес = <strong id="maxPriceTotalInline">—</strong> ₽</code></dd>
           <dt>Слой 3</dt>
           <dd class="layer3-note">Сварка, покраска, закуп листа — <strong>не суммируем в ₽</strong>. Ускорение завода только если КД ждали лазер/гибку.</dd>
         </dl>
