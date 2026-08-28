@@ -59,12 +59,7 @@
     const costPerProject = projects > 0 ? cost / (projects * 12) : 0;
 
     setText('positionsMonth', fmt(positionsMonth));
-    setText('artifactsMonth', fmt(artifactsMonth));
     setText('unfoldingsMonth', fmt(unfoldingsMonth));
-    setText('drawingsMonth', fmt(drawingsMonth));
-    setText('hoursManualMonth', fmtDec(hoursManualMonth, 1));
-    setText('hoursAutoMonth', fmtDec(hoursAutoMonth, 1));
-    setText('hoursSavedMonth', fmtDec(hoursSavedMonth, 1));
     setText('savingsMonth', fmt(savingsMonth));
     setText('payback', payback === Infinity ? '—' : payback.toFixed(1));
     setText('maxPrice', fmt(maxPrice));
