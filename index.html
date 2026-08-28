@@ -332,16 +332,7 @@
         <p class="field-hint">Слой 2 — не «весь завод быстрее», а деньги там, где пакет КД был узким местом или ошибка всплыла бы на станке.</p>
 
         <h3 class="calc-panel-title calc-subtitle">Внедрение</h3>
-        <label>Целевая окупаемость, мес
-          <select id="targetPayback">
-            <option value="6">6 месяцев</option>
-            <option value="7" selected>7 месяцев</option>
-            <option value="12">12 месяцев</option>
-            <option value="18">18 месяцев</option>
-            <option value="24">24 месяца</option>
-            <option value="36">36 месяцев</option>
-          </select>
-        </label>
+        <label>Целевая окупаемость, мес <input type="range" id="targetPayback" min="6" max="24" step="1" value="12" /><output id="targetPayback-out">12</output></label>
         <label>Стоимость внедрения, ₽ <input type="number" id="projectCost" min="100000" max="2000000" step="10000" value="930000" /></label>
 
         <button type="button" class="calc-btn" id="calcBtn">Рассчитать</button>
@@ -349,48 +340,77 @@
       </div>
 
       <div class="calc-panel calc-panel-live" id="calcResults">
-        <h3 class="calc-panel-title">Результат и формулы</h3>
-        <div class="calc-results-compact">
-          <div class="result-card"><span class="result-label">Позиций / мес</span><strong id="positionsMonth">—</strong></div>
-          <div class="result-card"><span class="result-label">Развёрток + черт.</span><strong id="sheetsMonth">—</strong></div>
-          <div class="result-card"><span class="result-label">Часов экономии</span><strong id="hoursSavedMonth">—</strong><span class="result-sub">ч/мес отдела</span></div>
-          <div class="result-card highlight"><span class="result-label">Слой 1 — ФОТ</span><strong id="savingsFotMonth">—</strong><span class="result-sub">₽/мес</span></div>
-          <div class="result-card highlight-factory"><span class="result-label">Слой 2 — производство</span><strong id="savingsFactoryMonth">—</strong><span class="result-sub">₽/мес · оценка</span></div>
-          <div class="result-card highlight-total"><span class="result-label">Слой 1 + 2</span><strong id="savingsTotalMonth">—</strong><span class="result-sub">₽/мес · <span id="savingsTotalYear">—</span> ₽/год</span></div>
-          <div class="result-card"><span class="result-label">Окупаемость ФОТ</span><strong id="paybackFot">—</strong><span class="result-sub">мес</span></div>
-          <div class="result-card"><span class="result-label">Окупаемость 1+2</span><strong id="paybackTotal">—</strong><span class="result-sub">мес (цель <span id="targetPaybackLabel">7</span>)</span></div>
-          <div class="result-card"><span class="result-label">Макс. цена при <span id="maxPriceGoalLabel">7</span> мес</span><strong id="maxPriceTotal">—</strong><span class="result-sub">по слоям 1+2</span></div>
-        </div>
+        <h3 class="calc-panel-title">Результаты расчёта</h3>
+        <div class="calc-results-detail">
 
-        <dl class="formula-list formula-inline">
-          <dt>Позиций</dt>
-          <dd><code><span id="fxProjects">8</span> пр. × <span id="fxModels">150</span> поз. = <strong id="fxPositions">1 200</strong></code></dd>
-          <dt>Листов</dt>
-          <dd><code><strong id="fxSheets">1 200</strong> развёрток + чертежей (1:1 к позициям)</code></dd>
-          <dt>1 пакет</dt>
-          <dd><code>вручную <span id="fxHoursManPkg">8.0</span> ч → плагин <span id="fxHoursAutoPkg">1.5</span> ч → −<span id="fxHoursSavePkg">6.5</span> ч</code></dd>
-          <dt>Отдел / мес</dt>
-          <dd><code>проектов × экономия_пакета = <strong id="fxHoursSaveMo">52.0</strong> ч</code></dd>
-          <dt>Ставка</dt>
-          <dd><code><span id="fxSalary">90 000</span> ÷ 168 → <span id="fxHourSal">536</span> ₽/ч; режим: <span id="fxCoeff">1,30 (взносы)</span> → <span id="fxHourFot">697</span> ₽/ч</code></dd>
-          <dt>Слой 1</dt>
-          <dd><code><span id="fxHoursSaveMo">52.0</span> ч × <span id="fxHourFot">697</span> = <strong id="fxSavingsFot">36 244</strong> ₽/мес</code></dd>
-          <dt>Слой 2</dt>
-          <dd><code>лазер: <span id="fxUrgentRuns">2.0</span> срочн. × 4 ч × 3 500 = <span id="fxLaserSave">28 000</span> ₽</code><br />
-            <code>комплект: 2 × 25 000 = <span id="fxKitSave">50 000</span> ₽ → итого <strong id="fxFactoryTotal">78 000</strong> ₽/мес</code></dd>
-          <dt>Слой 1+2</dt>
-          <dd><code><strong id="savingsTotalMonthDup">—</strong> ₽/мес → окупаемость <strong id="paybackTotalDup">—</strong> мес</code></dd>
-          <dt>Макс. цена</dt>
-          <dd><code>экономия × <span id="fxTargetPayback">7</span> мес = <strong id="maxPriceTotalInline">—</strong> ₽</code></dd>
-          <dt>Слой 3</dt>
-          <dd class="layer3-note">Сварка, покраска, закуп листа — <strong>не суммируем в ₽</strong>. Ускорение завода только если КД ждали лазер/гибку.</dd>
-        </dl>
+          <article class="result-detail-card">
+            <header><span class="result-tag">Масштаб</span><h4>Позиций в месяц</h4></header>
+            <p class="result-value"><strong id="positionsMonth">—</strong> <span>шт</span></p>
+            <p class="result-formula" id="descPositions">—</p>
+          </article>
+
+          <article class="result-detail-card">
+            <header><span class="result-tag">Масштаб</span><h4>Развёрток и чертежей</h4></header>
+            <p class="result-value"><strong id="sheetsMonth">—</strong> <span>листов / мес</span></p>
+            <p class="result-formula" id="descSheets">—</p>
+          </article>
+
+          <article class="result-detail-card">
+            <header><span class="result-tag">Слой 1</span><h4>Часов экономии отдела</h4></header>
+            <p class="result-value"><strong id="hoursSavedMonth">—</strong> <span>ч / мес</span></p>
+            <p class="result-formula" id="descHours">—</p>
+          </article>
+
+          <article class="result-detail-card card-l1">
+            <header><span class="result-tag">Слой 1 — ФОТ</span><h4>Экономия по зарплате отдела</h4></header>
+            <p class="result-value"><strong id="savingsFotMonth">—</strong> <span>₽ / мес</span></p>
+            <p class="result-formula" id="descFot">—</p>
+            <p class="result-extra" id="descFotYear">—</p>
+          </article>
+
+          <article class="result-detail-card card-l2">
+            <header><span class="result-tag">Слой 2 — цех</span><h4>Экономия на производстве</h4></header>
+            <p class="result-value"><strong id="savingsFactoryMonth">—</strong> <span>₽ / мес · оценка</span></p>
+            <p class="result-formula" id="descFactory">—</p>
+            <p class="result-extra" id="descFactoryYear">—</p>
+          </article>
+
+          <article class="result-detail-card card-total">
+            <header><span class="result-tag">Слой 1 + 2</span><h4>Суммарная экономия</h4></header>
+            <p class="result-value"><strong id="savingsTotalMonth">—</strong> <span>₽ / мес</span></p>
+            <p class="result-formula" id="descTotal">—</p>
+            <p class="result-extra" id="descTotalYear">—</p>
+          </article>
+
+          <article class="result-detail-card">
+            <header><span class="result-tag">Окупаемость</span><h4>Только по ФОТ (слой 1)</h4></header>
+            <p class="result-value"><strong id="paybackFot">—</strong> <span>мес</span></p>
+            <p class="result-formula" id="descPaybackFot">—</p>
+          </article>
+
+          <article class="result-detail-card">
+            <header><span class="result-tag">Окупаемость</span><h4>По слоям 1 + 2</h4></header>
+            <p class="result-value"><strong id="paybackTotal">—</strong> <span>мес</span></p>
+            <p class="result-formula" id="descPaybackTotal">—</p>
+          </article>
+
+          <article class="result-detail-card">
+            <header><span class="result-tag">Целевой срок</span><h4>Макс. цена внедрения</h4></header>
+            <p class="result-value"><strong id="maxPriceTotal">—</strong> <span>₽</span></p>
+            <p class="result-formula" id="descMaxPrice">—</p>
+          </article>
+
+        </div>
 
         <p class="calc-note" id="calcVerdict"></p>
       </div>
 
       <div class="calc-panel calc-panel-log">
-        <h3 class="calc-panel-title">Журнал расчёта <span class="log-hint">(и в F12 → Console)</span></h3>
+        <div class="log-panel-head">
+          <h3 class="calc-panel-title">Журнал расчёта</h3>
+          <button type="button" class="calc-btn-secondary" id="exportPdfBtn" disabled>Экспорт журнала в PDF</button>
+        </div>
+        <p class="field-hint log-export-hint">Сначала нажмите «Рассчитать». PDF — через диалог печати браузера («Сохранить как PDF»).</p>
         <div class="calc-log" id="calcLog" aria-live="polite"></div>
       </div>
     </div>

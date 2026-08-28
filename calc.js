@@ -14,7 +14,11 @@
     'projectCost'
   ];
 
-  const rangeIds = ['projects', 'models', 'reusePct', 'urgentShare'];
+  const rangeIds = ['projects', 'models', 'reusePct', 'urgentShare', 'targetPayback'];
+
+  let logEntries = [];
+  let lastSnapshot = null;
+  let hasCalculated = false;
 
   function fmt(n) {
     return new Intl.NumberFormat('ru-RU').format(Math.round(n));
@@ -36,7 +40,13 @@
     if (el) el.textContent = text;
   }
 
+  function setHtml(id, html) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  }
+
   function logLine(html) {
+    logEntries.push(html);
     const el = document.getElementById('calcLog');
     if (!el) return;
     const row = document.createElement('div');
@@ -46,6 +56,7 @@
   }
 
   function clearLog() {
+    logEntries = [];
     const el = document.getElementById('calcLog');
     if (el) el.innerHTML = '';
   }
@@ -124,36 +135,66 @@
     setText('savingsTotalMonth', fmt(savingsTotalMonth));
     setText('savingsTotalYear', fmt(savingsTotalYear));
     setText('paybackTotal', paybackTotal === Infinity ? '—' : paybackTotal.toFixed(1));
-    setText('paybackTotalDup', paybackTotal === Infinity ? '—' : paybackTotal.toFixed(1));
     setText('maxPriceTotal', fmt(maxPriceTotal));
-    setText('maxPriceTotalInline', fmt(maxPriceTotal));
-    setText('savingsTotalMonthDup', fmt(savingsTotalMonth));
-    setText('targetPaybackLabel', String(targetPayback));
-    setText('maxPriceGoalLabel', String(targetPayback));
-    setText('fxTargetPayback', String(targetPayback));
-    setText('fxUrgentRuns', fmtDec(urgentRuns, 1));
-    setText('fxLaserSave', fmt(savingsLaserMonth));
-    setText('fxKitSave', fmt(savingsKitMonth));
-    setText('fxFactoryTotal', fmt(savingsFactoryMonth));
-    setText('hourlySalary', fmtDec(hourlySalary, 0));
-    setText('hourlyFot', fmtDec(hourlyFot, 0));
 
-    setText('fxProjects', fmt(projects));
-    setText('fxModels', fmt(models));
-    setText('fxPositions', fmt(positionsMonth));
-    setText('fxSheets', fmt(sheetsMonth));
-    setText('fxHoursManPkg', fmtDec(pkg.manual, 1));
-    setText('fxHoursAutoPkg', fmtDec(pkg.auto, 1));
-    setText('fxHoursSavePkg', fmtDec(hoursSavedPkg, 1));
-    setText('fxHoursManMo', fmtDec(hoursManualMonth, 1));
-    setText('fxHoursAutoMo', fmtDec(hoursAutoMonth, 1));
-    setText('fxHoursSaveMo', fmtDec(hoursSavedMonth, 1));
-    setText('fxSalary', fmt(salaryMonth));
-    setText('fxCoeff', costMode === 'full' ? '1,30 (взносы)' : '1,00 (только оклад)');
-    setText('fxHourSal', fmtDec(hourlySalary, 0));
-    setText('fxHourFot', fmtDec(hourlyFot, 0));
-    setText('fxSavingsFot', fmt(savingsFotMonth));
-    setText('fxCost', fmt(cost));
+    const paybackFotStr = paybackFot === Infinity ? '—' : paybackFot.toFixed(1);
+    const paybackTotalStr = paybackTotal === Infinity ? '—' : paybackTotal.toFixed(1);
+    const staffLabel = staffMode === 'parallel' ? 'параллельно' : 'подряд одним технологом';
+    const costModeLabel = costMode === 'full' ? 'оклад + ~30% взносов' : 'только оклад';
+
+    setHtml('descPositions',
+      '<b>Формула:</b> проектов_в_мес × позиций_в_проекте = ' +
+      fmt(projects) + ' × ' + fmt(models) + ' = <b>' + fmt(positionsMonth) + '</b> шт.');
+    setHtml('descSheets',
+      '<b>Формула:</b> позиций_в_мес × 1 = <b>' + fmt(sheetsMonth) + '</b> листов ' +
+      '(на каждую позицию — чертёж развёртки + лист модели в PDF).');
+    setHtml('descHours',
+      '<b>Формула:</b> проектов × (часы_вручную_пакет − часы_плагин_пакет) = ' +
+      fmt(projects) + ' × (' + fmtDec(pkg.manual, 1) + ' − ' + fmtDec(pkg.auto, 1) + ') = ' +
+      '<b>' + fmtDec(hoursSavedMonth, 1) + '</b> ч. Поправка на ' + reusePct + '% готовых развёрток.');
+    setHtml('descFot',
+      '<b>Формула (слой 1):</b> часы_экономии × ставка_ФОТ = ' +
+      fmtDec(hoursSavedMonth, 1) + ' × ' + fmtDec(hourlyFot, 0) + ' ₽/ч. ' +
+      'Ставка: ' + fmt(salaryMonth) + ' ÷ 168 × ' + (costMode === 'full' ? '1,3' : '1') +
+      ' (' + costModeLabel + ').');
+    setHtml('descFotYear',
+      'В год: <b>' + fmt(savingsFotYear) + ' ₽</b>. Окупаемость только ФОТ: ' +
+      fmt(cost) + ' ÷ ' + fmt(savingsFotMonth) + ' = <b>' + paybackFotStr + ' мес</b>.');
+    setHtml('descFactory',
+      '<b>Формула (слой 2):</b> лазер + комплект. ' +
+      'Лазер: ' + fmtDec(urgentRuns, 1) + ' срочн. × ' + hoursEarlierLaser + ' ч × ' +
+      fmt(laserHourCost) + ' = ' + fmt(savingsLaserMonth) + ' ₽. ' +
+      'Комплект: ' + fmt(kitErrorsMonth) + ' × ' + fmt(kitErrorCost) + ' = ' +
+      fmt(savingsKitMonth) + ' ₽.');
+    setHtml('descFactoryYear',
+      'Слой 2 в год: <b>' + fmt(savingsFactoryYear) + ' ₽</b>. ' +
+      'Не ускоряет весь завод — только срочные пакеты и предотвращённые срывы на станке.');
+    setHtml('descTotal',
+      '<b>Формула:</b> слой_1 + слой_2 = ' + fmt(savingsFotMonth) + ' + ' +
+      fmt(savingsFactoryMonth) + ' = <b>' + fmt(savingsTotalMonth) + ' ₽/мес</b>.');
+    setHtml('descTotalYear',
+      'В год: <b>' + fmt(savingsTotalYear) + ' ₽</b>. Слой 3 (сварка, покраска) в сумму не входит.');
+    setHtml('descPaybackFot',
+      '<b>Формула:</b> стоимость_внедрения ÷ экономия_ФОТ_мес = ' +
+      fmt(cost) + ' ÷ ' + fmt(savingsFotMonth) + ' = <b>' + paybackFotStr + ' мес</b>.');
+    setHtml('descPaybackTotal',
+      '<b>Формула:</b> ' + fmt(cost) + ' ÷ ' + fmt(savingsTotalMonth) +
+      ' = <b>' + paybackTotalStr + ' мес</b>. Цель окупаемости: <b>' + targetPayback + ' мес</b>.');
+    setHtml('descMaxPrice',
+      '<b>Формула:</b> экономия_(1+2)_мес × целевой_срок = ' + fmt(savingsTotalMonth) +
+      ' × ' + targetPayback + ' = <b>' + fmt(maxPriceTotal) + ' ₽</b>. ' +
+      'При внедрении ' + fmt(cost) + ' ₽ ' +
+      (paybackTotal <= targetPayback ? 'укладывается в цель.' : 'цель не достигнута при этих вводных.'));
+
+    lastSnapshot = {
+      projects, models, reusePct, staffMode, staffLabel, baseManual, baseAuto,
+      salaryMonth, costMode, costModeLabel, cost, targetPayback,
+      urgentShare, hoursEarlierLaser, laserHourCost, kitErrorsMonth, kitErrorCost,
+      positionsMonth, sheetsMonth, hoursSavedMonth, pkg, hourlyFot, hourlySalary,
+      savingsFotMonth, savingsFotYear, savingsFactoryMonth, savingsFactoryYear,
+      savingsTotalMonth, savingsTotalYear, paybackFot, paybackTotal, maxPriceTotal,
+      urgentRuns, savingsLaserMonth, savingsKitMonth, verdict: ''
+    };
 
     logLine('<span class="log-step">1</span> <b>Масштаб</b>: ' +
       fmt(projects) + ' проект(ов)/мес × ' + fmt(models) + ' поз. = <b>' +
@@ -228,23 +269,30 @@
     }
 
     const verdict = document.getElementById('calcVerdict');
+    let verdictText = '';
     if (paybackTotal <= targetPayback) {
-      verdict.textContent =
-        'Суммарно (ФОТ + производство) окупаемость ' + paybackTotal.toFixed(1) +
+      verdictText =
+        'Суммарно (ФОТ + производство) окупаемость ' + paybackTotalStr +
         ' мес — укладывается в цель ' + targetPayback + ' мес.';
       verdict.className = 'calc-note ok';
     } else if (paybackTotal < paybackFot) {
-      verdict.textContent =
-        'Только ФОТ — ' + paybackFot.toFixed(1) + ' мес; с производством — ' +
-        paybackTotal.toFixed(1) + ' мес (цель ' + targetPayback + '). ' +
+      verdictText =
+        'Только ФОТ — ' + paybackFotStr + ' мес; с производством — ' +
+        paybackTotalStr + ' мес (цель ' + targetPayback + '). ' +
         'Слой 2 — срочные пакеты и меньше брака на лазере/гибке.';
       verdict.className = 'calc-note warn';
     } else {
-      verdict.textContent =
-        'По ФОТ одному — ' + paybackFot.toFixed(1) + ' мес. Увеличьте долю срочных или ущерб срыва комплекта, ' +
-        'если хотите показать эффект на производство. Сварка/покраска в расчёт не входят.';
+      verdictText =
+        'По ФОТ одному — ' + paybackFotStr + ' мес. Уточните срочные пакеты и ущерб срыва комплекта. ' +
+        'Сварка/покраска в расчёт не входят (слой 3).';
       verdict.className = 'calc-note warn';
     }
+    verdict.textContent = verdictText;
+    if (lastSnapshot) lastSnapshot.verdict = verdictText;
+
+    hasCalculated = true;
+    const exportBtn = document.getElementById('exportPdfBtn');
+    if (exportBtn) exportBtn.disabled = false;
 
     drawChart(models, pkg.manual, pkg.auto);
 
@@ -339,10 +387,87 @@
     ctx.fillText('— вручную', pad.l + 72, 18);
   }
 
+  function buildPdfHtml() {
+    if (!lastSnapshot || !logEntries.length) return '';
+    const s = lastSnapshot;
+    const dateStr = new Date().toLocaleString('ru-RU');
+    const logHtml = logEntries.map((line, i) =>
+      '<div class="pdf-step"><span class="pdf-n">' + (i + 1) + '</span><div>' + line + '</div></div>'
+    ).join('');
+
+    return '<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"/>' +
+      '<title>Журнал расчёта · Пакет в цех</title>' +
+      '<style>' +
+      'body{font-family:Segoe UI,sans-serif;font-size:11pt;color:#1a2430;margin:16mm;line-height:1.45}' +
+      'h1{font-size:16pt;color:#0e3a5a;margin:0 0 4px}h2{font-size:12pt;color:#155a86;margin:20px 0 8px;border-bottom:1px solid #d5dbe3;padding-bottom:4px}' +
+      'table{border-collapse:collapse;width:100%;margin:8px 0}td,th{border:1px solid #d5dbe3;padding:6px 8px;text-align:left;font-size:10pt}' +
+      'th{background:#f4f6f8}.pdf-step{display:flex;gap:10px;margin:8px 0;padding:8px;border-bottom:1px solid #eee}' +
+      '.pdf-n{flex-shrink:0;width:22px;height:22px;background:#0e3a5a;color:#fff;border-radius:50%;text-align:center;line-height:22px;font-size:9pt;font-weight:700}' +
+      '.muted{color:#5a6573;font-size:9pt}.result-row{margin:6px 0}.tag{font-size:8pt;text-transform:uppercase;color:#5a6573}' +
+      '@media print{body{margin:12mm}}' +
+      '</style></head><body>' +
+      '<h1>Калькулятор окупаемости · Пакет в цех (Docs v1)</h1>' +
+      '<p class="muted">ООО «Меркатор Калуга» · черновик для обсуждения · ' + dateStr + '</p>' +
+
+      '<h2>Вводные параметры</h2><table>' +
+      '<tr><th>Параметр</th><th>Значение</th></tr>' +
+      '<tr><td>Проектов в месяц</td><td>' + s.projects + '</td></tr>' +
+      '<tr><td>Позиций в проекте</td><td>' + s.models + '</td></tr>' +
+      '<tr><td>Готовых развёрток</td><td>' + s.reusePct + '%</td></tr>' +
+      '<tr><td>Режим работы</td><td>' + s.staffLabel + '</td></tr>' +
+      '<tr><td>Часов вручную / пакет</td><td>' + s.baseManual + '</td></tr>' +
+      '<tr><td>Часов с плагином / пакет</td><td>' + s.baseAuto + '</td></tr>' +
+      '<tr><td>Оклад технолога</td><td>' + fmt(s.salaryMonth) + ' ₽/мес</td></tr>' +
+      '<tr><td>Ставка в расчёте</td><td>' + s.costModeLabel + '</td></tr>' +
+      '<tr><td>Срочных пакетов</td><td>' + s.urgentShare + '%</td></tr>' +
+      '<tr><td>Часов раньше на лазер</td><td>' + s.hoursEarlierLaser + '</td></tr>' +
+      '<tr><td>Стоимость часа лазера</td><td>' + fmt(s.laserHourCost) + ' ₽</td></tr>' +
+      '<tr><td>Срывов комплекта / мес</td><td>' + s.kitErrorsMonth + '</td></tr>' +
+      '<tr><td>Ущерб 1 срыва</td><td>' + fmt(s.kitErrorCost) + ' ₽</td></tr>' +
+      '<tr><td>Стоимость внедрения</td><td>' + fmt(s.cost) + ' ₽</td></tr>' +
+      '<tr><td>Целевая окупаемость</td><td>' + s.targetPayback + ' мес</td></tr>' +
+      '</table>' +
+
+      '<h2>Итоговые показатели</h2>' +
+      '<div class="result-row"><span class="tag">Масштаб</span> Позиций/мес: <b>' + fmt(s.positionsMonth) + '</b></div>' +
+      '<div class="result-row"><span class="tag">Слой 1</span> ФОТ: <b>' + fmt(s.savingsFotMonth) + ' ₽/мес</b> (' + fmt(s.savingsFotYear) + ' ₽/год)</div>' +
+      '<div class="result-row"><span class="tag">Слой 2</span> Производство: <b>' + fmt(s.savingsFactoryMonth) + ' ₽/мес</b></div>' +
+      '<div class="result-row"><span class="tag">1+2</span> Суммарно: <b>' + fmt(s.savingsTotalMonth) + ' ₽/мес</b> · окупаемость <b>' +
+      (s.paybackTotal === Infinity ? '—' : s.paybackTotal.toFixed(1)) + ' мес</b></div>' +
+      '<div class="result-row"><span class="tag">Цель</span> Макс. цена при ' + s.targetPayback + ' мес: <b>' + fmt(s.maxPriceTotal) + ' ₽</b></div>' +
+      '<p><b>Вывод:</b> ' + s.verdict + '</p>' +
+
+      '<h2>Пошаговый журнал</h2>' + logHtml +
+      '<p class="muted">Слой 3 (весь завод: сварка, покраска) в рублях не считается.</p>' +
+      '</body></html>';
+  }
+
+  function exportJournalPdf() {
+    if (!hasCalculated || !lastSnapshot) {
+      alert('Сначала нажмите «Рассчитать».');
+      return;
+    }
+    const html = buildPdfHtml();
+    const w = window.open('', '_blank', 'width=800,height=900');
+    if (!w) {
+      alert('Разрешите всплывающие окна для экспорта PDF.');
+      return;
+    }
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+    w.focus();
+    setTimeout(() => { w.print(); }, 400);
+  }
+
   function bind() {
     const btn = document.getElementById('calcBtn');
     if (btn) {
       btn.addEventListener('click', () => calc({ scroll: true, flash: true }));
+    }
+    const exportBtn = document.getElementById('exportPdfBtn');
+    if (exportBtn) {
+      exportBtn.addEventListener('click', exportJournalPdf);
     }
 
     ids.forEach(id => {
@@ -362,6 +487,9 @@
       if (out && el) out.textContent = el.value;
     });
     calc({ scroll: false, flash: false });
+    hasCalculated = true;
+    const exportBtnInit = document.getElementById('exportPdfBtn');
+    if (exportBtnInit) exportBtnInit.disabled = false;
   }
 
   if (document.readyState === 'loading') {
