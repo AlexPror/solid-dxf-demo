@@ -509,6 +509,17 @@ h2 {
   margin-bottom: 28px;
 }
 
+.task-anchor {
+  margin: 0 0 24px;
+  padding: 14px 18px;
+  border-left: 4px solid var(--navy-2);
+  background: #f0f5f9;
+  color: var(--navy);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
 @media (max-width: 700px) {
   .cards.three { grid-template-columns: 1fr; }
   .task-facets { grid-template-columns: 1fr; }
