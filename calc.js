@@ -273,7 +273,7 @@
       verdictText =
         'Только отдел — ' + paybackFotStr + ' мес; с производством — ' +
         paybackTotalStr + ' мес (цель ' + targetPayback + '). ' +
-        'Станок — срочные пакеты и меньше брака на лазере/гибке.';
+        'Станок — срочные пакеты и меньше брака на лазере/гибочном станке.';
       verdict.className = 'calc-note warn';
     } else {
       verdictText =
