@@ -10,17 +10,18 @@
 <body>
 
   <div class="draft-banner">
-    Материалы к согласованию · сайт v1.4 · 28.08.2026 · технологическое бюро
+    Материалы к согласованию · сайт v1.5 · 28.08.2026 · технологическое бюро
   </div>
 
   <nav class="site-nav" aria-label="Разделы">
     <div class="wrap site-nav-inner">
-      <a href="#problem">Задача</a>
       <a href="#outcome">Итог</a>
+      <a href="#demo">Демо</a>
+      <a href="#decision">Решение</a>
       <a href="#approval">Согласование</a>
       <a href="#package">Пакет</a>
       <a href="#dev-market">Стоимость</a>
-      <a href="#next">Дальше</a>
+      <a href="#appendix">Детали</a>
     </div>
   </nav>
 
@@ -29,11 +30,11 @@
       <div>
         <p class="eyebrow">SOLIDWORKS 2018 SP3 · надстройка «Пакет в цех»</p>
         <h1>Один перечень Excel — готовый комплект для лазера и цеха</h1>
-        <p class="lead">Между выпуском КБ и запуском листового участка — сотни позиций: DXF на резку, чертежи развёрток, PDF-альбом, раскладка по толщине. До <strong>8 проектов в месяц</strong>, в каждом <strong>100–200 деталей</strong>. Сейчас это часы ручной рутины и риск, что ошибка всплывёт уже у станка.</p>
+        <p class="lead">Из одного перечня Excel — согласованный пакет для лазера, гибочного станка и архива. До <strong>8 проектов в месяц</strong>, в каждом <strong>100–200 деталей</strong>.</p>
         <div class="hero-actions">
-          <a class="btn primary" href="#outcome">Итог замера</a>
-          <a class="btn" href="#video">Демонстрация</a>
-          <a class="btn" href="#package">Состав пакета</a>
+          <a class="btn primary" href="#approval">Запрос на согласование</a>
+          <a class="btn" href="#outcome">Итог замера</a>
+          <a class="btn" href="#demo">Демонстрация</a>
         </div>
       </div>
       <div class="hero-stats">
@@ -44,59 +45,10 @@
     </div>
   </header>
 
-  <section class="section wrap" id="problem">
-    <h2>Задача</h2>
-    <p class="section-lead">Задача шире экспорта DXF: <strong>связать конструкторский комплект с производством</strong> — из одного перечня Excel получить согласованный пакет файлов для лазера, гибочного станка и архива, без потери позиций и без сюрпризов на станке.</p>
-    <p class="task-anchor">Каждый пропущенный лист в перечне — потенциальный простой лазера или переделка на гибочном станке.</p>
-
-    <div class="cards task-facets">
-      <article class="card">
-        <h3>Масштаб</h3>
-        <p>До 8 проектов в месяц × 100–200 позиций — <strong>тысячи артефактов</strong> (DXF, чертежи, страницы PDF). Ручной прогон превращается в постоянную нагрузку на отдел технологии.</p>
-      </article>
-      <article class="card">
-        <h3>Время и очередь</h3>
-        <p>Лазер и гибочный станок ждут комплект. Срочный проект нельзя «доделать ночью по одной детали» — нужен <strong>цельный пакет за один проход</strong>, иначе узкое место сдвигается в цех.</p>
-      </article>
-      <article class="card">
-        <h3>Качество комплекта</h3>
-        <p>Ошибки редко видны в Excel: пропущенная строка, не то исполнение из PDM, DXF не в папке толщины, нет чертежа модели. Итог — <strong>переделка, брак, неполный альбом</strong>.</p>
-      </article>
-      <article class="card">
-        <h3>Связка подразделений</h3>
-        <p>КБ → технологическое бюро → лазер → гибочный станок. Плагин закрывает участок <strong>«перечень → папка лазер»</strong>: единые правила имён, структуры и оглавления PDF.</p>
-      </article>
-    </div>
-
-    <div class="compare">
-      <div class="compare-card before">
-        <h3>Сейчас (вручную)</h3>
-        <ul>
-          <li>Поиск моделей в PDM или папке — по каждой позиции</li>
-          <li>DXF и развёртки по одной детали, чертежи — отдельно</li>
-          <li>PDF печатают из SOLIDWORKS — отдельный файл на каждый чертёж, без общего альбома</li>
-          <li>Пакет вручную сортируют, раскладывают по толщине и сверяют с Excel</li>
-          <li class="muted">Ориентир: <strong>5–10 ч</strong> на проект 100–200 поз. (если часть <code>_развертка.slddrw</code> уже есть)</li>
-        </ul>
-      </div>
-      <div class="compare-arrow" aria-hidden="true">→</div>
-      <div class="compare-card after">
-        <h3>С плагином «Пакет в цех»</h3>
-        <ul>
-          <li>Один запуск: Excel + корень «лазер» — весь перечень</li>
-          <li>Проверка комплекта на экране до выгрузки</li>
-          <li>DXF без фасок/резьб, чертежи развёрток, PDF-альбом с оглавлением</li>
-          <li>Готовые <code>_развертка.slddrw</code> не пересоздаём без необходимости</li>
-          <li>Пометка <strong>альбом неполный</strong>, если позиция не вошла — до ухода в цех</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
   <section class="section section-alt" id="outcome">
     <div class="wrap">
       <h2>Итог замера</h2>
-      <p class="section-lead">Проверено на перечне <strong>150 позиций</strong> (148 с моделью), SOLIDWORKS 2018 SP3, 28.08.2026.</p>
+      <p class="section-lead">Прогон на <strong>150 позиций</strong> (148 с моделью), SOLIDWORKS 2018 SP3, 28.08.2026.</p>
       <div class="outcome-grid">
         <article class="outcome-card">
           <p class="outcome-label">Было</p>
@@ -120,90 +72,8 @@
         <span><strong>296</strong> стр. PDF</span>
         <span><strong>2</strong> позиции без модели — отмечены до ухода в цех</span>
       </div>
-      <p class="note"><a href="#benchmark">Подробная таблица замеров →</a></p>
-    </div>
-  </section>
 
-  <section class="video-block wrap" id="video">
-    <h2>Демонстрация</h2>
-    <div id="videoMount"></div>
-  </section>
-
-  <section class="section wrap" id="proof">
-    <h2>Как это выглядит</h2>
-    <p class="section-lead">Скриншоты с реального прогона — экран комплекта, папка «лазер», оглавление PDF.</p>
-    <div class="proof-grid" id="proofGrid">
-      <figure class="proof-frame">
-        <img src="img/preflight.png" alt="Экран комплекта перед выпуском" loading="lazy" onerror="this.replaceWith(this.nextElementSibling)" />
-        <div class="proof-placeholder">Экран проверки комплекта</div>
-        <figcaption>Список позиций до выпуска</figcaption>
-      </figure>
-      <figure class="proof-frame">
-        <img src="img/folders.png" alt="Папка лазер по толщине" loading="lazy" onerror="this.replaceWith(this.nextElementSibling)" />
-        <div class="proof-placeholder">Папка по толщине + PDF</div>
-        <figcaption>Готовый пакет на «лазер»</figcaption>
-      </figure>
-      <figure class="proof-frame">
-        <img src="img/toc.png" alt="Оглавление PDF-альбома" loading="lazy" onerror="this.replaceWith(this.nextElementSibling)" />
-        <div class="proof-placeholder">Оглавление альбома</div>
-        <figcaption>PDF с шифрами из Excel</figcaption>
-      </figure>
-    </div>
-    <p class="note proof-note muted">Положите файлы <code>preflight.png</code>, <code>folders.png</code>, <code>toc.png</code> в папку <code>img/</code> — плейсхолдеры заменятся автоматически.</p>
-  </section>
-
-  <section class="section section-alt" id="benchmark">
-    <div class="wrap">
-      <h2>Замеры на реальном пакете</h2>
-      <p class="section-lead">Прогон на фикстурах: <strong>148 позиций</strong> из Excel (150 строк, 2 без модели), SOLIDWORKS 2018 SP3, пакеты по 40. Дата: 28.08.2026.</p>
-
-      <div class="benchmark-table-wrap">
-        <table class="benchmark-table">
-          <caption>Сравнение: вручную и плагин</caption>
-          <thead>
-            <tr>
-              <th scope="col">Показатель</th>
-              <th scope="col">Вручную</th>
-              <th scope="col">Плагин</th>
-              <th scope="col">Выигрыш</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="benchmark-total">
-              <th scope="row">Полный пакет (DXF + чертежи + PDF)</th>
-              <td>5–10 ч</td>
-              <td><strong>46 мин</strong></td>
-              <td class="benchmark-win"><strong>6–13×</strong></td>
-            </tr>
-            <tr>
-              <th scope="row">На 1 позицию (полный цикл)</th>
-              <td>2–4 мин</td>
-              <td><strong>~19 с</strong></td>
-              <td class="benchmark-win">~6–13×</td>
-            </tr>
-            <tr>
-              <th scope="row">Экспорт DXF (только контур)</th>
-              <td>~1–2 мин</td>
-              <td><strong>~3,6 с</strong></td>
-              <td class="benchmark-win">~17–33×</td>
-            </tr>
-            <tr>
-              <th scope="row">PDF-фрагмент (1 лист чертежа)</th>
-              <td>~0,5–1 мин</td>
-              <td><strong>~3,7 с</strong></td>
-              <td class="benchmark-win">~8–16×</td>
-            </tr>
-            <tr>
-              <th scope="row">PDF на позицию (модель + развёртка)</th>
-              <td>~1–2 мин</td>
-              <td><strong>~8 с</strong></td>
-              <td class="benchmark-win">~8–15×</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="benchmark-split">
+      <div class="benchmark-split benchmark-split-inline">
         <article class="benchmark-card">
           <h3>Этап SOLIDWORKS</h3>
           <p class="benchmark-big">27 мин</p>
@@ -224,72 +94,130 @@
         </article>
       </div>
 
-      <div class="chart-wrap chart-wrap-inline">
-        <h3 class="chart-subtitle">Масштаб проекта</h3>
-        <p class="section-lead">Время плагина растёт с числом позиций, но остаётся на порядок ниже ручной обработки 100–200 деталей.</p>
-        <canvas id="benefit-chart" role="img" aria-label="График: минуты на пакет от числа позиций"></canvas>
-        <div class="chart-legend" id="chartLegend">
-          <span class="leg leg-auto"><i></i> Плагин</span>
-          <span class="leg leg-man"><i></i> Вручную</span>
-          <span class="leg leg-cur" id="chartCurLabel">Ваш проект: —</span>
+      <details class="executive-details" id="benchmark">
+        <summary>Подробная таблица замеров и график масштаба</summary>
+        <div class="benchmark-table-wrap">
+          <table class="benchmark-table">
+            <caption>Сравнение: вручную и плагин</caption>
+            <thead>
+              <tr>
+                <th scope="col">Показатель</th>
+                <th scope="col">Вручную</th>
+                <th scope="col">Плагин</th>
+                <th scope="col">Выигрыш</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="benchmark-total">
+                <th scope="row">Полный пакет (DXF + чертежи + PDF)</th>
+                <td>5–10 ч</td>
+                <td><strong>46 мин</strong></td>
+                <td class="benchmark-win"><strong>6–13×</strong></td>
+              </tr>
+              <tr>
+                <th scope="row">На 1 позицию (полный цикл)</th>
+                <td>2–4 мин</td>
+                <td><strong>~19 с</strong></td>
+                <td class="benchmark-win">~6–13×</td>
+              </tr>
+              <tr>
+                <th scope="row">Экспорт DXF (только контур)</th>
+                <td>~1–2 мин</td>
+                <td><strong>~3,6 с</strong></td>
+                <td class="benchmark-win">~17–33×</td>
+              </tr>
+              <tr>
+                <th scope="row">PDF-фрагмент (1 лист чертежа)</th>
+                <td>~0,5–1 мин</td>
+                <td><strong>~3,7 с</strong></td>
+                <td class="benchmark-win">~8–16×</td>
+              </tr>
+              <tr>
+                <th scope="row">PDF на позицию (модель + развёртка)</th>
+                <td>~1–2 мин</td>
+                <td><strong>~8 с</strong></td>
+                <td class="benchmark-win">~8–15×</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
-
-      <p class="note">Ручные оценки — по опыту технологического бюро. Повторный прогон быстрее: готовые <code>_развертка.slddrw</code> и кэш PDF-фрагментов.</p>
+        <div class="chart-wrap chart-wrap-inline">
+          <h3 class="chart-subtitle">Масштаб проекта</h3>
+          <p class="section-lead">Время плагина растёт с числом позиций, но остаётся на порядок ниже ручной обработки 100–200 деталей.</p>
+          <canvas id="benefit-chart" role="img" aria-label="График: минуты на пакет от числа позиций"></canvas>
+          <div class="chart-legend" id="chartLegend">
+            <span class="leg leg-auto"><i></i> Плагин</span>
+            <span class="leg leg-man"><i></i> Вручную</span>
+            <span class="leg leg-cur" id="chartCurLabel">Ваш проект: —</span>
+          </div>
+        </div>
+        <p class="note">Ручные оценки — по опыту технологического бюро. Повторный прогон быстрее: готовые <code>_развертка.slddrw</code> и кэш PDF-фрагментов.</p>
+      </details>
     </div>
   </section>
 
-  <section class="section wrap" id="scope">
-    <h2>Что входит в поставку</h2>
-    <p class="section-lead">Полный объём по ТЗ-DOCS-01, <strong>версия 1</strong> — всё перечисленное включено в стоимость 930 000 ₽.</p>
-    <ul class="scope-list">
-      <li>Цепочка «перечень Excel → папка лазер» на SOLIDWORKS 2018 SP3</li>
-      <li>Excel → DXF, чертежи развёрток, PDF-альбом с оглавлением</li>
-      <li>Поиск моделей в PDM (только чтение)</li>
-      <li>Проверка комплекта и пометка «альбом неполный» до ухода в цех</li>
-      <li>Внедрение с ИТ, обучение технологов, приёмка на площадке</li>
-      <li>Сопровождение после приёмки — в стоимости пакета (гарантийный период по договору)</li>
-      <li>Бессрочная лицензия на площадку ООО «Меркатор Калуга»</li>
-    </ul>
+  <section class="section wrap" id="demo">
+    <h2>Демонстрация</h2>
+    <div id="videoMount"></div>
+    <div class="proof-grid" id="proofGrid">
+      <figure class="proof-frame">
+        <img src="img/preflight.png" alt="Экран комплекта перед выпуском" loading="lazy" onerror="this.replaceWith(this.nextElementSibling)" />
+        <div class="proof-placeholder">Экран проверки комплекта</div>
+        <figcaption>Список позиций до выпуска</figcaption>
+      </figure>
+      <figure class="proof-frame">
+        <img src="img/folders.png" alt="Папка лазер по толщине" loading="lazy" onerror="this.replaceWith(this.nextElementSibling)" />
+        <div class="proof-placeholder">Папка по толщине + PDF</div>
+        <figcaption>Готовый пакет на «лазер»</figcaption>
+      </figure>
+      <figure class="proof-frame">
+        <img src="img/toc.png" alt="Оглавление PDF-альбома" loading="lazy" onerror="this.replaceWith(this.nextElementSibling)" />
+        <div class="proof-placeholder">Оглавление альбома</div>
+        <figcaption>PDF с шифрами из Excel</figcaption>
+      </figure>
+    </div>
   </section>
 
   <section class="section section-alt" id="decision">
     <div class="wrap">
       <h2>Логика решения</h2>
-      <p class="section-lead">На каждый новый проект технологическое бюро выпускает комплект документов для цеха. Исходная точка — <strong>перечень позиций в Excel</strong> от конструкторского бюро: шифр, толщина, количество.</p>
-      <ol class="decision-path">
-        <li><strong>Найти модели</strong> в PDM или в согласованной папке — по каждой строке перечня, нужное исполнение.</li>
-        <li><strong>Подготовить DXF</strong> для лазера: контур без фасок и резьб, раскладка по подпапкам толщины.</li>
-        <li><strong>Создать чертежи развёрток</strong> для гибочного станка — если деталь не плоский лист.</li>
-        <li><strong>Напечатать PDF из SOLIDWORKS</strong> — Save As PDF по каждому чертежу: модель и развёртка. Отдельные файлы, без общего альбома и оглавления.</li>
-        <li><strong>Разложить пакет вручную</strong> в папку «лазер» — сверить с Excel, разнести по толщине и порядку перед отдачей в цех.</li>
-      </ol>
-      <p class="decision-path-note">На проекте <strong>100–200 позиций</strong> эти шаги повторяются для каждой строки. Это постоянная нагрузка на ТБ при каждом новом изделии, а не разовая выгрузка файлов.</p>
-      <p class="decision-frame">Вопрос для руководства: <strong>как закрыть этот участок</strong>. Речь не о том, «автоматизировать или нет», а о том, <strong>каким способом</strong> при той же ответственности ТБ перед цехом.</p>
+      <p class="section-lead">На каждый проект технологическое бюро собирает из <strong>перечня Excel</strong> комплект для цеха: модели, DXF, чертежи, PDF в папку «лазер». На <strong>100–200 позиций</strong> это повторяется каждый раз.</p>
+      <p class="decision-frame">Вопрос для руководства: <strong>как закрыть этот участок</strong> — не «автоматизировать или нет», а <strong>каким способом</strong> при той же ответственности ТБ перед цехом.</p>
 
-      <div class="decision-grid">
-        <article class="decision-card">
-          <h3>Оставить как сейчас</h3>
-          <p>Технологи продолжают ручной прогон на каждом проекте. Нагрузка на ТБ растёт вместе с числом проектов — подробнее в блоке <a href="#problem">«Задача»</a>.</p>
-        </article>
-        <article class="decision-card">
-          <h3>Нанять ещё технолога</h3>
-          <p>Добавляет постоянный ФОТ, но <strong>не меняет процесс</strong>: те же шаги, те же риски пропуска позиции или ошибки в комплекте.</p>
-        </article>
-        <article class="decision-card">
-          <h3>Купить готовый продукт</h3>
-          <p>Стандартные модули редко закрывают цепочку целиком: ваш Excel, поиск в PDM, раскладка по толщине, правила DXF и PDF-альбом с оглавлением по шифрам.</p>
-        </article>
-        <article class="decision-card">
-          <h3>Заказать у интегратора</h3>
-          <p>Тот же класс работ — разработка под SOLIDWORKS и ваши правила. Отличается <strong>стоимостью и сроком</strong> из‑за состава команды — <a href="#dev-market">сравнение ниже</a>.</p>
-        </article>
-        <article class="decision-card decision-card-rec">
-          <p class="decision-rec-tag">Предлагаемый вариант</p>
-          <h3>Разовая разработка Docs v1</h3>
-          <p>Надстройка по ТЗ-DOCS-01: цепочка «перечень → лазер» на SOLIDWORKS 2018 SP3, проверка комплекта до ухода в цех. Уже <a href="#benchmark">прогнана на 150 позициях</a> — полный пакет за 46 мин.</p>
-        </article>
-      </div>
+      <article class="decision-card decision-card-rec decision-card-hero">
+        <p class="decision-rec-tag">Предлагаемый вариант</p>
+        <h3>Разовая разработка Docs v1</h3>
+        <p>Надстройка по ТЗ-DOCS-01: цепочка «перечень → лазер» на SOLIDWORKS 2018 SP3, проверка комплекта до ухода в цех. Уже <a href="#outcome">прогнана на 150 позициях</a> — полный пакет за 46 мин.</p>
+      </article>
+
+      <details class="executive-details">
+        <summary>Как делается сейчас и другие варианты</summary>
+        <ol class="decision-path">
+          <li><strong>Найти модели</strong> в PDM или в согласованной папке — по каждой строке перечня, нужное исполнение.</li>
+          <li><strong>Подготовить DXF</strong> для лазера: контур без фасок и резьб, раскладка по подпапкам толщины.</li>
+          <li><strong>Создать чертежи развёрток</strong> для гибочного станка — если деталь не плоский лист.</li>
+          <li><strong>Напечатать PDF из SOLIDWORKS</strong> — Save As PDF по каждому чертежу: модель и развёртка. Отдельные файлы, без общего альбома и оглавления.</li>
+          <li><strong>Разложить пакет вручную</strong> в папку «лазер» — сверить с Excel, разнести по толщине и порядку перед отдачей в цех.</li>
+        </ol>
+        <div class="decision-grid decision-grid-alts">
+          <article class="decision-card">
+            <h3>Оставить как сейчас</h3>
+            <p>Технологи продолжают ручной прогон. Нагрузка на ТБ растёт вместе с числом проектов.</p>
+          </article>
+          <article class="decision-card">
+            <h3>Нанять ещё технолога</h3>
+            <p>Добавляет постоянный ФОТ, но <strong>не меняет процесс</strong>: те же шаги и риски пропуска позиции.</p>
+          </article>
+          <article class="decision-card">
+            <h3>Купить готовый продукт</h3>
+            <p>Редко закрывает цепочку целиком: ваш Excel, PDM, толщина, правила DXF и PDF-альбом.</p>
+          </article>
+          <article class="decision-card">
+            <h3>Заказать у интегратора</h3>
+            <p>Тот же класс работ — другая <strong>стоимость и срок</strong> — <a href="#dev-market">сравнение ниже</a>.</p>
+          </article>
+        </div>
+      </details>
 
       <p class="decision-close">Ниже — <strong>запрос на согласование</strong>, коммерческое предложение и состав поставки по этому варианту.</p>
     </div>
@@ -369,7 +297,7 @@
 
   <section class="section wrap" id="package">
     <h2>Полный пакет Docs v1</h2>
-    <p class="section-lead">Разовая поставка на площадке ООО «Меркатор Калуга» — фиксированный объём по ТЗ-DOCS-01.</p>
+    <p class="section-lead">Разовая поставка на площадке ООО «Меркатор Калуга» — полный объём по ТЗ-DOCS-01, <strong>версия 1</strong>, 930 000 ₽.</p>
 
     <div class="package-box">
       <div class="package-main">
@@ -382,11 +310,13 @@
         <div class="package-includes">
           <h3 class="package-includes-title">Что в поставке</h3>
           <ul>
-            <li>Надстройка «Пакет в цех» под SOLIDWORKS 2018 SP3</li>
-            <li>Внедрение с ИТ, обучение технологов, приёмка</li>
+            <li>Цепочка «перечень Excel → папка лазер» на SOLIDWORKS 2018 SP3</li>
+            <li>Excel → DXF, чертежи развёрток, PDF-альбом с оглавлением</li>
+            <li>Поиск моделей в PDM (только чтение)</li>
+            <li>Проверка комплекта и пометка «альбом неполный» до ухода в цех</li>
+            <li>Внедрение с ИТ, обучение технологов, приёмка на площадке</li>
             <li>Сопровождение после приёмки (гарантийный период)</li>
             <li>Бессрочная лицензия на площадку ООО «Меркатор Калуга»</li>
-            <li>Excel → DXF, чертежи развёрток, PDF-альбом, поиск в PDM</li>
           </ul>
         </div>
       </div>
@@ -659,7 +589,55 @@
 
   <section class="section wrap" id="appendix">
     <h2>Подробности для технологического бюро</h2>
-    <p class="section-lead muted">Цепочка этапов, PDM, переиспользование чертежей и структура папок — для инженеров ТБ.</p>
+    <p class="section-lead muted">Задача, контекст, сравнение вручную / с плагином — для инженеров ТБ.</p>
+
+    <details class="appendix-block" id="appendix-problem">
+      <summary>Задача: масштаб, риски, сравнение процессов</summary>
+      <div class="appendix-inner-block">
+        <p class="section-lead">Задача шире экспорта DXF: <strong>связать конструкторский комплект с производством</strong> — из одного перечня Excel получить согласованный пакет для лазера, гибочного станка и архива.</p>
+        <p class="task-anchor">Каждый пропущенный лист в перечне — потенциальный простой лазера или переделка на гибочном станке.</p>
+        <div class="cards task-facets">
+          <article class="card">
+            <h3>Масштаб</h3>
+            <p>До 8 проектов в месяц × 100–200 позиций — <strong>тысячи артефактов</strong> (DXF, чертежи, страницы PDF).</p>
+          </article>
+          <article class="card">
+            <h3>Время и очередь</h3>
+            <p>Лазер и гибочный станок ждут <strong>цельный пакет за один проход</strong>, иначе узкое место сдвигается в цех.</p>
+          </article>
+          <article class="card">
+            <h3>Качество комплекта</h3>
+            <p>Пропуск строки, не то исполнение из PDM, DXF не в папке толщины — итог <strong>переделка или неполный альбом</strong>.</p>
+          </article>
+          <article class="card">
+            <h3>Связка подразделений</h3>
+            <p>КБ → ТБ → лазер → гибочный станок. Плагин закрывает <strong>«перечень → папка лазер»</strong>.</p>
+          </article>
+        </div>
+        <div class="compare">
+          <div class="compare-card before">
+            <h3>Сейчас (вручную)</h3>
+            <ul>
+              <li>Поиск моделей в PDM — по каждой позиции</li>
+              <li>DXF и развёртки по одной детали</li>
+              <li>PDF из SOLIDWORKS — отдельный файл на чертёж</li>
+              <li>Пакет вручную сортируют и сверяют с Excel</li>
+              <li class="muted">Ориентир: <strong>5–10 ч</strong> на проект 100–200 поз.</li>
+            </ul>
+          </div>
+          <div class="compare-arrow" aria-hidden="true">→</div>
+          <div class="compare-card after">
+            <h3>С плагином «Пакет в цех»</h3>
+            <ul>
+              <li>Один запуск: Excel + корень «лазер»</li>
+              <li>Проверка комплекта на экране до выгрузки</li>
+              <li>DXF, чертежи развёрток, PDF-альбом с оглавлением</li>
+              <li>Пометка <strong>альбом неполный</strong> до ухода в цех</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
 
     <details class="appendix-block">
       <summary>Цепочка Docs v1 — 7 этапов</summary>

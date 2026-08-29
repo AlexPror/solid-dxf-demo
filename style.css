@@ -2009,6 +2009,76 @@ h2 {
   font-weight: 600;
 }
 
+.decision-card-hero {
+  margin-bottom: 16px;
+}
+
+.decision-grid-alts {
+  margin-top: 16px;
+}
+
+.executive-details {
+  margin: 20px 0 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--white);
+}
+
+.executive-details > summary {
+  padding: 14px 18px;
+  font-weight: 600;
+  color: var(--navy-2);
+  cursor: pointer;
+  list-style: none;
+}
+
+.executive-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.executive-details > summary::before {
+  content: '▸ ';
+  color: var(--orange);
+}
+
+.executive-details[open] > summary::before {
+  content: '▾ ';
+}
+
+.executive-details > .benchmark-table-wrap,
+.executive-details > .chart-wrap,
+.executive-details > .note,
+.executive-details > .decision-path,
+.executive-details > .decision-grid {
+  margin-left: 18px;
+  margin-right: 18px;
+}
+
+.executive-details > .note {
+  margin-bottom: 18px;
+}
+
+.executive-details > .decision-path {
+  margin-top: 12px;
+}
+
+.benchmark-split-inline {
+  margin-top: 24px;
+}
+
+#demo #videoMount {
+  margin-bottom: 24px;
+}
+
+#demo .proof-grid {
+  margin-top: 0;
+}
+
+.appendix-inner-block {
+  padding: 0 4px 12px;
+}
+
 /* —— Запрос на согласование —— */
 .approval-head {
   display: flex;
