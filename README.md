@@ -1,6 +1,9 @@
 # Презентация «Пакет в цех» (Docs v1)
 
-Статический сайт для ООО «Меркатор Калуга». Публикуется в [solid-dxf-demo](https://github.com/AlexPror/solid-dxf-demo).
+Статический сайт для ООО «Меркатор Калуга».
+
+**Сайт:** [https://alexpror.github.io/solid-dxf-demo/](https://alexpror.github.io/solid-dxf-demo/)  
+**Репозиторий:** [solid-dxf-demo](https://github.com/AlexPror/solid-dxf-demo)
 
 Публичная версия: **v1.9** — шапка с контактами (телефон, почта), логичный порядок секций, минималистичный блок «Контакт».
 
