@@ -10,6 +10,7 @@
     var openUrl = (cfg.openUrl || '').trim();
     var mp4Url = (cfg.mp4Url || '').trim();
     var title = cfg.title || 'Демонстрация плагина';
+    var openLabel = (cfg.openLabel || '').trim() || openLinkLabel(openUrl);
 
     root.innerHTML = '';
 
@@ -42,7 +43,7 @@
         link.href = openUrl;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
-        link.textContent = 'Смотреть на Яндекс.Диске';
+        link.textContent = openLabel;
         placeholder.appendChild(link);
       }
       root.appendChild(placeholder);
@@ -51,9 +52,22 @@
     if (openUrl && iframeSrc) {
       var ext = document.createElement('p');
       ext.className = 'video-external';
-      ext.innerHTML = 'Если плеер не открылся: <a href="' + escapeAttr(openUrl) + '" target="_blank" rel="noopener noreferrer">открыть на Яндекс.Диске</a>.';
+      ext.innerHTML = 'Если плеер не открылся: <a href="' + escapeAttr(openUrl) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(openLabel) + '</a>.';
       root.appendChild(ext);
     }
+  }
+
+  function openLinkLabel(url) {
+    if (/drive\.google\.com\/drive\/folders/i.test(url)) {
+      return 'Открыть папку с видео на Google Диске';
+    }
+    if (/drive\.google\.com/i.test(url)) {
+      return 'Открыть видео на Google Диске';
+    }
+    if (/yandex\.(ru|com)|yadi\.sk/i.test(url)) {
+      return 'Смотреть на Яндекс.Диске';
+    }
+    return 'Смотреть видео';
   }
 
   function escapeHtml(s) {

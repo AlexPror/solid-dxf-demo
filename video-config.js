@@ -1,11 +1,15 @@
-// Вставьте ссылку после записи демо. YouTube не используем — только Яндекс.Диск (или прямой URL mp4).
+// Демо-видео: папка или файл на Google Диске / Яндекс.Диске (YouTube не используем).
 window.DOCS_DEMO_VIDEO = {
-  // «Поделиться» → «Встроить» / HTML-код с disk.yandex.ru (iframe src)
+  // Встроить плеер: iframe src (Google: …/file/d/ID/preview, Яндекс: disk.yandex.ru/iframe/…)
   iframeSrc: '',
 
-  // Публичная ссылка «Открыть на Яндекс.Диске» (disk.yandex.ru/i/… или yadi.sk/i/…)
-  openUrl: '',
+  // Публичная ссылка «открыть снаружи»
+  openUrl: 'https://drive.google.com/drive/folders/1cWg8UbrYCM7EadFriPQUVjbCSGEk-vee?usp=sharing',
 
-  // Если iframe недоступен: прямая ссылка на .mp4 с публичного диска (редко нужно)
-  mp4Url: ''
+  openLabel: 'Открыть папку с видео на Google Диске',
+
+  // Прямой URL .mp4 (если есть стабильная ссылка на файл)
+  mp4Url: '',
+
+  title: 'Демонстрация работы плагина'
 };
