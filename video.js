@@ -33,6 +33,7 @@
       video.preload = 'metadata';
       video.src = mp4Url;
       video.setAttribute('playsinline', '');
+      video.setAttribute('controlsList', 'nodownload');
       root.appendChild(video);
     } else {
       var placeholder = document.createElement('div');
@@ -70,8 +71,13 @@
   function resolveVideoSources(cfg) {
     var iframeSrc = (cfg.iframeSrc || '').trim();
     var openUrl = (cfg.openUrl || '').trim();
-    var mp4Url = (cfg.mp4Url || '').trim();
+    var mp4Url = (cfg.localUrl || cfg.mp4Url || '').trim();
     var fileId = (cfg.googleFileId || '').trim() || googleFileIdFromUrl(openUrl);
+
+    // Встроенный плеер на сайте — приоритет (без Google Drive iframe)
+    if (mp4Url) {
+      return { iframeSrc: '', openUrl: openUrl, mp4Url: mp4Url };
+    }
 
     if (!iframeSrc && fileId) {
       iframeSrc = 'https://drive.google.com/file/d/' + fileId + '/preview';
@@ -80,7 +86,7 @@
       openUrl = 'https://drive.google.com/file/d/' + fileId + '/view';
     }
 
-    return { iframeSrc: iframeSrc, openUrl: openUrl, mp4Url: mp4Url };
+    return { iframeSrc: iframeSrc, openUrl: openUrl, mp4Url: '' };
   }
 
   function openLinkLabel(url, folderUrl) {
