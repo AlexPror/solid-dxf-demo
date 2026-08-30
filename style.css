@@ -2013,6 +2013,102 @@ h2 {
   margin-bottom: 16px;
 }
 
+.pdm-safety-callout {
+  margin: 0 0 20px;
+  padding: 18px 20px;
+  border-radius: 10px;
+  border: 1px solid #c5e0d4;
+  background: linear-gradient(135deg, #f4fbf7 0%, #eef8f2 100%);
+  box-shadow: 0 1px 0 rgba(47, 133, 90, 0.08);
+}
+
+.pdm-safety-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.pdm-safety-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.pdm-safety-callout h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+  color: #1f5c3a;
+}
+
+.pdm-safety-lead {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.pdm-safety-list {
+  margin: 0 0 10px;
+  padding-left: 1.25em;
+}
+
+.pdm-safety-list li {
+  margin-bottom: 8px;
+  font-size: 0.92rem;
+}
+
+.pdm-safety-foot {
+  margin: 0;
+}
+
+.pdm-safety-foot a {
+  color: #1f5c3a;
+  font-weight: 600;
+}
+
+.pdm-subtitle {
+  margin: 28px 0 8px;
+  font-size: 1.1rem;
+  color: var(--navy);
+}
+
+.pdm-safety-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+@media (max-width: 720px) {
+  .pdm-safety-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pdm-do {
+  border-left: 4px solid var(--ok);
+}
+
+.pdm-dont {
+  border-left: 4px solid var(--warn);
+}
+
+.pdm-safety-grid h4 {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  color: var(--navy);
+}
+
+.pdm-safety-grid ul {
+  margin: 0;
+  padding-left: 1.2em;
+  font-size: 0.9rem;
+}
+
+.pdm-safety-grid li {
+  margin-bottom: 6px;
+}
+
 .decision-grid-alts {
   margin-top: 16px;
 }
