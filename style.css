@@ -47,6 +47,18 @@ body {
   font-weight: 600;
   letter-spacing: 0.02em;
   padding: 7px 16px;
+  line-height: 1.5;
+}
+
+.draft-banner-link {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.draft-banner-link:hover,
+.draft-banner-link:focus {
+  color: #fff3e8;
 }
 
 .site-nav {
@@ -1918,6 +1930,13 @@ h2 {
   font-weight: 600;
 }
 
+.footer-site {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
 .footer-brand p,
 .footer-meta p {
   margin: 0 0 6px;
@@ -3122,6 +3141,11 @@ h2 {
   background: var(--navy-2);
   border-color: var(--navy-2);
   color: #fff;
+}
+
+.btn-contact-site {
+  background: #f0f7fc;
+  border-color: #b8d4e8;
 }
 
 @media (max-width: 720px) {
