@@ -9,9 +9,11 @@
 </head>
 <body>
 
-  <header class="site-header" id="top">
+  <div id="top" class="page-top" tabindex="-1" aria-hidden="true"></div>
+
+  <header class="site-header">
     <div class="draft-banner">
-      Материалы к согласованию · сайт v1.9.4 · 30.08.2026 · технологическое бюро
+      Материалы к согласованию · сайт v1.9.5 · 30.08.2026 · технологическое бюро
     </div>
 
     <div class="site-nav">
@@ -861,5 +863,14 @@
   <script src="video-config.js"></script>
   <script src="video.js"></script>
   <script src="calc.js"></script>
+  <script>
+    document.querySelectorAll('a[href="#top"]').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        history.replaceState(null, '', '#top');
+      });
+    });
+  </script>
 </body>
 </html>

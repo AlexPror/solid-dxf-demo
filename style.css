@@ -26,6 +26,12 @@ body {
 
 .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
 
+.page-top {
+  display: block;
+  height: 0;
+  scroll-margin-top: 0;
+}
+
 /* —— Шапка —— */
 .site-header {
   position: sticky;
