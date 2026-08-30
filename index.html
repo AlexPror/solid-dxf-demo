@@ -9,31 +9,52 @@
 </head>
 <body>
 
-  <div class="draft-banner">
-    Материалы к согласованию · сайт v1.8.1 · 30.08.2026 · технологическое бюро
-  </div>
-
-  <nav class="site-nav" aria-label="Разделы">
-    <div class="wrap site-nav-inner">
-      <a href="#outcome">Итог</a>
-      <a href="#demo">Демо</a>
-      <a href="#decision">Решение</a>
-      <a href="#approval">Согласование</a>
-      <a href="#package">Пакет · стоимость</a>
-      <a href="#appendix">Детали</a>
+  <header class="site-header" id="top">
+    <div class="draft-banner">
+      Материалы к согласованию · сайт v1.9 · 30.08.2026 · технологическое бюро
     </div>
-  </nav>
 
-  <header class="hero" id="top">
+    <div class="site-nav">
+      <div class="wrap site-nav-inner">
+        <a class="site-brand" href="#top">
+          <span class="site-brand-mark">Docs v1</span>
+          <span class="site-brand-sub">Пакет в цех</span>
+        </a>
+
+        <nav class="site-nav-links" aria-label="Разделы">
+          <a href="#outcome">Итог</a>
+          <a href="#demo">Демо</a>
+          <a href="#decision">Решение</a>
+          <a href="#package">Пакет</a>
+          <a href="#approval">Согласование</a>
+          <a href="#contact">Контакт</a>
+          <a href="#appendix">Детали</a>
+        </nav>
+
+        <div class="site-nav-contact">
+          <a class="nav-contact-link" href="tel:+79105290465" title="Позвонить">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span class="nav-contact-label">+7 910 529-04-65</span>
+          </a>
+          <a class="nav-contact-link nav-contact-mail" href="mailto:vorobjev.alexandr-2017@yandex.ru" title="Написать на почту">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span class="nav-contact-label nav-contact-email">vorobjev.alexandr-2017@yandex.ru</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="Введение">
     <div class="wrap hero-grid">
       <div>
         <p class="eyebrow">SOLIDWORKS 2018 SP3 · надстройка «Пакет в цех»</p>
         <h1>Один перечень Excel — готовый комплект для лазера и цеха</h1>
         <p class="lead">Из одного перечня Excel — согласованный пакет для лазера, гибочного станка и архива. До <strong>8 проектов в месяц</strong>, в каждом <strong>100–200 деталей</strong>.</p>
         <div class="hero-actions">
-          <a class="btn primary" href="#approval">Запрос на согласование</a>
-          <a class="btn" href="#outcome">Итог замера</a>
-          <a class="btn" href="#demo">Демонстрация</a>
+          <a class="btn primary" href="#package">Состав и стоимость</a>
+          <a class="btn" href="#approval">Согласование</a>
+          <a class="btn" href="#contact">Связаться</a>
         </div>
       </div>
       <div class="hero-stats">
@@ -42,7 +63,7 @@
         <div class="stat"><em>1</em><span>запуск на проект</span></div>
       </div>
     </div>
-  </header>
+  </section>
 
   <section class="section section-alt" id="outcome">
     <div class="wrap">
@@ -232,7 +253,73 @@
         </div>
       </details>
 
-      <p class="decision-close">Ниже — <strong>запрос на согласование</strong>, коммерческое предложение и состав поставки по этому варианту.</p>
+      <p class="decision-close">Ниже — <strong>состав и стоимость пакета</strong>, затем формальный <strong>запрос на согласование</strong>.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" id="package">
+    <div class="wrap">
+    <h2>Полный пакет Docs v1</h2>
+    <p class="section-lead">Разовая поставка на площадке ООО «Меркатор Калуга» — полный объём по <strong>ТЗ-DOCS-01</strong> и <strong>КП-DOCS-01</strong>, фиксированная цена <strong>930 000 ₽</strong>.</p>
+
+    <div class="package-box">
+      <div class="package-main">
+        <div class="package-price-col">
+          <p class="package-tag">Разовая поставка</p>
+          <p class="package-price">930 000 ₽</p>
+          <p class="package-pay">Оплата 40% / 40% / 20% · <a href="#package-pay">график ниже</a></p>
+        </div>
+        <div class="package-includes">
+          <h3 class="package-includes-title">Что в поставке</h3>
+          <ul>
+            <li>Цепочка «перечень Excel → папка лазер» на SOLIDWORKS 2018 SP3</li>
+            <li>Excel → DXF, чертежи развёрток, PDF-альбом с оглавлением</li>
+            <li>Поиск моделей в PDM (<strong>только чтение</strong>, без записи в хранилище)</li>
+            <li>Проверка комплекта и пометка «альбом неполный» до ухода в цех</li>
+            <li>Внедрение с ИТ, обучение технологов, приёмка на площадке</li>
+            <li>Сопровождение после приёмки (гарантийный период)</li>
+            <li>Бессрочная лицензия на площадку ООО «Меркатор Калуга»</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pricing-summary" id="package-pay">
+        <article class="pricing-card">
+          <h3>График оплаты</h3>
+          <ul>
+            <li><strong>40%</strong> — 372 000 ₽ (аванс при подписании)</li>
+            <li><strong>40%</strong> — 372 000 ₽ (промежуточный этап)</li>
+            <li><strong>20%</strong> — 186 000 ₽ (после акта приёмки)</li>
+          </ul>
+        </article>
+        <article class="pricing-card">
+          <h3>Сроки</h3>
+          <ul>
+            <li>~46 рабочих дней разработки и внедрения</li>
+            <li>Старт работ — <strong>01.09.2026</strong></li>
+            <li>Приёмка — <strong>10.11.2026</strong> (резерв до 04.12)</li>
+          </ul>
+        </article>
+      </div>
+
+      <details class="package-caveats">
+        <summary>Условия лицензии и внедрения</summary>
+        <ul>
+          <li>ИТ заказчика: тестовое хранилище PDM или папка для отладки</li>
+          <li>Сопровождение после приёмки входит в стоимость пакета (срок — в договоре)</li>
+        </ul>
+      </details>
+
+      <details class="package-caveats">
+        <summary>Вне объёма версии 1</summary>
+        <ul>
+          <li>Раскрой, 1С, сдача результатов в PDM, печать из надстройки</li>
+          <li>SOLIDWORKS 2024 и новее — по отдельным техническим заданиям после стабилизации</li>
+        </ul>
+      </details>
+
+      <p class="muted package-docs">Полные условия: ТЗ-DOCS-01, КП-DOCS-01 (по запросу).</p>
+    </div>
     </div>
   </section>
 
@@ -305,72 +392,6 @@
         </ul>
         <p class="approval-v2 muted"><strong>После версии 1:</strong> Docs v1 закрывает «перечень → лазер». Раскрой, управление станком, сдача результатов в PDM, SOLIDWORKS 2024 и новее — по отдельным техническим заданиям после стабилизации.</p>
       </div>
-    </div>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="package">
-    <div class="wrap">
-    <h2>Полный пакет Docs v1</h2>
-    <p class="section-lead">Разовая поставка на площадке ООО «Меркатор Калуга» — полный объём по <strong>ТЗ-DOCS-01</strong> и <strong>КП-DOCS-01</strong>, фиксированная цена <strong>930 000 ₽</strong>.</p>
-
-    <div class="package-box">
-      <div class="package-main">
-        <div class="package-price-col">
-          <p class="package-tag">Разовая поставка</p>
-          <p class="package-price">930 000 ₽</p>
-          <p class="package-pay">Оплата 40% / 40% / 20% · <a href="#package-pay">график ниже</a></p>
-        </div>
-        <div class="package-includes">
-          <h3 class="package-includes-title">Что в поставке</h3>
-          <ul>
-            <li>Цепочка «перечень Excel → папка лазер» на SOLIDWORKS 2018 SP3</li>
-            <li>Excel → DXF, чертежи развёрток, PDF-альбом с оглавлением</li>
-            <li>Поиск моделей в PDM (<strong>только чтение</strong>, без записи в хранилище)</li>
-            <li>Проверка комплекта и пометка «альбом неполный» до ухода в цех</li>
-            <li>Внедрение с ИТ, обучение технологов, приёмка на площадке</li>
-            <li>Сопровождение после приёмки (гарантийный период)</li>
-            <li>Бессрочная лицензия на площадку ООО «Меркатор Калуга»</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="pricing-summary" id="package-pay">
-        <article class="pricing-card">
-          <h3>График оплаты</h3>
-          <ul>
-            <li><strong>40%</strong> — 372 000 ₽ (аванс при подписании)</li>
-            <li><strong>40%</strong> — 372 000 ₽ (промежуточный этап)</li>
-            <li><strong>20%</strong> — 186 000 ₽ (после акта приёмки)</li>
-          </ul>
-        </article>
-        <article class="pricing-card">
-          <h3>Сроки</h3>
-          <ul>
-            <li>~46 рабочих дней разработки и внедрения</li>
-            <li>Старт работ — <strong>01.09.2026</strong></li>
-            <li>Приёмка — <strong>10.11.2026</strong> (резерв до 04.12)</li>
-          </ul>
-        </article>
-      </div>
-
-      <details class="package-caveats">
-        <summary>Условия лицензии и внедрения</summary>
-        <ul>
-          <li>ИТ заказчика: тестовое хранилище PDM или папка для отладки</li>
-          <li>Сопровождение после приёмки входит в стоимость пакета (срок — в договоре)</li>
-        </ul>
-      </details>
-
-      <details class="package-caveats">
-        <summary>Вне объёма версии 1</summary>
-        <ul>
-          <li>Раскрой, 1С, сдача результатов в PDM, печать из надстройки</li>
-          <li>SOLIDWORKS 2024 и новее — по отдельным техническим заданиям после стабилизации</li>
-        </ul>
-      </details>
-
-      <p class="muted package-docs">Полные условия: ТЗ-DOCS-01, КП-DOCS-01 (по запросу).</p>
     </div>
     </div>
   </section>
@@ -513,26 +534,30 @@
   </section>
   -->
 
-  <section class="section wrap" id="next">
-    <div class="cta-box">
-      <h2>Следующий шаг</h2>
-      <p class="section-lead">Согласовать ТЗ-DOCS-01, тестовое хранилище PDM и сроки внедрения на вашей площадке.</p>
-      <ul class="cta-list">
-        <li>Демо на вашем перечне (тестовое хранилище PDM)</li>
-        <li>Уточнение КП и графика оплат</li>
-        <li>Пилотный прогон перед полной приёмкой</li>
-      </ul>
-      <p class="muted">Исполнитель на связи с технологическим бюро; прототип работает на SW 2018 SP3.</p>
-      <p class="contact-block">
-        <span class="contact-name">Воробьёв А.С.</span>
-        <a class="contact-link" href="tel:+79105290465">+7 910 529-04-65</a>
-        <a class="contact-link" href="mailto:vorobjev.alexandr-2017@yandex.ru">vorobjev.alexandr-2017@yandex.ru</a>
-      </p>
+  <section class="section wrap" id="contact">
+    <div class="wrap">
+      <div class="contact-strip">
+        <div class="contact-strip-main">
+          <h2>Обсудить внедрение</h2>
+          <p class="section-lead">Демо на вашем перечне, уточнение КП, пилот на тестовом PDM перед полной приёмкой.</p>
+          <p class="contact-person">Воробьёв А.С. · исполнитель</p>
+        </div>
+        <div class="contact-strip-actions">
+          <a class="btn-contact btn-contact-phone" href="tel:+79105290465">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            +7 910 529-04-65
+          </a>
+          <a class="btn-contact btn-contact-mail" href="mailto:vorobjev.alexandr-2017@yandex.ru">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Написать
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
 
-  <section class="section wrap" id="appendix">
+  <section class="section section-alt" id="appendix">
     <h2>Подробности для технологического бюро</h2>
     <p class="section-lead muted">Задача, контекст, сравнение вручную / с плагином — для инженеров ТБ.</p>
 
@@ -826,15 +851,19 @@
     </details>
   </section>
   <footer class="footer">
-    <div class="wrap">
-      <p>Надстройка SOLIDWORKS «Пакет в цех» (Docs v1) · материалы к согласованию</p>
-      <p class="muted">Исполнитель: Воробьёв А.С.</p>
-      <p class="footer-contact">
-        <a href="tel:+79105290465">+7 910 529-04-65</a>
-        <span class="footer-contact-sep">·</span>
-        <a href="mailto:vorobjev.alexandr-2017@yandex.ru">vorobjev.alexandr-2017@yandex.ru</a>
-      </p>
-      <p><a href="#top">Наверх</a></p>
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <p class="footer-title">Пакет в цех · Docs v1</p>
+        <p class="muted">Материалы к согласованию · ООО «Меркатор Калуга»</p>
+      </div>
+      <div class="footer-meta">
+        <p class="muted">Воробьёв А.С.</p>
+        <p class="footer-contact">
+          <a href="tel:+79105290465">+7 910 529-04-65</a>
+          <a href="mailto:vorobjev.alexandr-2017@yandex.ru">vorobjev.alexandr-2017@yandex.ru</a>
+        </p>
+      </div>
+      <p class="footer-top"><a href="#top">Наверх</a></p>
     </div>
   </footer>
 
