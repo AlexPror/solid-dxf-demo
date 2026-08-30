@@ -14,7 +14,7 @@
 
   <header class="site-header">
     <div class="draft-banner">
-      Материалы к согласованию · сайт v1.11.2 · 30.08.2026 ·
+      Материалы к согласованию · сайт v1.12 · 30.08.2026 ·
       <a class="draft-banner-link" href="https://alexpror.github.io/solid-dxf-demo/" rel="noopener noreferrer">alexpror.github.io/solid-dxf-demo</a>
     </div>
 
@@ -51,20 +51,30 @@
 
   <section class="hero" aria-label="Введение">
     <div class="wrap hero-grid">
-      <div>
-        <p class="eyebrow">SOLIDWORKS 2018 SP3 · надстройка «Пакет в цех»</p>
-        <h1>Один перечень Excel — готовый комплект для лазера и цеха</h1>
-        <p class="lead">Из одного перечня Excel — согласованный пакет для лазера, гибочного станка и архива. До <strong>8 проектов в месяц</strong>, в каждом <strong>100–200 деталей</strong>.</p>
+      <div class="hero-main">
+        <p class="eyebrow">Надстройка SOLIDWORKS 2018 · Docs v1</p>
+        <h1>Пакет в цех</h1>
+        <p class="hero-tagline">Из перечня Excel — DXF для лазера, чертежи развёрток и PDF-альбом в папку «лазер».</p>
+        <p class="lead">Один запуск вместо 5–10 часов ручной сборки на проект.</p>
         <div class="hero-actions">
-          <a class="btn primary" href="#package">Состав и стоимость</a>
-          <a class="btn" href="#approval">Согласование</a>
-          <a class="btn" href="#contact">Связаться</a>
+          <a class="btn primary" href="#outcome">Итог замера</a>
+          <a class="btn btn-hero-extra btn-hero-package" href="#package">Стоимость</a>
+          <a class="btn btn-hero-contact" href="#contact">Связаться</a>
         </div>
       </div>
-      <div class="hero-stats">
-        <div class="stat"><em>46 мин</em><span>пакет 150 поз. (замер)</span></div>
-        <div class="stat"><em>6–13×</em><span>быстрее, чем вручную</span></div>
-        <div class="stat"><em>1</em><span>запуск на проект</span></div>
+      <div class="hero-stats" aria-label="Ключевые цифры пилота">
+        <div class="stat">
+          <span class="stat-label">Время на 150 позиций</span>
+          <em>46 мин</em>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Против ручной работы</span>
+          <em>6–13×</em>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Запусков на проект</span>
+          <em>1</em>
+        </div>
       </div>
     </div>
   </section>
@@ -72,54 +82,44 @@
   <section class="section section-alt" id="outcome">
     <div class="wrap">
       <h2>Итог замера</h2>
-      <p class="section-lead">Замер на <strong>150 позиций</strong> (148 с моделью), SOLIDWORKS 2018 SP3, 28.08.2026.</p>
-      <div class="outcome-grid">
-        <article class="outcome-card">
-          <p class="outcome-label">Было</p>
-          <p class="outcome-value">5–10 ч</p>
-          <p class="outcome-note">вручную на проект</p>
-        </article>
-        <div class="outcome-arrow" aria-hidden="true">→</div>
-        <article class="outcome-card outcome-highlight">
-          <p class="outcome-label">Стало</p>
-          <p class="outcome-value">46 мин</p>
-          <p class="outcome-note">полный пакет плагином</p>
-        </article>
-        <article class="outcome-card">
-          <p class="outcome-label">Выигрыш</p>
-          <p class="outcome-value">6–13×</p>
-          <p class="outcome-note">быстрее ручного прогона</p>
-        </article>
-      </div>
-      <div class="outcome-stats">
-        <span><strong>148</strong> DXF</span>
-        <span><strong>296</strong> стр. PDF</span>
-        <span><strong>2</strong> позиции без модели — отмечены до ухода в цех</span>
-      </div>
-
-      <div class="benchmark-split benchmark-split-inline">
-        <article class="benchmark-card">
-          <h3>Этап SOLIDWORKS</h3>
-          <p class="benchmark-big">27 мин</p>
-          <ul>
-            <li>148 DXF — 0 ошибок</li>
-            <li>102 чертежа развёрток создано</li>
-            <li>Открытие моделей, экспорт DXF и чертежи — вместе занимают 27 мин</li>
-          </ul>
-        </article>
-        <article class="benchmark-card">
-          <h3>Этап PDF-альбом</h3>
-          <p class="benchmark-big">18 мин</p>
-          <ul>
-            <li>295 фрагментов → 296 стр. альбома</li>
-            <li>0 сбоев экспорта</li>
-            <li>Экспорт PDF из чертежей и сборка альбома с оглавлением — вместе занимают 18 мин</li>
-          </ul>
-        </article>
+      <div class="outcome-strip">
+        <p class="outcome-strip-meta">Пилот на 150 позиций · 28.08.2026 · SOLIDWORKS 2018 SP3</p>
+        <div class="outcome-strip-compare" role="group" aria-label="Сравнение времени на проект">
+          <div class="outcome-strip-side">
+            <span class="outcome-strip-label">Вручную на проект</span>
+            <strong class="outcome-strip-value">5–10 ч</strong>
+          </div>
+          <span class="outcome-strip-arrow" aria-hidden="true">→</span>
+          <div class="outcome-strip-side outcome-strip-side-accent">
+            <span class="outcome-strip-label">Плагином</span>
+            <strong class="outcome-strip-value">46 мин</strong>
+          </div>
+        </div>
+        <p class="outcome-strip-foot"><strong>6–13×</strong> быстрее · 148 DXF · 296 стр. PDF · 2 позиции без модели отмечены</p>
       </div>
 
       <details class="executive-details" id="benchmark">
-        <summary>Подробная таблица замеров и график масштаба</summary>
+        <summary>Этапы замера, таблица и график</summary>
+        <div class="benchmark-split benchmark-split-inline">
+          <article class="benchmark-card">
+            <h3>Этап SOLIDWORKS</h3>
+            <p class="benchmark-big">27 мин</p>
+            <ul>
+              <li>148 DXF — 0 ошибок</li>
+              <li>102 чертежа развёрток создано</li>
+              <li>Открытие моделей, экспорт DXF и чертежи — вместе занимают 27 мин</li>
+            </ul>
+          </article>
+          <article class="benchmark-card">
+            <h3>Этап PDF-альбом</h3>
+            <p class="benchmark-big">18 мин</p>
+            <ul>
+              <li>295 фрагментов → 296 стр. альбома</li>
+              <li>0 сбоев экспорта</li>
+              <li>Экспорт PDF из чертежей и сборка альбома с оглавлением — вместе занимают 18 мин</li>
+            </ul>
+          </article>
+        </div>
         <div class="benchmark-table-wrap">
           <table class="benchmark-table">
             <caption>Сравнение: вручную и плагин</caption>
