@@ -2431,12 +2431,56 @@ h2 {
   margin-top: 24px;
 }
 
-#demo #videoMount {
-  margin-bottom: 24px;
+#demo .demo-video {
+  margin-bottom: 0;
+}
+
+#demo .demo-screens {
+  margin-top: 36px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+#demo .demo-screens-title {
+  margin: 0 0 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
 }
 
 #demo .proof-grid {
   margin-top: 0;
+}
+
+#demo .proof-frame img {
+  aspect-ratio: auto;
+  object-fit: contain;
+  max-height: 420px;
+  background: #f4f6f8;
+}
+
+#demo .proof-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 6px;
+  border-radius: 999px;
+  background: var(--navy);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+#demo .proof-frame figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-weight: 600;
+  color: var(--navy);
 }
 
 /* —— Приложение для ТБ —— */
