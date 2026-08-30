@@ -11,7 +11,7 @@
 
   <header class="site-header" id="top">
     <div class="draft-banner">
-      Материалы к согласованию · сайт v1.9.3 · 30.08.2026 · технологическое бюро
+      Материалы к согласованию · сайт v1.9.4 · 30.08.2026 · технологическое бюро
     </div>
 
     <div class="site-nav">
@@ -549,6 +549,7 @@
 
 
   <section class="section section-alt" id="appendix">
+    <div class="wrap">
     <h2>Подробности для технологического бюро</h2>
     <p class="section-lead muted">Задача, контекст, сравнение вручную / с плагином — для инженеров ТБ.</p>
 
@@ -603,13 +604,13 @@
     <details class="appendix-block">
       <summary>Цепочка Docs v1 — 7 этапов</summary>
       <div class="pipeline" id="steps">
-    <div class="wrap pipeline-intro">
-      <h2>Цепочка Docs v1</h2>
+    <div class="pipeline-intro">
+      <h3 class="appendix-subtitle">Цепочка Docs v1</h3>
       <p class="section-lead">Автоматизация всей цепочки — от Excel до папки «лазер». Каждый этап — отдельный блок; стрелки показывают, что куда идёт.</p>
     </div>
 
     <section class="puzzle-step step-c1" aria-labelledby="step1-title">
-      <div class="wrap puzzle-inner">
+      <div class="puzzle-inner">
         <header class="puzzle-head">
           <span class="puzzle-num">1</span>
           <div>
@@ -632,7 +633,7 @@
     <div class="puzzle-connector" aria-hidden="true"><span>↓</span></div>
 
     <section class="puzzle-step step-c2" aria-labelledby="step2-title">
-      <div class="wrap puzzle-inner">
+      <div class="puzzle-inner">
         <header class="puzzle-head">
           <span class="puzzle-num">2</span>
           <div>
@@ -655,7 +656,7 @@
     <div class="puzzle-connector" aria-hidden="true"><span>↓</span></div>
 
     <section class="puzzle-step step-c3" aria-labelledby="step3-title">
-      <div class="wrap puzzle-inner">
+      <div class="puzzle-inner">
         <header class="puzzle-head">
           <span class="puzzle-num">3</span>
           <div>
@@ -678,7 +679,7 @@
     <div class="puzzle-connector" aria-hidden="true"><span>↓</span></div>
 
     <section class="puzzle-step step-c4" aria-labelledby="step4-title">
-      <div class="wrap puzzle-inner">
+      <div class="puzzle-inner">
         <header class="puzzle-head">
           <span class="puzzle-num">4</span>
           <div>
@@ -701,7 +702,7 @@
     <div class="puzzle-connector" aria-hidden="true"><span>↓</span></div>
 
     <section class="puzzle-step step-c5" aria-labelledby="step5-title">
-      <div class="wrap puzzle-inner">
+      <div class="puzzle-inner">
         <header class="puzzle-head">
           <span class="puzzle-num">5</span>
           <div>
@@ -724,7 +725,7 @@
     <div class="puzzle-connector" aria-hidden="true"><span>↓</span></div>
 
     <section class="puzzle-step step-c6" aria-labelledby="step6-title">
-      <div class="wrap puzzle-inner">
+      <div class="puzzle-inner">
         <header class="puzzle-head">
           <span class="puzzle-num">6</span>
           <div>
@@ -747,7 +748,7 @@
     <div class="puzzle-connector" aria-hidden="true"><span>↓</span></div>
 
     <section class="puzzle-step step-c7" aria-labelledby="step7-title">
-      <div class="wrap puzzle-inner">
+      <div class="puzzle-inner">
         <header class="puzzle-head">
           <span class="puzzle-num">7</span>
           <div>
@@ -772,8 +773,8 @@
     <details class="appendix-block">
       <summary>PDM, чертежи развёрток, структура папок</summary>
 
-  <section class="section wrap appendix-inner" id="pdm">
-    <h2>Почему PDM обязателен</h2>
+  <div class="appendix-sub" id="pdm">
+    <h3 class="appendix-subtitle">Почему PDM обязателен</h3>
     <p class="section-lead">Без хранилища нельзя гарантировать версию и конфигурацию детали на лазере. Надстройка не заменяет PDM — она берёт из хранилища нужные файлы. Выпущенные материалы в PDM не размещаются.</p>
     <div class="cards three">
       <article class="card"><h3>Версия</h3><p>Режем и кладём в альбом ту ревизию, что в хранилище.</p></article>
@@ -805,11 +806,10 @@
       </article>
     </div>
     <p class="note">Порядок внедрения: сначала проверка по <strong>согласованной папке</strong> (без PDM), затем <strong>тестовое хранилище PDM</strong>, и только после приёмки — рабочее хранилище в том же режиме «только чтение».</p>
-  </section>
+  </div>
 
-  <section class="section section-alt" id="reuse">
-    <div class="wrap">
-      <h2>Переиспользование чертежей развёрток</h2>
+  <div class="appendix-sub appendix-sub-alt" id="reuse">
+    <h3 class="appendix-subtitle">Переиспользование чертежей развёрток</h3>
       <p class="section-lead">Сами развёртки в моделях обычно никто не хранит — плагин создаёт их при каждом прогоне. Зато чертёж <code>_развертка.slddrw</code> из прошлого проекта можно не трогать: он снова попадёт в альбом.</p>
       <div class="reuse-viz">
         <div class="reuse-bar" id="reuse-bar">
@@ -822,11 +822,10 @@
         </div>
       </div>
       <p class="note">Режимы на экране комплекта: <strong>только новые</strong> (по умолчанию), обновить отмеченные, пересоздать все.</p>
-    </div>
-  </section>
+  </div>
 
-  <section class="section wrap" id="folders">
-    <h2>Структура папок на «лазер»</h2>
+  <div class="appendix-sub" id="folders">
+    <h3 class="appendix-subtitle">Структура папок на «лазер»</h3>
     <p class="section-lead">Плагин создаёт папку даты и раскладывает DXF по толщине. PDF — в подпапку <code>PDF</code>.</p>
     <div class="folder-tree">
       <pre><code>\\лазер\{yyyy-MM-dd}\
@@ -838,8 +837,9 @@
     PDF\
         Перечень_2026-08-28_14-30.pdf</code></pre>
     </div>
-  </section>
+  </div>
     </details>
+    </div>
   </section>
   <footer class="footer">
     <div class="wrap footer-inner">

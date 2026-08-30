@@ -2433,8 +2433,107 @@ h2 {
   margin-top: 0;
 }
 
+/* —— Приложение для ТБ —— */
+.appendix-block {
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.appendix-block > summary {
+  cursor: pointer;
+  padding: 14px 20px;
+  font-weight: 600;
+  color: var(--navy);
+  background: var(--bg);
+  list-style-position: inside;
+}
+
+.appendix-block > summary:hover {
+  background: #e8eef3;
+}
+
+.appendix-block[open] > summary {
+  border-bottom: 1px solid var(--line);
+}
+
 .appendix-inner-block {
-  padding: 0 4px 12px;
+  padding: 16px 20px 20px;
+}
+
+.appendix-subtitle {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.appendix-sub {
+  padding: 24px 20px;
+  border-top: 1px solid var(--line);
+}
+
+.appendix-sub:first-child {
+  border-top: none;
+}
+
+.appendix-sub-alt {
+  background: var(--bg);
+  border-radius: 6px;
+  margin: 8px 12px 0;
+  padding: 20px 16px;
+}
+
+#appendix .appendix-block .pipeline {
+  margin: 0;
+  padding: 16px 20px 12px;
+  background: transparent;
+}
+
+#appendix .pipeline-intro {
+  margin-bottom: 16px;
+}
+
+#appendix .pipeline-intro .section-lead {
+  margin-bottom: 0;
+}
+
+#appendix .puzzle-step {
+  padding: 18px 16px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+#appendix .puzzle-step::before,
+#appendix .puzzle-step::after {
+  display: none;
+}
+
+#appendix .puzzle-connector {
+  margin: 2px 0;
+  font-size: 1.25rem;
+}
+
+#appendix .flow-row {
+  gap: 6px;
+}
+
+#appendix .flow-block {
+  flex: 1 1 calc(50% - 6px);
+  min-width: 0;
+  max-width: none;
+}
+
+@media (min-width: 720px) {
+  #appendix .flow-block {
+    flex: 1 1 calc(25% - 6px);
+  }
+}
+
+#appendix .section-alt {
+  background: transparent;
 }
 
 /* —— Запрос на согласование —— */
@@ -2596,43 +2695,6 @@ h2 {
   margin-bottom: 16px;
 }
 
-/* —— Приложение для ТБ —— */
-.appendix-block {
-  margin-top: 16px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--white);
-  overflow: hidden;
-}
-
-.appendix-block > summary {
-  cursor: pointer;
-  padding: 14px 20px;
-  font-weight: 600;
-  color: var(--navy);
-  background: var(--bg);
-  list-style-position: inside;
-}
-
-.appendix-block > summary:hover {
-  background: #e8eef3;
-}
-
-.appendix-block[open] > summary {
-  border-bottom: 1px solid var(--line);
-}
-
-.appendix-block .pipeline {
-  margin: 0;
-}
-
-.appendix-inner {
-  padding-top: 0;
-}
-
-#appendix .section-alt {
-  background: transparent;
-}
 
 /* —— Контакт —— */
 .contact-strip {
