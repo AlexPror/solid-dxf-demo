@@ -6,11 +6,12 @@
     if (!root) return;
 
     var cfg = window.DOCS_DEMO_VIDEO || {};
-    var iframeSrc = (cfg.iframeSrc || '').trim();
-    var openUrl = (cfg.openUrl || '').trim();
-    var mp4Url = (cfg.mp4Url || '').trim();
+    var resolved = resolveVideoSources(cfg);
+    var iframeSrc = resolved.iframeSrc;
+    var openUrl = resolved.openUrl;
+    var mp4Url = resolved.mp4Url;
     var title = cfg.title || 'Демонстрация плагина';
-    var openLabel = (cfg.openLabel || '').trim() || openLinkLabel(openUrl);
+    var openLabel = (cfg.openLabel || '').trim() || openLinkLabel(openUrl, cfg.folderUrl);
 
     root.innerHTML = '';
 
@@ -20,6 +21,7 @@
       var iframe = document.createElement('iframe');
       iframe.src = iframeSrc;
       iframe.title = title;
+      iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
       iframe.setAttribute('allowfullscreen', '');
       iframe.setAttribute('loading', 'lazy');
       frameWrap.appendChild(iframe);
@@ -37,10 +39,11 @@
       placeholder.className = 'video-placeholder';
       placeholder.setAttribute('aria-label', 'Видео будет добавлено');
       placeholder.innerHTML = '<span>▶</span>';
-      if (openUrl) {
+      var linkUrl = openUrl || (cfg.folderUrl || '').trim();
+      if (linkUrl) {
         var link = document.createElement('a');
         link.className = 'video-open-link';
-        link.href = openUrl;
+        link.href = linkUrl;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         link.textContent = openLabel;
@@ -49,16 +52,42 @@
       root.appendChild(placeholder);
     }
 
-    if (openUrl && iframeSrc) {
+    var fallbackUrl = openUrl || (cfg.folderUrl || '').trim();
+    if (fallbackUrl && iframeSrc) {
       var ext = document.createElement('p');
       ext.className = 'video-external';
-      ext.innerHTML = 'Если плеер не открылся: <a href="' + escapeAttr(openUrl) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(openLabel) + '</a>.';
+      ext.innerHTML = 'Если плеер не открылся: <a href="' + escapeAttr(fallbackUrl) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(openLabel) + '</a>.';
       root.appendChild(ext);
     }
   }
 
-  function openLinkLabel(url) {
-    if (/drive\.google\.com\/drive\/folders/i.test(url)) {
+  function googleFileIdFromUrl(url) {
+    if (!url) return '';
+    var match = String(url).match(/drive\.google\.com\/file\/d\/([^/?#]+)/i);
+    return match ? match[1] : '';
+  }
+
+  function resolveVideoSources(cfg) {
+    var iframeSrc = (cfg.iframeSrc || '').trim();
+    var openUrl = (cfg.openUrl || '').trim();
+    var mp4Url = (cfg.mp4Url || '').trim();
+    var fileId = (cfg.googleFileId || '').trim() || googleFileIdFromUrl(openUrl);
+
+    if (!iframeSrc && fileId) {
+      iframeSrc = 'https://drive.google.com/file/d/' + fileId + '/preview';
+    }
+    if (!openUrl && fileId) {
+      openUrl = 'https://drive.google.com/file/d/' + fileId + '/view';
+    }
+
+    return { iframeSrc: iframeSrc, openUrl: openUrl, mp4Url: mp4Url };
+  }
+
+  function openLinkLabel(url, folderUrl) {
+    if (googleFileIdFromUrl(url)) {
+      return 'Открыть видео на Google Диске';
+    }
+    if (/drive\.google\.com\/drive\/folders/i.test(url || folderUrl)) {
       return 'Открыть папку с видео на Google Диске';
     }
     if (/drive\.google\.com/i.test(url)) {
