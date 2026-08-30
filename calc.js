@@ -5,7 +5,6 @@
   const HOURS_MONTH = 168;
   const DEV_COST_DEFAULT = 930000;
   const DEV_HOURLY_NPD = 2500;
-  const MARKET_INTEGRATOR_REF = 3400000;
   const BENCH_MANUAL_PKG_HOURS = 8;
   const BENCH_AUTO_PKG_HOURS = 0.75;
   const BENCH_MODELS = 150;
@@ -21,14 +20,6 @@
     employerCoeff: 1.3,
     cost: DEV_COST_DEFAULT
   };
-
-  const MARKET_TIERS = [
-    { label: 'Биржа / VBA', low: 600000, high: 1200000, rate: '1,5–3,5 тыс. ₽/ч', dim: true },
-    { label: 'КП, себестоимость', low: DEV_COST_DEFAULT, high: DEV_COST_DEFAULT, rate: DEV_HOURLY_NPD + ' ₽/ч', highlight: true },
-    { label: 'Бутик SW API', low: 1800000, high: 3200000, rate: '4–7 тыс. ₽/ч' },
-    { label: 'Интегратор PDM', low: 2500000, high: 4500000, rate: '6–10 тыс. ₽/ч' },
-    { label: 'Черновик партнёра', low: 3400000, high: 3400000, rate: '480 ч × 7 000 ₽', ref: true }
-  ];
 
   const ids = [
     'projects', 'models', 'reusePct', 'staffMode', 'costMode',
@@ -249,7 +240,7 @@
 
     logLine('<span class="log-step">9</span><b>Отдел + станок.</b> ' + fmt(savingsFotMonth) + ' + ' + fmt(savingsFactoryMonth) + ' = <b>' + fmt(savingsTotalMonth) + ' ₽/мес</b>. Окупаемость <b>' + paybackTotalStr + ' мес</b>.');
     logLine('<span class="log-step">10</span><b>КП и потолок.</b> Стоимость внедрения <b>' + fmt(cost) + ' ₽</b> (ввод). Потолок при ' + targetPayback + ' мес: <b>' + fmt(maxPriceTotal) + ' ₽</b> = экономия × срок — не цена плагина.');
-    logLine('<span class="log-step">11</span><b>Срок изделия.</b> Сварка и покраска в ₽ не считаем. Себестоимость разработки — см. блок «Стоимость vs рынок».');
+    logLine('<span class="log-step">11</span><b>Срок изделия.</b> Сварка и покраска в ₽ не считаем. Стоимость внедрения — по КП-DOCS-01.');
 
     if (typeof console !== 'undefined' && console.groupCollapsed) {
       console.groupCollapsed('[Калькулятор Docs] ' + new Date().toLocaleTimeString('ru'));
@@ -289,7 +280,6 @@
     if (exportBtn) exportBtn.disabled = false;
 
     drawChart(models, pkg.manual, pkg.auto);
-    drawMarketChart(cost);
 
     if (flash) {
       const panel = document.getElementById('calcResults');
@@ -302,195 +292,6 @@
     if (scroll) {
       const target = document.getElementById('calcResults') || document.getElementById('calcLog');
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  function fmtShort(n) {
-    if (n >= 1000000) {
-      return fmtDec(n / 1000000, n % 1000000 === 0 ? 0 : 2).replace(',', '.') + ' млн';
-    }
-    if (n >= 1000) {
-      return fmt(Math.round(n / 1000)) + ' тыс.';
-    }
-    return fmt(n);
-  }
-
-  function updateMarketHero(cost) {
-    const SCALE_MAX = 4500000;
-    const ref = MARKET_INTEGRATOR_REF;
-    const c = cost || DEV_COST_DEFAULT;
-    const saved = Math.max(0, ref - c);
-    const kpPct = Math.min(100, (c / SCALE_MAX) * 100);
-    const savePct = Math.min(100 - kpPct, (saved / SCALE_MAX) * 100);
-    const refPct = Math.min(100, (ref / SCALE_MAX) * 100);
-    const savedPct = ref > 0 ? Math.round((saved / ref) * 100) : 0;
-
-    const kpEl = document.getElementById('marketScaleKp');
-    const saveEl = document.getElementById('marketScaleSave');
-    const refEl = document.getElementById('marketScaleRef');
-    if (kpEl) {
-      kpEl.style.width = kpPct + '%';
-    }
-    if (saveEl) {
-      saveEl.style.left = kpPct + '%';
-      saveEl.style.width = savePct + '%';
-    }
-    if (refEl) {
-      refEl.style.left = refPct + '%';
-    }
-
-    setText('marketScaleKpLabel', fmtShort(c));
-    setText('marketScaleSaveLabel', saved >= 500000 ? '−' + fmtShort(saved) : 'разница');
-    setText('marketKpValue', fmt(c) + ' ₽');
-    setText('marketSavedValue', fmt(saved) + ' ₽');
-    setText('marketSavedPct', '≈ ' + savedPct + '% от оценки партнёра');
-    setText('marketMathKp', fmt(c) + ' ₽');
-  }
-
-  function drawMarketChart(kpCost) {
-    const canvas = document.getElementById('market-chart');
-    if (!canvas || !canvas.getContext) return;
-
-    const cost = kpCost || readNum('projectCost') || DEV_COST_DEFAULT;
-    updateMarketHero(cost);
-
-    const dpr = window.devicePixelRatio || 1;
-    const cssW = canvas.parentElement ? canvas.parentElement.clientWidth - 8 : 800;
-    const rowH = 52;
-    const cssH = MARKET_TIERS.length * rowH + 88;
-    canvas.width = Math.round(cssW * dpr);
-    canvas.height = Math.round(cssH * dpr);
-    canvas.style.width = cssW + 'px';
-    canvas.style.height = cssH + 'px';
-
-    const ctx = canvas.getContext('2d');
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    const w = cssW;
-    const h = cssH;
-    const pad = { l: 152, r: 20, t: 44, b: 40 };
-    const plotW = w - pad.l - pad.r;
-    const maxX = 4800000;
-
-    function xVal(v) { return pad.l + (v / maxX) * plotW; }
-
-    ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, w, h);
-
-    const kpX = xVal(cost);
-    const refX = xVal(MARKET_INTEGRATOR_REF);
-
-    if (refX > kpX + 12) {
-      const bracketY = 14;
-      ctx.strokeStyle = '#1f7a4d';
-      ctx.fillStyle = '#1f7a4d';
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(kpX, bracketY + 10);
-      ctx.lineTo(kpX, bracketY);
-      ctx.lineTo(refX, bracketY);
-      ctx.lineTo(refX, bracketY + 10);
-      ctx.stroke();
-      ctx.font = 'bold 11px Segoe UI, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'bottom';
-      ctx.fillText('−' + fmtShort(refX > kpX ? MARKET_INTEGRATOR_REF - cost : 0), (kpX + refX) / 2, bracketY - 2);
-    }
-
-    ctx.strokeStyle = '#e8ecf0';
-    ctx.fillStyle = '#5a6573';
-    ctx.font = '11px Segoe UI, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    for (let v = 0; v <= maxX; v += 1000000) {
-      const xx = xVal(v);
-      ctx.beginPath();
-      ctx.moveTo(xx, pad.t);
-      ctx.lineTo(xx, h - pad.b);
-      ctx.stroke();
-      ctx.fillText((v / 1000000) + ' млн', xx, h - pad.b + 6);
-    }
-
-    ctx.strokeStyle = '#e87722';
-    ctx.lineWidth = 2;
-    ctx.setLineDash([5, 4]);
-    ctx.beginPath();
-    ctx.moveTo(refX, pad.t);
-    ctx.lineTo(refX, h - pad.b);
-    ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.fillStyle = '#c45f12';
-    ctx.font = '10px Segoe UI, sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText('3,4 млн · партнёр', Math.min(refX + 4, w - 110), pad.t - 6);
-
-    MARKET_TIERS.forEach((tier, i) => {
-      const y = pad.t + i * rowH + 12;
-      const barH = 26;
-      const x0 = xVal(tier.low);
-      const x1 = xVal(tier.high);
-      const isPoint = tier.low === tier.high;
-      const barW = Math.max(isPoint ? 6 : x1 - x0, isPoint ? 6 : 4);
-
-      ctx.textAlign = 'right';
-      ctx.textBaseline = 'middle';
-      ctx.fillStyle = tier.dim ? '#8a939e' : '#1a2430';
-      ctx.font = tier.highlight ? 'bold 12px Segoe UI, sans-serif' : '12px Segoe UI, sans-serif';
-      ctx.fillText(tier.label, pad.l - 8, y + barH / 2);
-
-      if (tier.highlight) {
-        ctx.fillStyle = '#1f7a4d';
-        ctx.fillRect(pad.l, y, Math.max(x1 - pad.l, 8), barH);
-        ctx.strokeStyle = '#0e3a5a';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(pad.l, y, Math.max(x1 - pad.l, 8), barH);
-      } else if (tier.ref) {
-        ctx.fillStyle = '#e87722';
-        ctx.fillRect(x0 - 3, y, 6, barH);
-      } else if (isPoint) {
-        ctx.fillStyle = tier.dim ? '#b8c0c8' : '#155a86';
-        ctx.fillRect(pad.l, y, Math.max(x1 - pad.l, 8), barH);
-      } else {
-        ctx.fillStyle = tier.dim ? 'rgba(90, 101, 115, 0.35)' : 'rgba(21, 90, 134, 0.5)';
-        ctx.fillRect(x0, y, x1 - x0, barH);
-      }
-
-      const priceStr = isPoint
-        ? fmt(tier.low) + ' ₽'
-        : fmt(tier.low) + '–' + fmt(tier.high) + ' ₽';
-      const labelX = tier.highlight
-        ? Math.max(pad.l + 8, x1 + 8)
-        : Math.min(Math.max(x1, pad.l) + 8, w - pad.r - 140);
-
-      ctx.textAlign = 'left';
-      ctx.fillStyle = tier.highlight ? '#0e3a5a' : '#5a6573';
-      ctx.font = tier.highlight ? 'bold 11px Segoe UI, sans-serif' : '10px Segoe UI, sans-serif';
-      ctx.fillText(priceStr, labelX, y + barH / 2 - 5);
-      ctx.font = '10px Segoe UI, sans-serif';
-      ctx.fillStyle = '#8a939e';
-      ctx.fillText(tier.rate, labelX, y + barH / 2 + 8);
-    });
-
-    ctx.strokeStyle = '#1f7a4d';
-    ctx.lineWidth = 2.5;
-    ctx.setLineDash([]);
-    ctx.beginPath();
-    ctx.moveTo(kpX, pad.t);
-    ctx.lineTo(kpX, h - pad.b);
-    ctx.stroke();
-    ctx.fillStyle = '#1f7a4d';
-    ctx.font = 'bold 10px Segoe UI, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText('КП', kpX - 4, pad.t - 6);
-
-    const saved = Math.max(0, MARKET_INTEGRATOR_REF - cost);
-    const note = document.getElementById('marketChartNote');
-    if (note) {
-      note.innerHTML =
-        '<strong>Зелёная полоса и линия «КП»</strong> — цена в КП (<strong>' + fmt(cost) + ' ₽</strong>). ' +
-        'Оранжевая отметка — черновик партнёра. Между ними <strong>' + fmt(saved) + ' ₽</strong> — ' +
-        'это не скидка «с потолка», а разница моделей: один исполнитель по себестоимости vs команда с руководителем проекта и накладными.';
     }
   }
 
@@ -703,7 +504,7 @@
       '<p><b>Вывод:</b> ' + s.verdict + '</p>' +
 
       '<h2>Пошаговый журнал</h2>' + logHtml +
-      '<p class="muted">Срок изделия (сварка, покраска) в рублях не считается. Внедрение ' + fmt(s.cost) + ' ₽ — себестоимость исполнителя.</p>' +
+      '<p class="muted">Срок изделия (сварка, покраска) в рублях не считается. Внедрение ' + fmt(s.cost) + ' ₽ — цена по КП-DOCS-01.</p>' +
       '</body></html>';
   }
 
@@ -823,9 +624,6 @@
           const out = document.getElementById(id + '-out');
           if (out) out.textContent = el.value;
         }
-        if (id === 'projectCost') {
-          drawMarketChart(readNum('projectCost') || DEV_COST_DEFAULT);
-        }
       });
     });
     rangeIds.forEach(id => {
@@ -844,7 +642,6 @@
       drawChart(BENCH_MODELS);
     }
 
-    drawMarketChart(DEV_COST_DEFAULT);
     renderExecutiveSummary();
   }
 

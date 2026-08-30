@@ -10,7 +10,7 @@
 <body>
 
   <div class="draft-banner">
-    Материалы к согласованию · сайт v1.6 · 30.08.2026 · технологическое бюро
+    Материалы к согласованию · сайт v1.7 · 30.08.2026 · технологическое бюро
   </div>
 
   <nav class="site-nav" aria-label="Разделы">
@@ -20,7 +20,7 @@
       <a href="#decision">Решение</a>
       <a href="#approval">Согласование</a>
       <a href="#package">Пакет</a>
-      <a href="#dev-market">Стоимость</a>
+      <a href="#pricing">Стоимость</a>
       <a href="#appendix">Детали</a>
     </div>
   </nav>
@@ -230,10 +230,6 @@
             <h3>Купить готовый продукт</h3>
             <p>Редко закрывает цепочку целиком: ваш Excel, PDM, толщина, правила DXF и PDF-альбом.</p>
           </article>
-          <article class="decision-card">
-            <h3>Заказать у интегратора</h3>
-            <p>Тот же класс работ — другая <strong>стоимость и срок</strong> — <a href="#dev-market">сравнение ниже</a>.</p>
-          </article>
         </div>
       </details>
 
@@ -323,8 +319,7 @@
         <div class="package-price-col">
           <p class="package-tag">Разовая поставка по ТЗ-DOCS-01</p>
           <p class="package-price">930 000 ₽</p>
-          <p class="package-pay">Оплата 40% / 40% / 20%</p>
-          <p class="package-price-note"><a href="#dev-market">Ниже оценок интегратора</a> на тот же объём работ</p>
+          <p class="package-pay">Оплата 40% / 40% / 20% · <a href="#pricing">график платежей</a></p>
         </div>
         <div class="package-includes">
           <h3 class="package-includes-title">Что в поставке</h3>
@@ -352,111 +347,55 @@
     </div>
   </section>
 
-  <section class="section section-alt" id="dev-market">
+  <section class="section section-alt" id="pricing">
     <div class="wrap">
-      <h2>Стоимость разработки</h2>
-      <p class="section-lead">Тот же объём работ — разная цена: один исполнитель и команда интегратора с накладными расходами.</p>
+      <h2>Стоимость и состав</h2>
+      <p class="section-lead">Разовая поставка по <strong>КП-DOCS-01</strong> и <strong>ТЗ-DOCS-01</strong> — фиксированная сумма на согласованный объём работ.</p>
 
-      <div class="market-hero">
-        <div class="market-scale" aria-label="Сравнение разовой стоимости внедрения">
-          <div class="market-scale-head">
-            <span>0 ₽</span>
-            <span>1 млн</span>
-            <span>2 млн</span>
-            <span>3 млн</span>
-            <span>4 млн</span>
-          </div>
-          <div class="market-scale-track">
-            <div class="market-scale-seg kp" id="marketScaleKp">
-              <span class="market-scale-seg-label" id="marketScaleKpLabel">930 тыс.</span>
-            </div>
-            <div class="market-scale-seg save" id="marketScaleSave">
-              <span class="market-scale-seg-label" id="marketScaleSaveLabel">экономия</span>
-            </div>
-            <div class="market-scale-pin ref" id="marketScaleRef" title="Черновик партнёра">
-              <span>3,4 млн</span>
-            </div>
-          </div>
-          <div class="market-scale-legend">
-            <span><i class="dot kp"></i> КП — себестоимость исполнителя</span>
-            <span><i class="dot save"></i> Разница с черновиком партнёра</span>
-            <span><i class="dot ref"></i> Ориентир интегратора / студии</span>
-          </div>
-        </div>
-
-        <div class="market-kpi-grid">
-          <article class="market-kpi market-kpi-yours">
-            <p class="market-kpi-tag">Ваше КП</p>
-            <p class="market-kpi-value" id="marketKpValue">930 000 ₽</p>
-            <p class="market-kpi-formula">~46 рабочих дней разработки и внедрения</p>
-            <p class="market-kpi-note">Минимальная модель оплаты, без наценки студии</p>
-          </article>
-          <div class="market-kpi-arrow" aria-hidden="true">→</div>
-          <article class="market-kpi market-kpi-ref">
-            <p class="market-kpi-tag">Черновик партнёра</p>
-            <p class="market-kpi-value">3 400 000 ₽</p>
-            <p class="market-kpi-formula">480 ч × <strong>7 000 ₽/ч</strong></p>
-            <p class="market-kpi-note">Тот же класс задач, команда с руководителем проекта</p>
-          </article>
-          <article class="market-kpi market-kpi-diff">
-            <p class="market-kpi-tag">Заказчик платит меньше на</p>
-            <p class="market-kpi-value market-kpi-value-save" id="marketSavedValue">2 470 000 ₽</p>
-            <p class="market-kpi-formula" id="marketSavedPct">≈ 73% от оценки партнёра</p>
-            <p class="market-kpi-note">Не «скидка с потолка» — другая модель оплаты</p>
-          </article>
-        </div>
+      <div class="pricing-summary">
+        <article class="pricing-card pricing-card-main">
+          <p class="pricing-tag">Полный пакет Docs v1</p>
+          <p class="pricing-amount">930 000 ₽</p>
+          <p class="pricing-note">Бессрочная лицензия на площадку ООО «Меркатор Калуга» включена в поставку</p>
+        </article>
+        <article class="pricing-card">
+          <h3>График оплаты</h3>
+          <ul>
+            <li><strong>40%</strong> — 372 000 ₽ (аванс при подписании)</li>
+            <li><strong>40%</strong> — 372 000 ₽ (промежуточный этап)</li>
+            <li><strong>20%</strong> — 186 000 ₽ (после акта приёмки)</li>
+          </ul>
+        </article>
+        <article class="pricing-card">
+          <h3>Сроки</h3>
+          <ul>
+            <li>~46 рабочих дней разработки и внедрения</li>
+            <li>Старт работ — <strong>01.09.2026</strong></li>
+            <li>Приёмка — <strong>10.11.2026</strong> (резерв до 04.12)</li>
+          </ul>
+        </article>
       </div>
 
-      <div class="market-detail">
-        <details class="market-math-details">
-          <summary>Откуда цифры и сравнение с рынком</summary>
-        <div class="market-math">
-          <h3>Откуда цифры</h3>
-          <div class="market-math-cols">
-            <div class="market-math-col yours">
-              <h4>Себестоимость в КП</h4>
-              <ul>
-                <li>~43–46 рабочих дней разработки и внедрения</li>
-                <li>Ставка НПД: <strong>2 500 ₽/ч</strong> (один исполнитель, без офиса и руководителя проекта)</li>
-                <li>Итого: <strong id="marketMathKp">930 000 ₽</strong></li>
-              </ul>
-            </div>
-            <div class="market-math-col market">
-              <h4>Типичный рынок на это ТЗ</h4>
-              <ul>
-                <li>~450–550 ч с учётом руководителя проекта, тестов и настройки хранилища PDM</li>
-                <li>Ставка бутика / интегратора: <strong>4–10 тыс. ₽/ч</strong></li>
-                <li>Диапазон: <strong>1,8–4,5 млн</strong> · черновик партнёра <strong>3,4 млн</strong></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="market-chart-wrap">
-          <h3 class="market-chart-title">Все типы подрядчиков на одной шкале</h3>
-          <canvas id="market-chart" role="img" aria-label="Сравнение разовой стоимости разработки у разных типов подрядчиков"></canvas>
-          <p class="market-chart-note" id="marketChartNote"></p>
-        </div>
-        </details>
-      </div>
-
-      <details class="market-sources-details">
-        <summary>Источники ставок и ориентиры рынка</summary>
-        <ul class="market-sources">
-          <li><strong>2 500 ₽/ч</strong> — ставка одного исполнителя (НПД) на этом проекте (себестоимость в КП)</li>
-          <li><strong>4–7 тыс. ₽/ч</strong> — бутик C# + SOLIDWORKS API → <strong>1,8–3,2 млн</strong> на это ТЗ</li>
-          <li><strong>6–10 тыс. ₽/ч</strong> — <a href="https://dipro.ru/" target="_blank" rel="noopener">интеграторы PDM/SW</a> → <strong>2,5–4,5 млн</strong></li>
-          <li><a href="https://ledas.com/ru/expertise/cad/plugin-development/" target="_blank" rel="noopener">ЛЕДАС</a>, <a href="https://pro-tim.ru/products/uslugi/razrabotka-po/razrabotka-plaginov-dlya-bim-i-sapr-cad-sistem/" target="_blank" rel="noopener">PRO ТИМ / ИНФОСАПР</a> — заказная разработка, обычно от ~3 млн</li>
-          <li class="muted"><a href="https://www.weblancer.net/freelance/3d-grafika-12/razrabotka-dlya-sapr-plagin-nadstroika-rasshirenie-dlya-solidvorks-graskho-993638/" target="_blank" rel="noopener">Weblancer</a> — другой класс задач (макрос), не сравнивать с Docs v1</li>
+      <details class="executive-details pricing-details">
+        <summary>Что входит в цену</summary>
+        <ul class="pricing-includes">
+          <li>Надстройка «Пакет в цех» под SOLIDWORKS 2018 SP3</li>
+          <li>Цепочка «перечень Excel → папка лазер»: DXF, чертежи развёрток, PDF-альбом</li>
+          <li>Поиск моделей в PDM (только чтение) или в согласованной папке</li>
+          <li>Проверка комплекта и пометка «альбом неполный»</li>
+          <li>Внедрение на площадке, обучение технологов, сопровождение после приёмки</li>
         </ul>
+        <p class="note">Вне объёма версии 1: раскрой, 1С, сдача результатов в PDM, печать из надстройки — по отдельным техническим заданиям.</p>
       </details>
+
+      <p class="muted pricing-docs">Полные условия: КП-DOCS-01, ТЗ-DOCS-01 (по запросу).</p>
     </div>
   </section>
 
   <!-- CALCULATOR_HIDDEN: интерактивный калькулятор убран с публичной версии (остаётся в исходниках для внутренних расчётов).
   <section class="section wrap calc-section" id="calc">
     <h2>Калькулятор окупаемости</h2>
-    <p class="section-lead">Три блока эффекта: <strong>отдел технологии</strong> (часы × ставка отдела) → <strong>риски на станке</strong> (срочный лазер, срывы комплекта — оценка) → <strong>срок изделия</strong> (сварка, покраска — без рублей, только пояснение). Стоимость внедрения — см. <a href="#dev-market">график выше</a>.</p>
+    <p class="section-lead">Три блока эффекта: <strong>отдел технологии</strong> (часы × ставка отдела) → <strong>риски на станке</strong> (срочный лазер, срывы комплекта — оценка) → <strong>срок изделия</strong> (сварка, покраска — без рублей, только пояснение). Стоимость внедрения — см. <a href="#pricing">раздел «Стоимость и состав»</a>.</p>
 
     <div class="calc-layers-hint">
       <div class="layer-chip l1"><strong>Отдел технологии</strong> Часы отдела × ставка</div>
@@ -497,7 +436,7 @@
         <p class="field-hint">Не «весь завод быстрее», а деньги там, где пакет КД был узким местом или ошибка всплыла бы на лазере/гибочном станке. Если лазер всегда в очереди — срочный эффект ≈ 0, срывы комплекта могут остаться.</p>
 
         <h3 class="calc-panel-title calc-subtitle">Внедрение</h3>
-        <p class="field-hint field-hint-top">По умолчанию <strong>930 000 ₽</strong> — себестоимость (~46 дн. × 2 500 ₽/ч), уже минимум для исполнителя. <a href="#dev-market">Сравнение с рынком</a>.</p>
+        <p class="field-hint field-hint-top">По умолчанию <strong>930 000 ₽</strong> — цена по КП-DOCS-01 (~46 раб. дней). <a href="#pricing">График оплаты</a>.</p>
         <label>Целевая окупаемость, мес <input type="range" id="targetPayback" min="6" max="24" step="1" value="12" /><output id="targetPayback-out">12</output></label>
         <p class="field-hint">Влияет на «потолок цены» (экономия × срок), не на стоимость КП.</p>
         <label>Стоимость внедрения, ₽ <input type="number" id="projectCost" min="100000" max="2000000" step="10000" value="930000" /></label>
