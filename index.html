@@ -13,7 +13,7 @@
 
   <header class="site-header">
     <div class="draft-banner">
-      Материалы к согласованию · сайт v1.11 · 30.08.2026 · технологическое бюро
+      Материалы к согласованию · сайт v1.11.1 · 30.08.2026 · технологическое бюро
     </div>
 
     <div class="site-nav">
@@ -185,28 +185,39 @@
 
       <div class="demo-screens">
         <h3 class="demo-screens-title">Кадры пилотного замера</h3>
-        <div class="proof-grid" id="proofGrid">
-          <figure class="proof-frame">
-            <button type="button" class="proof-thumb" data-proof-src="img/preflight.png" data-proof-title="Экран проверки комплекта">
-              <img src="img/preflight.png" alt="" loading="lazy" />
-              <span class="proof-zoom">Открыть</span>
-            </button>
-            <figcaption><span class="proof-num">1</span> Экран проверки комплекта</figcaption>
-          </figure>
-          <figure class="proof-frame">
-            <button type="button" class="proof-thumb" data-proof-src="img/folders.png" data-proof-title="Папка для DXF и отчета">
-              <img src="img/folders.png" alt="" loading="lazy" />
-              <span class="proof-zoom">Открыть</span>
-            </button>
-            <figcaption><span class="proof-num">2</span> Папка для DXF и отчета</figcaption>
-          </figure>
-          <figure class="proof-frame">
-            <button type="button" class="proof-thumb" data-proof-src="img/toc.png" data-proof-title="Оглавление альбома">
-              <img src="img/toc.png" alt="" loading="lazy" />
-              <span class="proof-zoom">Открыть</span>
-            </button>
-            <figcaption><span class="proof-num">3</span> Оглавление альбома</figcaption>
-          </figure>
+        <div class="proof-carousel" id="proofCarousel">
+          <div class="proof-carousel-shell">
+            <button type="button" class="proof-carousel-nav proof-carousel-prev" aria-label="Предыдущий кадр">‹</button>
+            <div class="proof-carousel-viewport">
+              <div class="proof-carousel-track" id="proofCarouselTrack">
+                <figure class="proof-slide">
+                  <button type="button" class="proof-thumb" data-proof-src="img/preflight.png" data-proof-title="Экран проверки комплекта">
+                    <img src="img/preflight.png" alt="" loading="lazy" />
+                    <span class="proof-zoom">Открыть</span>
+                  </button>
+                </figure>
+                <figure class="proof-slide">
+                  <button type="button" class="proof-thumb" data-proof-src="img/folders.png" data-proof-title="Папка для DXF и отчета">
+                    <img src="img/folders.png" alt="" loading="lazy" />
+                    <span class="proof-zoom">Открыть</span>
+                  </button>
+                </figure>
+                <figure class="proof-slide">
+                  <button type="button" class="proof-thumb" data-proof-src="img/toc.png" data-proof-title="Оглавление альбома">
+                    <img src="img/toc.png" alt="" loading="lazy" />
+                    <span class="proof-zoom">Открыть</span>
+                  </button>
+                </figure>
+              </div>
+            </div>
+            <button type="button" class="proof-carousel-nav proof-carousel-next" aria-label="Следующий кадр">›</button>
+          </div>
+          <div class="proof-carousel-meta">
+            <p class="proof-carousel-caption" id="proofCarouselCaption">
+              <span class="proof-num">1</span> Экран проверки комплекта
+            </p>
+            <div class="proof-carousel-dots" id="proofCarouselDots" role="tablist" aria-label="Кадры пилотного замера"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -903,6 +914,68 @@
         history.replaceState(null, '', '#top');
       });
     });
+
+    (function initProofCarousel() {
+      var carousel = document.getElementById('proofCarousel');
+      var track = document.getElementById('proofCarouselTrack');
+      var captionEl = document.getElementById('proofCarouselCaption');
+      var dotsEl = document.getElementById('proofCarouselDots');
+      if (!carousel || !track) return;
+
+      var slides = Array.prototype.slice.call(track.querySelectorAll('.proof-slide'));
+      if (!slides.length) return;
+
+      var captions = [
+        '<span class="proof-num">1</span> Экран проверки комплекта',
+        '<span class="proof-num">2</span> Папка для DXF и отчета',
+        '<span class="proof-num">3</span> Оглавление альбома'
+      ];
+      var current = 0;
+
+      slides.forEach(function (_, index) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'proof-carousel-dot' + (index === 0 ? ' is-active' : '');
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', 'Кадр ' + (index + 1));
+        dot.addEventListener('click', function () { goTo(index); });
+        dotsEl.appendChild(dot);
+      });
+
+      var dots = Array.prototype.slice.call(dotsEl.querySelectorAll('.proof-carousel-dot'));
+
+      function goTo(index) {
+        current = (index + slides.length) % slides.length;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        captionEl.innerHTML = captions[current];
+        dots.forEach(function (dot, i) {
+          dot.classList.toggle('is-active', i === current);
+        });
+      }
+
+      var prevBtn = carousel.querySelector('.proof-carousel-prev');
+      var nextBtn = carousel.querySelector('.proof-carousel-next');
+      if (prevBtn) prevBtn.addEventListener('click', function () { goTo(current - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1); });
+
+      carousel.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowLeft') goTo(current - 1);
+        if (event.key === 'ArrowRight') goTo(current + 1);
+      });
+
+      var touchStartX = 0;
+      track.addEventListener('touchstart', function (event) {
+        touchStartX = event.changedTouches[0].screenX;
+      }, { passive: true });
+      track.addEventListener('touchend', function (event) {
+        var dx = event.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(dx) < 40) return;
+        if (dx < 0) goTo(current + 1);
+        else goTo(current - 1);
+      }, { passive: true });
+
+      goTo(0);
+    })();
 
     (function initProofModal() {
       var modal = document.getElementById('proofModal');

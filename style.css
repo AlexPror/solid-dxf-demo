@@ -2494,18 +2494,138 @@ h2 {
   margin-top: 0;
 }
 
-#demo .proof-frame img {
-  aspect-ratio: auto;
-  object-fit: contain;
-  max-height: 420px;
-  background: #f4f6f8;
-  border: 0;
-  border-radius: 0;
+/* —— Карусель скриншотов —— */
+.proof-carousel {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f8fafc;
+  overflow: hidden;
 }
 
-#demo .proof-thumb img {
+.proof-carousel-shell {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 8px 0;
+}
+
+.proof-carousel-viewport {
+  overflow: hidden;
+  border-radius: 8px;
+  background: #eef2f6;
+  border: 1px solid var(--line);
+}
+
+.proof-carousel-track {
+  display: flex;
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+
+.proof-slide {
+  flex: 0 0 100%;
+  margin: 0;
+  height: 360px;
+}
+
+#demo .proof-slide .proof-thumb {
   width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+#demo .proof-slide .proof-thumb img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
   display: block;
+}
+
+.proof-carousel-nav {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--navy);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.proof-carousel-nav:hover {
+  border-color: var(--navy-2);
+  background: #f0f7fc;
+}
+
+.proof-carousel-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px 16px;
+}
+
+.proof-carousel-caption {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.proof-carousel-dots {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.proof-carousel-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #c5d0db;
+  cursor: pointer;
+}
+
+.proof-carousel-dot.is-active {
+  background: var(--navy);
+  width: 24px;
+}
+
+.proof-carousel-dot:hover {
+  background: var(--navy-2);
+}
+
+@media (max-width: 640px) {
+  .proof-slide {
+    height: 260px;
+  }
+
+  .proof-carousel-shell {
+    grid-template-columns: 1fr;
+    padding: 12px 12px 0;
+  }
+
+  .proof-carousel-nav {
+    display: none;
+  }
 }
 
 #demo .proof-num {
@@ -2514,22 +2634,12 @@ h2 {
   justify-content: center;
   width: 1.5em;
   height: 1.5em;
-  margin-right: 6px;
   border-radius: 999px;
   background: var(--navy);
   color: #fff;
   font-size: 0.8rem;
   font-weight: 700;
-  vertical-align: middle;
-}
-
-#demo .proof-frame figcaption {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  font-weight: 600;
-  color: var(--navy);
+  flex-shrink: 0;
 }
 
 /* —— Модальное окно скриншотов —— */
