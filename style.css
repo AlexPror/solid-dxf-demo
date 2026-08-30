@@ -1772,6 +1772,17 @@ h2 {
 .footer a { color: var(--orange); }
 .footer p { margin: 0 0 8px; }
 
+.footer-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+
+.footer-contact-sep {
+  opacity: 0.5;
+}
+
 /* —— Итог замера —— */
 .outcome-grid {
   display: grid;
@@ -2467,6 +2478,30 @@ h2 {
 }
 
 .cta-list li { margin-bottom: 8px; }
+
+.contact-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.contact-name {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.contact-link {
+  color: var(--navy);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.contact-link:hover {
+  color: var(--orange);
+}
 
 .market-math-details {
   margin-bottom: 16px;
