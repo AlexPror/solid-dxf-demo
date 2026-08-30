@@ -13,7 +13,7 @@
 
   <header class="site-header">
     <div class="draft-banner">
-      Материалы к согласованию · сайт v1.10.1 · 30.08.2026 · технологическое бюро
+      Материалы к согласованию · сайт v1.10.2 · 30.08.2026 · технологическое бюро
     </div>
 
     <div class="site-nav">
@@ -187,15 +187,24 @@
         <h3 class="demo-screens-title">Кадры с пилотного прогона</h3>
         <div class="proof-grid" id="proofGrid">
           <figure class="proof-frame">
-            <img src="img/preflight.png" alt="Экран проверки комплекта перед выгрузкой" loading="lazy" />
+            <a class="proof-thumb" href="img/preflight.png" data-lightbox="Экран проверки комплекта">
+              <img src="img/preflight.png" alt="Экран проверки комплекта перед выгрузкой" loading="lazy" />
+              <span class="proof-zoom">Увеличить</span>
+            </a>
             <figcaption><span class="proof-num">1</span> Экран проверки комплекта</figcaption>
           </figure>
           <figure class="proof-frame">
-            <img src="img/folders.png" alt="Папка лазер: DXF по толщине и PDF" loading="lazy" />
+            <a class="proof-thumb" href="img/folders.png" data-lightbox="Папка по толщине + PDF">
+              <img src="img/folders.png" alt="Папка лазер: DXF по толщине и PDF" loading="lazy" />
+              <span class="proof-zoom">Увеличить</span>
+            </a>
             <figcaption><span class="proof-num">2</span> Папка по толщине + PDF</figcaption>
           </figure>
           <figure class="proof-frame">
-            <img src="img/toc.png" alt="Оглавление PDF-альбома" loading="lazy" />
+            <a class="proof-thumb" href="img/toc.png" data-lightbox="Оглавление альбома">
+              <img src="img/toc.png" alt="Оглавление PDF-альбома" loading="lazy" />
+              <span class="proof-zoom">Увеличить</span>
+            </a>
             <figcaption><span class="proof-num">3</span> Оглавление альбома</figcaption>
           </figure>
         </div>
@@ -863,6 +872,11 @@
     </div>
   </footer>
 
+  <div id="lightbox" class="lightbox" hidden>
+    <button type="button" class="lightbox-close" aria-label="Закрыть">×</button>
+    <img class="lightbox-img" alt="" />
+  </div>
+
   <script src="video-config.js"></script>
   <script src="video.js"></script>
   <script src="calc.js"></script>
@@ -874,6 +888,43 @@
         history.replaceState(null, '', '#top');
       });
     });
+
+    (function initLightbox() {
+      var box = document.getElementById('lightbox');
+      if (!box) return;
+      var boxImg = box.querySelector('.lightbox-img');
+      var closeBtn = box.querySelector('.lightbox-close');
+
+      function openLightbox(src, alt) {
+        boxImg.src = src;
+        boxImg.alt = alt || '';
+        box.hidden = false;
+        document.body.classList.add('lightbox-open');
+        closeBtn.focus();
+      }
+
+      function closeLightbox() {
+        box.hidden = true;
+        boxImg.removeAttribute('src');
+        document.body.classList.remove('lightbox-open');
+      }
+
+      document.querySelectorAll('a[data-lightbox]').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+          event.preventDefault();
+          openLightbox(link.getAttribute('href'), link.getAttribute('data-lightbox'));
+        });
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+      box.addEventListener('click', function (event) {
+        if (event.target === box) closeLightbox();
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && !box.hidden) closeLightbox();
+      });
+    })();
   </script>
 </body>
 </html>

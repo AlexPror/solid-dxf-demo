@@ -2046,6 +2046,44 @@ h2 {
   margin: 0;
 }
 
+.proof-thumb {
+  position: relative;
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  cursor: zoom-in;
+  border: 1px solid var(--line);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.proof-thumb:hover,
+.proof-thumb:focus {
+  border-color: var(--navy-2);
+  box-shadow: 0 4px 16px rgba(14, 58, 90, 0.12);
+  outline: none;
+}
+
+.proof-thumb:hover .proof-zoom,
+.proof-thumb:focus .proof-zoom {
+  opacity: 1;
+}
+
+.proof-zoom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(14, 58, 90, 0.88);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
 .proof-placeholder {
   aspect-ratio: 16 / 10;
   background: linear-gradient(135deg, #e8eef3 0%, #d5dbe3 100%);
@@ -2457,6 +2495,13 @@ h2 {
   object-fit: contain;
   max-height: 420px;
   background: #f4f6f8;
+  border: 0;
+  border-radius: 0;
+}
+
+#demo .proof-thumb img {
+  width: 100%;
+  display: block;
 }
 
 #demo .proof-num {
@@ -2481,6 +2526,53 @@ h2 {
   gap: 4px;
   font-weight: 600;
   color: var(--navy);
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10, 20, 30, 0.92);
+}
+
+.lightbox[hidden] {
+  display: none !important;
+}
+
+.lightbox-img {
+  max-width: min(1200px, 100%);
+  max-height: calc(100vh - 48px);
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+body.lightbox-open {
+  overflow: hidden;
 }
 
 /* —— Приложение для ТБ —— */
