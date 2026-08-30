@@ -7,19 +7,15 @@
 // 3. Вставьте её в openUrl ниже (или только ID файла в googleFileId)
 //
 window.DOCS_DEMO_VIDEO = {
-  // Ссылка на файл mp4 (не на папку) — из неё автоматически строится плеер
-  openUrl: '',
+  openUrl: 'https://drive.google.com/file/d/1Y9bO5Sm-cswuYXLe8kFIHmBX6bnbantT/view?usp=drive_link',
 
-  // Можно указать только ID между /d/ и /view:
-  googleFileId: '',
+  googleFileId: '1Y9bO5Sm-cswuYXLe8kFIHmBX6bnbantT',
 
-  // Явный iframe (обычно не нужен — соберётся из openUrl / googleFileId)
   iframeSrc: '',
 
-  // Запасная ссылка на папку, если файл ещё не настроен
   folderUrl: 'https://drive.google.com/drive/folders/1cWg8UbrYCM7EadFriPQUVjbCSGEk-vee?usp=sharing',
 
-  openLabel: 'Открыть папку с видео на Google Диске',
+  openLabel: 'Открыть видео на Google Диске',
 
   mp4Url: '',
 
