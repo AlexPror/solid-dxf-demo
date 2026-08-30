@@ -2049,12 +2049,16 @@ h2 {
 .proof-thumb {
   position: relative;
   display: block;
+  width: 100%;
+  padding: 0;
   border-radius: 8px;
   overflow: hidden;
-  text-decoration: none;
-  cursor: zoom-in;
+  cursor: pointer;
   border: 1px solid var(--line);
+  background: #f4f6f8;
   transition: border-color 0.15s, box-shadow 0.15s;
+  font: inherit;
+  text-align: left;
 }
 
 .proof-thumb:hover,
@@ -2539,40 +2543,154 @@ h2 {
   background: rgba(10, 20, 30, 0.92);
 }
 
-.lightbox[hidden] {
-  display: none !important;
+/* —— Модальное окно скриншотов —— */
+.proof-modal {
+  border: 0;
+  padding: 0;
+  margin: auto;
+  max-width: none;
+  max-height: none;
+  width: min(1120px, calc(100vw - 32px));
+  background: transparent;
+  overflow: visible;
 }
 
-.lightbox-img {
-  max-width: min(1200px, 100%);
-  max-height: calc(100vh - 48px);
-  width: auto;
-  height: auto;
-  border-radius: 6px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45);
+.proof-modal::backdrop {
+  background: rgba(14, 36, 54, 0.72);
+  backdrop-filter: blur(3px);
 }
 
-.lightbox-close {
-  position: absolute;
-  top: 16px;
-  right: 20px;
-  width: 44px;
-  height: 44px;
+.proof-modal-panel {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 32px);
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.proof-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background: #f8fafc;
+}
+
+.proof-modal-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.proof-modal-close {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
   border: 0;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  font-size: 1.75rem;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.6rem;
   line-height: 1;
   cursor: pointer;
 }
 
-.lightbox-close:hover {
-  background: rgba(255, 255, 255, 0.22);
+.proof-modal-close:hover {
+  background: #e8eef3;
+  color: var(--navy);
 }
 
-body.lightbox-open {
-  overflow: hidden;
+.proof-modal-body {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  min-height: 0;
+  background: #eef2f6;
+}
+
+.proof-modal-viewport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  max-height: calc(100vh - 200px);
+  overflow: auto;
+  background: #1a2430;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.proof-modal-img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 220px);
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+}
+
+.proof-modal-nav {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--navy);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.proof-modal-nav:hover:not(:disabled) {
+  border-color: var(--navy-2);
+  background: #f0f7fc;
+}
+
+.proof-modal-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.proof-modal-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 18px 14px;
+  border-top: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.proof-modal-counter {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+@media (max-width: 640px) {
+  .proof-modal-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    padding: 12px;
+  }
+
+  .proof-modal-nav {
+    width: 100%;
+    height: 36px;
+  }
+
+  .proof-modal-foot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 /* —— Приложение для ТБ —— */
