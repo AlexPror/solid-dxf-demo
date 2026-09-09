@@ -461,7 +461,7 @@
     ).join('');
 
     return '<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"/>' +
-      '<title>Журнал расчёта · Пакет в цех</title>' +
+      '<title>Журнал расчёта · Комплект Docs</title>' +
       '<style>' +
       'body{font-family:Segoe UI,sans-serif;font-size:11pt;color:#1a2430;margin:16mm;line-height:1.45}' +
       'h1{font-size:16pt;color:#0e3a5a;margin:0 0 4px}h2{font-size:12pt;color:#155a86;margin:20px 0 8px;border-bottom:1px solid #d5dbe3;padding-bottom:4px}' +
@@ -471,7 +471,7 @@
       '.muted{color:#5a6573;font-size:9pt}.result-row{margin:6px 0}.tag{font-size:8pt;text-transform:uppercase;color:#5a6573}' +
       '@media print{body{margin:12mm}}' +
       '</style></head><body>' +
-      '<h1>Калькулятор окупаемости · Пакет в цех (Docs v1)</h1>' +
+      '<h1>Калькулятор окупаемости · Комплект Docs (Docs v1)</h1>' +
       '<p class="muted">ООО «Меркатор Калуга» · черновик для обсуждения · ' + dateStr + '</p>' +
 
       '<h2>Вводные параметры</h2><table>' +
@@ -560,7 +560,7 @@
       'th{background:#f4f6f8}.ask{background:#f0f5f9;border-left:4px solid #0e3a5a;padding:12px 14px;margin:12px 0}' +
       '.muted{color:#5a6573;font-size:9.5pt}ul{margin:6px 0;padding-left:1.2em}li{margin:4px 0}' +
       '@media print{body{margin:12mm}}</style></head><body>' +
-      '<h1>Пакет в цех · Docs v1</h1>' +
+      '<h1>Комплект Docs · Docs v1</h1>' +
       '<p class="muted">ООО «Меркатор Калуга» · материалы к согласованию · ' + dateStr + '</p>' +
       '<div class="ask"><strong>Запрос:</strong> согласовать КП-DOCS-01 (930 000 ₽), ТЗ-DOCS-01 и выделение тестового хранилища PDM для пилотной приёмки (ориентир старта работ — 01.09.2026).</div>' +
       '<h2>Итог замера</h2><ul>' +

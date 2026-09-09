@@ -3911,6 +3911,73 @@ h2 {
   color: var(--muted);
 }
 
+.it-stages-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.it-stage-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  min-height: 0;
+}
+
+.it-stage-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.it-stage-card h3 {
+  margin: 0;
+  font-size: 0.98rem;
+  color: var(--navy);
+  line-height: 1.25;
+}
+
+.it-stage-card p {
+  margin: 0;
+  flex: 1;
+  font-size: 0.84rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.it-stage-card code {
+  font-size: 0.78rem;
+}
+
+.it-stage-act {
+  margin-top: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9a3412;
+}
+
+@media (max-width: 720px) {
+  .it-stages-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
 .it-timeline {
   display: flex;
   flex-direction: column;
@@ -4072,13 +4139,5 @@ h2 {
 
   .it-install-flow {
     margin-bottom: 24px;
-  }
-
-  .it-timeline {
-    gap: 4px;
-  }
-
-  .it-tl-join {
-    height: 14px;
   }
 }
