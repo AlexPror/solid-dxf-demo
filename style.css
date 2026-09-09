@@ -56,8 +56,8 @@ summary:focus-visible,
 }
 
 .draft-banner {
-  background: var(--orange-d);
-  color: #fff;
+  background: #0b2e48;
+  color: #e8f1f8;
   text-align: center;
   font-size: 0.72rem;
   font-weight: 600;
@@ -70,14 +70,14 @@ summary:focus-visible,
 }
 
 .draft-banner-link {
-  color: #fff;
+  color: #ffb078;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .draft-banner-link:hover,
 .draft-banner-link:focus-visible {
-  color: #fff8f0;
+  color: #ffd4a8;
 }
 
 .site-nav {
@@ -330,14 +330,14 @@ summary:focus-visible,
 }
 
 .btn.primary {
-  background: var(--orange-d);
-  border-color: var(--orange-d);
+  background: #9a3412;
+  border-color: #9a3412;
   color: #fff;
 }
 
 .btn.primary:hover {
-  background: #a34e0f;
-  border-color: #a34e0f;
+  background: #7c2d12;
+  border-color: #7c2d12;
 }
 
 .hero-stats {
@@ -3767,7 +3767,7 @@ h2 {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--orange-d);
+  color: #9a3412;
 }
 
 .it-icon-list {
@@ -3848,7 +3848,7 @@ h2 {
   top: 16px;
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--orange-d);
+  color: #9a3412;
   letter-spacing: 0.02em;
   line-height: 1;
 }
