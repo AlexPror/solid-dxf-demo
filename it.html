@@ -15,7 +15,7 @@
 
   <header class="site-header">
     <div class="draft-banner">
-      Материалы к согласованию · сайт v1.19.1 · 09.09.2026 ·
+      Материалы к согласованию · сайт v1.20 · 09.09.2026 ·
       <a class="draft-banner-link" href="https://alexpror.github.io/solid-dxf-demo/" rel="noopener noreferrer">alexpror.github.io/solid-dxf-demo</a>
     </div>
 
@@ -57,6 +57,7 @@
       <p class="lead">Надстройка работает <strong>внутри SOLIDWORKS</strong>. Сервер PDM не администрируем. Готовые файлы в хранилище моделей <strong>не записываем</strong>.</p>
       <div class="hero-actions">
         <a class="btn primary" href="#need">Требования</a>
+        <a class="btn" href="#faq-admin">Вопросы ИТ</a>
         <a class="btn" href="index.html">На главную</a>
       </div>
     </div>
@@ -306,7 +307,83 @@
     </div>
   </section>
 
-  <section class="section" id="out">
+  <section class="section" id="faq-admin">
+    <div class="wrap">
+      <h2>Частые вопросы администратора</h2>
+      <p class="section-lead">Короткие ответы на типичные возражения ИТ: что трогает установщик, как откатить, куда пишут логи.</p>
+
+      <div class="it-faq">
+        <details class="it-faq-item" open>
+          <summary>Что именно делает установка?</summary>
+          <div class="it-faq-body">
+            <p>Скрипт <code>install.ps1</code> (под локальным администратором, один раз):</p>
+            <ul>
+              <li>копирует DLL в <code>%ProgramData%\SolidDxf\bin\</code>;</li>
+              <li>копирует правила завода в <code>%ProgramData%\SolidDxf\clients\merkator\</code>;</li>
+              <li>регистрирует COM через <code>RegAsm /codebase</code>;</li>
+              <li>добавляет запись в список надстроек SOLIDWORKS: <code>HKLM\SOFTWARE\SolidWorks\Addins\{…}</code>.</li>
+            </ul>
+            <p><strong>Не создаёт</strong> службу Windows, планировщик заданий и отдельный сервер. В папку установки SOLIDWORKS файлы <strong>не</strong> кладёт. Сеть при установке не нужна.</p>
+          </div>
+        </details>
+
+        <details class="it-faq-item">
+          <summary>Как откатить за несколько минут?</summary>
+          <div class="it-faq-body">
+            <ol>
+              <li>В SOLIDWORKS снять галки <strong>SolidDxf</strong> (Инструменты → Надстройки) и закрыть программу.</li>
+              <li>Запустить <code>install.ps1 -Unregister</code> — снимет COM-регистрацию.</li>
+              <li>По желанию удалить папку <code>%ProgramData%\SolidDxf\</code>.</li>
+            </ol>
+            <p>Модели в PDM и каталог «лазер» установщик не меняет — откат надстройки их не затрагивает.</p>
+          </div>
+        </details>
+
+        <details class="it-faq-item">
+          <summary>Повредит ли надстройка хранилище PDM?</summary>
+          <div class="it-faq-body">
+            <p>Нет check-out, check-in и правок карточек. Поиск и открытие — как у технолога, только чтение. Готовые DXF и PDF в vault <strong>не регистрируются</strong> — только сетевой каталог «лазер».</p>
+            <p>Подробнее на главной: <a href="index.html#pdm-safe">работа с PDM</a>.</p>
+          </div>
+        </details>
+
+        <details class="it-faq-item">
+          <summary>Куда пишутся журналы? Уходят ли данные наружу?</summary>
+          <div class="it-faq-body">
+            <p>Журналы работ остаются <strong>у заказчика</strong>. Передача вовне — только по письменному согласованию. Установка и штатная работа не требуют исходящего доступа в интернет.</p>
+          </div>
+        </details>
+
+        <details class="it-faq-item">
+          <summary>Антивирус и «белый список» ПО</summary>
+          <div class="it-faq-body">
+            <p>Поставка — COM DLL и JSON-пакет правил, без отдельного установщика MSI. Если политика блокирует неизвестные DLL или PowerShell, ИБ/ИТ заранее добавляют в исключения:</p>
+            <ul>
+              <li>папку <code>%ProgramData%\SolidDxf\</code>;</li>
+              <li>запуск <code>install.ps1</code> (или выполняют команды из инструкции вручную).</li>
+            </ul>
+            <p>Код поставляется как согласованный комплект для площадки; исходники в поставку не входят.</p>
+          </div>
+        </details>
+
+        <details class="it-faq-item">
+          <summary>Не сломает ли SOLIDWORKS и другие надстройки?</summary>
+          <div class="it-faq-body">
+            <p>Это обычная надстройка в списке Add-Ins. Перед установкой SOLIDWORKS закрывают. При сомнении: на эталонном ПК сначала пилот (этап A), при диагностике временно отключают другие add-in. Включение галки SolidDxf может сделать технолог <strong>без</strong> прав администратора.</p>
+          </div>
+        </details>
+
+        <details class="it-faq-item">
+          <summary>Кто потом сопровождает и тиражирует?</summary>
+          <div class="it-faq-body">
+            <p>Тираж: ИТ копирует <code>%ProgramData%\SolidDxf\</code> на рабочие места (этап C). Обновление DLL: закрыть SOLIDWORKS, заменить файлы в <code>bin</code> — повторный RegAsm обычно не нужен. Постоянный админский доступ подрядчику не требуется.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="out">
     <div class="wrap">
       <h2>Вне объёма поставки</h2>
       <ul class="it-out">
@@ -316,7 +393,8 @@
       </ul>
       <p class="section-lead" style="margin-top:20px">Вопросы: <a href="tel:+79105290465">+7 910 529-04-65</a> · <a href="mailto:vorobjev.alexandr-2017@yandex.ru">vorobjev.alexandr-2017@yandex.ru</a></p>
       <p><a class="btn primary" href="index.html#contact">Контакт</a>
-         <a class="btn" href="index.html#pdm-safe">Работа с PDM</a></p>
+         <a class="btn" href="index.html#pdm-safe">Работа с PDM</a>
+         <a class="btn" href="#faq-admin">Вопросы ИТ</a></p>
     </div>
   </section>
 

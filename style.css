@@ -4222,6 +4222,85 @@ h2 {
   justify-content: center;
 }
 
+/* —— FAQ администратора —— */
+.it-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 820px;
+}
+
+.it-faq-item {
+  margin: 0;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.it-faq-item > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 14px 18px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--navy);
+  line-height: 1.35;
+  text-align: left;
+}
+
+.it-faq-item > summary::-webkit-details-marker {
+  display: none;
+}
+
+.it-faq-item > summary::before {
+  content: "+";
+  display: inline-block;
+  width: 1.2em;
+  margin-right: 8px;
+  color: #9a3412;
+  font-weight: 700;
+}
+
+.it-faq-item[open] > summary::before {
+  content: "–";
+}
+
+.it-faq-item > summary:hover {
+  background: #f4f7fa;
+}
+
+.it-faq-body {
+  padding: 0 18px 16px;
+  border-top: 1px solid var(--line);
+}
+
+.it-faq-body p,
+.it-faq-body li {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--muted);
+  text-align: justify;
+}
+
+.it-faq-body p {
+  margin: 12px 0 0;
+}
+
+.it-faq-body ul,
+.it-faq-body ol {
+  margin: 10px 0 0;
+  padding-left: 1.25em;
+}
+
+.it-faq-body li {
+  margin-bottom: 6px;
+}
+
+.it-faq-body code {
+  font-size: 0.84rem;
+}
+
 @media (max-width: 640px) {
   .page-it .section,
   .page-it .section-alt {
