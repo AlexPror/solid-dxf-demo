@@ -6,7 +6,7 @@
 **ИТ (требования):** [https://alexpror.github.io/solid-dxf-demo/it.html](https://alexpror.github.io/solid-dxf-demo/it.html)  
 **Репозиторий:** [solid-dxf-demo](https://github.com/AlexPror/solid-dxf-demo)
 
-Публичная версия: **v1.13** — отдельная страница требований к ИТ (`it.html`).
+Публичная версия: **v1.14** — страница требований к службе ИТ (`it.html`).
 
 Интерактивный калькулятор окупаемости в `index.html` закомментирован (`CALCULATOR_HIDDEN`) — на публичной версии только замеры и блок стоимости. Калькулятор остаётся в исходниках для локального использования.
 
