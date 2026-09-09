@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Требования к ИТ · Docs v1 · Меркатор</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="canonical" href="https://alexpror.github.io/solid-dxf-demo/it.html" />
+</head>
+<body class="page-it">
+
+  <div id="top" class="page-top" tabindex="-1" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="draft-banner">
+      Материалы к согласованию · сайт v1.13 · 09.09.2026 ·
+      <a class="draft-banner-link" href="https://alexpror.github.io/solid-dxf-demo/" rel="noopener noreferrer">alexpror.github.io/solid-dxf-demo</a>
+    </div>
+
+    <div class="site-nav">
+      <div class="wrap site-nav-inner">
+        <a class="site-brand" href="index.html#top">
+          <span class="site-brand-mark">Docs v1</span>
+          <span class="site-brand-sub">Пакет в цех</span>
+        </a>
+
+        <nav class="site-nav-links" aria-label="Разделы">
+          <a href="index.html#outcome">Итог</a>
+          <a href="index.html#demo">Демо</a>
+          <a href="index.html#decision">Решение</a>
+          <a href="index.html#package">Пакет</a>
+          <a href="it.html" aria-current="page">ИТ</a>
+          <a href="index.html#contact">Контакт</a>
+        </nav>
+
+        <div class="site-nav-contact">
+          <a class="nav-contact-link" href="tel:+79105290465" title="Позвонить">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span class="nav-contact-label">+7 910 529-04-65</span>
+          </a>
+          <a class="nav-contact-link nav-contact-mail" href="mailto:vorobjev.alexandr-2017@yandex.ru" title="Написать на почту">
+            <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span class="nav-contact-label nav-contact-email">vorobjev.alexandr-2017@yandex.ru</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero hero-it" aria-label="Требования к ИТ">
+    <div class="wrap">
+      <p class="eyebrow">Для службы ИТ и администратора PDM</p>
+      <h1>Требования к контуру внедрения</h1>
+      <p class="hero-tagline">Чёткий список: что обеспечивает заказчик, что делает исполнитель, как ставится надстройка.</p>
+      <p class="lead">Надстройка работает <strong>внутри SOLIDWORKS</strong>. Сервер PDM не администрируем. В хранилище <strong>не пишем</strong>.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#need">Что нужно от ИТ</a>
+        <a class="btn" href="index.html">На главную</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="roles">
+    <div class="wrap">
+      <h2>Кто за что отвечает</h2>
+      <div class="it-roles">
+        <article class="it-card">
+          <h3>ИТ заказчика</h3>
+          <ul>
+            <li>Рабочее место / VM с SOLIDWORKS 2018 SP3</li>
+            <li>Доступ (RDP или очно), права на установку один раз</li>
+            <li>PDM: поиск и открытие (как у технолога)</li>
+            <li>UNC-папка «лазер» с записью</li>
+            <li>TEST vault <em>или</em> согласованный пилот на боевом (read-only)</li>
+            <li>Тираж на остальные ПК после эталона</li>
+          </ul>
+        </article>
+        <article class="it-card it-card-accent">
+          <h3>Исполнитель</h3>
+          <ul>
+            <li>Пакет установки (DLL + Client Pack + скрипт)</li>
+            <li>Настройка надстройки под Excel и правила DXF/PDF</li>
+            <li>Работа только на чтение моделей</li>
+            <li>Результат — только в папку «лазер»</li>
+            <li>Обучение технологов, акты этапов</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="facts">
+    <div class="wrap">
+      <h2>Факты для ИТ (кратко)</h2>
+      <ol class="it-facts">
+        <li><strong>COM add-in</strong> внутри процесса SOLIDWORKS — не отдельный сервис и не доступ к SQL PDM.</li>
+        <li>Пилот на 150 позиций выполнен на SOLIDWORKS <strong>2018 SP3</strong> (по папке моделей) — полный пакет за 46 мин.</li>
+        <li>Подключение PDM — этап после доступов; поиск «как технолог ввёл шифр». <strong>Нет</strong> check-out, check-in, правок карточек.</li>
+        <li>DXF и PDF <strong>не сдаются</strong> в vault — только на сетевую/локальную папку «лазер».</li>
+        <li>Закрытый контур завода допустим: модели на флэшку <strong>не нужны</strong>. Работа на вашем ПК (RDP / очно).</li>
+        <li>Исходный код в поставку <strong>не входит</strong> — бинарники + Client Pack + инструкция.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="need">
+    <div class="wrap">
+      <h2>Что нужно обеспечить</h2>
+      <p class="section-lead">Минимальный чек-лист для старта внедрения на площадке.</p>
+      <div class="it-table-wrap">
+        <table class="it-table">
+          <thead>
+            <tr>
+              <th scope="col">№</th>
+              <th scope="col">Требование</th>
+              <th scope="col">Зачем</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>ПК или VM с <strong>SOLIDWORKS 2018 SP3 x64</strong> (эталонное место)</td>
+              <td>Приёмка и отладка на версии завода</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Слоты <strong>RDP</strong> или очный доступ; возможность закрыть SW для обновления DLL</td>
+              <td>Работа в закрытом контуре</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Права <strong>администратора один раз</strong> на скрипт установки</td>
+              <td>Копирование в ProgramData + регистрация COM (RegAsm)</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Учётка как у технолога: <strong>поиск и открытие</strong> в PDM (не админ хранилища)</td>
+              <td>Надстройка ищет модель по шифру и открывает файл</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><strong>UNC «лазер»</strong> (для пилота допустим «лазер2») — запись для технолога</td>
+              <td>Сюда пишутся DXF и PDF</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Согласовать контур: <strong>TEST vault</strong> <em>или</em> пилот на боевом read-only + малая выборка + лазер2</td>
+              <td>Снижение риска для боевого хранилища</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Имя поля шифра в карточке PDM — <strong>не блокер</strong> на первом совещании</td>
+              <td>Уточняется на первом сеансе по карточке/поиску</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>Логи остаются у заказчика; вынос наружу — только с разрешения</td>
+              <td>Политика ИБ</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="it-note"><strong>Не требуется от ИТ:</strong> создавать отдельный vault «для подрядчика», заводить новые переменные PDM с нуля, открывать SQL/служебную БД PDM, отдавать исходники завода наружу.</p>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="stages">
+    <div class="wrap">
+      <h2>Этапы внедрения (контур)</h2>
+      <div class="it-stages">
+        <article class="it-stage">
+          <p class="it-stage-num">A</p>
+          <h3>Тест</h3>
+          <p>TEST vault <em>или</em> боевой PDM только чтение + выход на лазер2 + 15–20 позиций → <strong>акт A</strong>.</p>
+        </article>
+        <article class="it-stage">
+          <p class="it-stage-num">B</p>
+          <h3>Боевой режим</h3>
+          <p>Тот же режим read-only на полном боевом контуре → <strong>акт B</strong>.</p>
+        </article>
+        <article class="it-stage">
+          <p class="it-stage-num">C</p>
+          <h3>Тираж и обучение</h3>
+          <p>Копия <code>%ProgramData%\SolidDxf\</code> на рабочие места + обучение технологов → <strong>акт C</strong>.</p>
+        </article>
+      </div>
+      <p class="it-note">Обновление после багфикса: закрыть SOLIDWORKS, заменить файлы в <code>bin</code> на эталоне, ИТ тиражирует папку. Повторный RegAsm обычно не нужен.</p>
+    </div>
+  </section>
+
+  <section class="section" id="install">
+    <div class="wrap">
+      <h2>Куда ставится надстройка</h2>
+      <p class="section-lead">Путь только латиницей. Не в каталог установки SOLIDWORKS и не в папки с кириллицей.</p>
+      <pre class="it-code" aria-label="Схема установки">Пакет admin-install                 На компьютере
+────────────────────────────────    ────────────────────────────────
+payload\bin\          ─────────►    C:\ProgramData\SolidDxf\bin\
+  SolidDxf.AddIn.dll                  (+ зависимости *.dll)
+payload\clients\merkator\ ──────►   C:\ProgramData\SolidDxf\clients\merkator\
+install.ps1           ─────────►    (запуск под админом, UAC)</pre>
+      <h3 class="it-subh">Включение в SOLIDWORKS (без прав админа)</h3>
+      <ol class="it-facts">
+        <li>Полностью закрыть и снова запустить SOLIDWORKS.</li>
+        <li><strong>Инструменты → Надстройки</strong> (Tools → Add-Ins).</li>
+        <li>Найти <strong>SolidDxf</strong> — галка «в этом сеансе» и «при запуске».</li>
+        <li>Справа — панель задач <strong>SolidDxf</strong>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="out">
+    <div class="wrap">
+      <h2>Что вне зоны ИТ / вне Docs v1</h2>
+      <ul class="it-out">
+        <li>Интеграция с 1С, HypCut, печать из надстройки</li>
+        <li>Check-in DXF/PDF в PDM</li>
+        <li>Администрирование сервера PDM и создание хранилищ «с нуля» силами исполнителя</li>
+        <li>Передача исходного кода add-in</li>
+      </ul>
+      <p class="section-lead" style="margin-top:20px">Вопросы по контуру: <a href="tel:+79105290465">+7 910 529-04-65</a> · <a href="mailto:vorobjev.alexandr-2017@yandex.ru">vorobjev.alexandr-2017@yandex.ru</a> · Воробьёв А.С.</p>
+      <p><a class="btn primary" href="index.html#contact">Контакт на главной</a>
+         <a class="btn" href="index.html#pdm-safe">PDM на главной</a></p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <p class="footer-title">Пакет в цех · Docs v1</p>
+        <p class="muted">Требования к ИТ · ООО «Меркатор Калуга»</p>
+        <p class="footer-site">
+          <a href="https://alexpror.github.io/solid-dxf-demo/" rel="noopener noreferrer">alexpror.github.io/solid-dxf-demo</a>
+          · <a href="index.html">главная</a>
+        </p>
+      </div>
+      <div class="footer-meta">
+        <p class="muted">Воробьёв А.С.</p>
+        <p class="footer-contact">
+          <a href="tel:+79105290465">+7 910 529-04-65</a>
+          <a href="mailto:vorobjev.alexandr-2017@yandex.ru">vorobjev.alexandr-2017@yandex.ru</a>
+        </p>
+      </div>
+      <p class="footer-top"><a href="#top">Наверх</a></p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('a[href="#top"]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo(0, 0);
+        var t = document.getElementById('top');
+        if (t) t.focus({ preventScroll: true });
+      });
+    });
+  </script>
+</body>
+</html>
