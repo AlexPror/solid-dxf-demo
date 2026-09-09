@@ -25,6 +25,112 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Основной текст — по ширине, ровные края */
+p,
+li,
+dd,
+.section-lead,
+.lead,
+.hero-tagline,
+.decision-frame,
+.decision-path-note,
+.decision-close,
+.decision-card p,
+.note,
+.it-note,
+.it-bound p,
+.it-req p,
+.it-stage-card p,
+.it-out li,
+.pdm-safety-lead,
+.pdm-safety-foot,
+.field-hint,
+.outcome-strip-foot,
+.outcome-strip-meta,
+.package-includes li,
+.package-caveats li,
+.package-docs,
+.pricing-card li,
+.pricing-note,
+.benchmark-card li,
+.benchmark-table td,
+.contact-strip .section-lead,
+.appendix-block p,
+.calc-note,
+.formula-list dd,
+.result-formula,
+.result-extra {
+  text-align: justify;
+  text-justify: inter-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+/* Не растягивать короткие/служебные блоки */
+.draft-banner,
+.draft-banner p,
+.site-nav,
+.site-brand,
+.site-nav-links,
+.hero-stats,
+.stat,
+.stat-label,
+.outcome-strip-side,
+.outcome-strip-label,
+.outcome-strip-value,
+.outcome-strip-arrow,
+.it-flow-step,
+.it-flow-step strong,
+.it-flow-step span,
+.it-stage-letter,
+.it-stage-act,
+.it-req-num,
+.it-card-kicker,
+.it-install-label,
+.it-li-mark,
+.btn,
+.btn-contact,
+.package-tag,
+.package-price,
+.package-pay,
+.pricing-tag,
+.pricing-amount,
+.footer-title,
+.footer-meta,
+.footer-contact,
+.proof-carousel-caption,
+.proof-carousel-meta,
+.nav-contact-label,
+h1, h2, h3, h4,
+summary,
+th,
+.eyebrow {
+  text-align: start;
+}
+
+.draft-banner,
+.hero-stats,
+.stat,
+.outcome-strip-side,
+.outcome-strip-label,
+.outcome-strip-value,
+.it-flow-step,
+.proof-carousel-caption,
+.proof-carousel-meta {
+  text-align: center;
+}
+
+.footer-meta {
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .footer-meta {
+    text-align: left;
+  }
+}
+
 /* Кликом не подсвечивать блоки; клавиатурный фокус оставляем */
 :focus { outline: none; }
 :focus-visible {
