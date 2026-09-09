@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Требования к службе ИТ · Комплект Docs · Меркатор</title>
+  <title>Инфраструктура внедрения · Комплект Docs · Меркатор</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="canonical" href="https://alexpror.github.io/solid-dxf-demo/it.html" />
 </head>
@@ -14,7 +14,7 @@
 
   <header class="site-header">
     <div class="draft-banner">
-      Материалы к согласованию · сайт v1.15.1 · 09.09.2026 ·
+      Материалы к согласованию · сайт v1.16 · 09.09.2026 ·
       <a class="draft-banner-link" href="https://alexpror.github.io/solid-dxf-demo/" rel="noopener noreferrer">alexpror.github.io/solid-dxf-demo</a>
     </div>
 
@@ -29,201 +29,249 @@
           <a href="index.html#outcome">Итог</a>
           <a href="index.html#demo">Демо</a>
           <a href="index.html#decision">Решение</a>
-          <a href="index.html#package">Пакет</a>
+          <a href="index.html#package">Состав</a>
           <a href="it.html" aria-current="page">Инфраструктура</a>
           <a href="index.html#contact">Контакт</a>
         </nav>
 
         <div class="site-nav-contact">
-          <a class="nav-contact-link" href="tel:+79105290465" title="Позвонить">
+          <a class="nav-contact-link" href="tel:+79105290465" title="Позвонить: +7 910 529-04-65" aria-label="Позвонить: +7 910 529-04-65">
             <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             <span class="nav-contact-label">+7 910 529-04-65</span>
           </a>
-          <a class="nav-contact-link nav-contact-mail" href="mailto:vorobjev.alexandr-2017@yandex.ru" title="Написать на почту">
+          <a class="nav-contact-link" href="mailto:vorobjev.alexandr-2017@yandex.ru" title="Написать на почту" aria-label="Написать на почту">
             <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            <span class="nav-contact-label nav-contact-email">vorobjev.alexandr-2017@yandex.ru</span>
+            <span class="nav-contact-label">vorobjev.alexandr-2017@yandex.ru</span>
           </a>
         </div>
       </div>
     </div>
   </header>
 
-  <section class="hero hero-it" aria-label="Требования к службе ИТ">
+  <section class="hero hero-it" aria-label="Инфраструктура внедрения">
     <div class="wrap">
       <p class="eyebrow">Для службы информационных технологий и администратора SOLIDWORKS PDM</p>
-      <h1>Требования к инфраструктуре внедрения</h1>
-      <p class="hero-tagline">Условия со стороны заказчика для внедрения надстройки <strong>«Комплект Docs»</strong>: рабочее место, доступы, каталог выгрузки и установка модуля в SOLIDWORKS.</p>
-      <p class="lead">Модуль выполняется <strong>в составе SOLIDWORKS</strong> на рабочем месте пользователя. Администрирование сервера PDM и запись готовых файлов в хранилище моделей <strong>не входят</strong> в зону исполнителя.</p>
+      <h1>Инфраструктура внедрения</h1>
+      <p class="hero-tagline">Условия со стороны заказчика для надстройки <strong>«Комплект Docs»</strong>: рабочее место, доступы, каталог выгрузки и установка модуля.</p>
+      <p class="lead">Модуль работает <strong>в составе SOLIDWORKS</strong>. Сервер PDM не администрируем. Готовые файлы в хранилище моделей <strong>не записываем</strong>.</p>
       <div class="hero-actions">
-        <a class="btn primary" href="#need">Перечень требований</a>
+        <a class="btn primary" href="#need">Требования</a>
         <a class="btn" href="index.html">На главную</a>
       </div>
     </div>
   </section>
 
-  <section class="section" id="roles">
+  <section class="section" id="map">
+    <div class="wrap">
+      <h2>Как устроен контур</h2>
+      <p class="section-lead">Схема взаимодействия: что даёт заказчик и куда попадают результаты.</p>
+      <div class="it-flow" aria-label="Схема контура">
+        <div class="it-flow-step">
+          <span class="it-flow-icon" aria-hidden="true">1</span>
+          <strong>Перечень Excel</strong>
+          <span>вход технолога</span>
+        </div>
+        <span class="it-flow-arrow" aria-hidden="true">→</span>
+        <div class="it-flow-step">
+          <span class="it-flow-icon" aria-hidden="true">2</span>
+          <strong>SOLIDWORKS + модуль</strong>
+          <span>поиск модели, выпуск</span>
+        </div>
+        <span class="it-flow-arrow" aria-hidden="true">→</span>
+        <div class="it-flow-step">
+          <span class="it-flow-icon" aria-hidden="true">3</span>
+          <strong>PDM только чтение</strong>
+          <span>открытие файла</span>
+        </div>
+        <span class="it-flow-arrow" aria-hidden="true">→</span>
+        <div class="it-flow-step it-flow-step-out">
+          <span class="it-flow-icon" aria-hidden="true">4</span>
+          <strong>Каталог «лазер»</strong>
+          <span>DXF и PDF</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="roles">
     <div class="wrap">
       <h2>Разделение ответственности</h2>
       <div class="it-roles">
         <article class="it-card">
-          <h3>Служба ИТ заказчика</h3>
-          <ul>
-            <li>Рабочее место или виртуальная машина с SOLIDWORKS 2018 SP3 (64-разрядная редакция)</li>
-            <li>Доступ исполнителя по <strong>удалённому рабочему столу</strong> (либо согласованный выезд)</li>
-            <li>Права локального администратора для <strong>первичной установки</strong> надстройки «Комплект Docs» (<a href="#install">порядок установки</a>). Установку может выполнить <strong>системный администратор заказчика</strong> самостоятельно по инструкции исполнителя</li>
-            <li>Учётная запись в SOLIDWORKS PDM с правами поиска и открытия файлов (как у технолога)</li>
-            <li>Сетевой каталог выгрузки («лазер») с правом записи для пользователей надстройки</li>
-            <li>Тестовое хранилище PDM <em>либо</em> согласованный пилот на рабочем хранилище в режиме только чтения</li>
-            <li>Распространение установленного комплекта на остальные рабочие места после приёмки на эталоне</li>
+          <p class="it-card-kicker">Заказчик</p>
+          <h3>Служба ИТ</h3>
+          <ul class="it-icon-list">
+            <li><span class="it-li-mark" aria-hidden="true">ПК</span> Рабочее место или ВМ с SOLIDWORKS 2018 SP3 (x64)</li>
+            <li><span class="it-li-mark" aria-hidden="true">↔</span> Удалённый рабочий стол для исполнителя (либо выезд)</li>
+            <li><span class="it-li-mark" aria-hidden="true">✓</span> Первичная установка модулем <a href="#install">системным администратором</a></li>
+            <li><span class="it-li-mark" aria-hidden="true">👁</span> Учётка PDM: поиск и открытие (как у технолога)</li>
+            <li><span class="it-li-mark" aria-hidden="true">📁</span> Сетевой каталог «лазер» с правом записи</li>
+            <li><span class="it-li-mark" aria-hidden="true">🧪</span> Тестовое хранилище или согласованный пилот на рабочем</li>
           </ul>
         </article>
         <article class="it-card it-card-accent">
-          <h3>Исполнитель</h3>
-          <ul>
-            <li>Поставка установочного комплекта надстройки «Комплект Docs» и инструкции для системного администратора</li>
-            <li>Настройка под перечень Excel и правила выпуска DXF, чертежей и PDF</li>
-            <li>Работа с моделями только на просмотр (без изъятия и возврата в PDM)</li>
-            <li>Выгрузка результатов исключительно в согласованный каталог «лазер»</li>
-            <li>Обучение технологов и оформление актов по этапам внедрения</li>
+          <p class="it-card-kicker">Исполнитель</p>
+          <h3>Внедрение модуля</h3>
+          <ul class="it-icon-list">
+            <li><span class="it-li-mark" aria-hidden="true">📦</span> Установочный комплект и инструкция для администратора</li>
+            <li><span class="it-li-mark" aria-hidden="true">⚙</span> Настройка под Excel, DXF, чертежи и PDF</li>
+            <li><span class="it-li-mark" aria-hidden="true">👁</span> Работа с моделями только на просмотр</li>
+            <li><span class="it-li-mark" aria-hidden="true">📁</span> Выгрузка только в каталог «лазер»</li>
+            <li><span class="it-li-mark" aria-hidden="true">👥</span> Обучение технологов и акты этапов</li>
           </ul>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section section-alt" id="boundaries">
+  <section class="section" id="boundaries">
     <div class="wrap">
-      <h2>Границы взаимодействия с ИТ-контуром</h2>
-      <p class="section-lead">Условия, которые исключают неверные ожидания до начала работ.</p>
-      <ul class="it-facts">
-        <li>Надстройка «Комплект Docs» подключается к SOLIDWORKS как модуль расширения на рабочем месте. Это не отдельный сервер и не обращение к служебной базе данных PDM.</li>
-        <li>Готовые DXF и PDF размещаются только в каталоге «лазер». В SOLIDWORKS PDM файлы результатов <strong>не регистрируются</strong>.</li>
-        <li>Изъятие файлов из хранилища, их возврат и изменение карточек документов <strong>не выполняются</strong>.</li>
-        <li>При закрытом сетевом контуре предприятия вынос моделей на съёмные носители <strong>не требуется</strong>: работы ведутся на выделенном рабочем месте заказчика через удалённый рабочий стол или на площадке.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section" id="need">
-    <div class="wrap">
-      <h2>Перечень требований к инфраструктуре</h2>
-      <p class="section-lead">Минимальные условия для начала внедрения на площадке заказчика.</p>
-      <div class="it-table-wrap">
-        <table class="it-table">
-          <thead>
-            <tr>
-              <th scope="col">№</th>
-              <th scope="col">Требование</th>
-              <th scope="col">Назначение</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Рабочее место или виртуальная машина с <strong>SOLIDWORKS 2018 SP3</strong> (x64) — эталон для внедрения</td>
-              <td>Установка, проверка и приёмка на версии CAD предприятия</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Доступ исполнителя по <strong>удалённому рабочему столу</strong> (либо выезд); возможность завершить сеанс SOLIDWORKS для обновления файлов надстройки</td>
-              <td>Работы в закрытом контуре без выноса моделей</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Права <strong>локального администратора</strong> для первичной установки надстройки «Комплект Docs»: копирование программных модулей в <code>C:\ProgramData\SolidDxf\</code> и регистрация модуля в SOLIDWORKS. Установку выполняет <strong>системный администратор заказчика</strong> по инструкции и установочному комплекту исполнителя (<a href="#install">порядок установки</a>); присутствие исполнителя при установке не обязательно</td>
-              <td>Первичная установка на эталонном ПК. Повторные обновления файлов обычно без повторной регистрации</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Учётная запись SOLIDWORKS PDM с правами <strong>поиска и открытия</strong> моделей (уровень технолога, без администрирования хранилища)</td>
-              <td>Поиск модели по обозначению из перечня и открытие файла в SOLIDWORKS</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Сетевой путь каталога <strong>«лазер»</strong> (UNC); для пилота допустим отдельный каталог, например «лазер2» — с правом записи для пользователей надстройки</td>
-              <td>Размещение DXF и PDF-альбома</td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>Согласовать контур пилота: <strong>тестовое хранилище</strong> PDM <em>либо</em> ограниченный прогон на рабочем хранилище в режиме только чтения с выгрузкой в отдельный каталог</td>
-              <td>Снижение рисков для рабочего хранилища на этапе внедрения</td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>Имя поля карточки PDM с обозначением (шифром) детали — уточняется при первом сеансе, если не указано заранее</td>
-              <td>Сопоставление строк перечня Excel с файлами в хранилище</td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>Журналы работы надстройки хранятся на стороне заказчика; передача вовне — только по письменному согласованию</td>
-              <td>Соответствие политике информационной безопасности</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="it-note"><strong>Не требуется от службы ИТ:</strong> создание отдельного хранилища «для подрядчика» с нуля силами исполнителя; открытие служебной базы данных PDM; передача исходных кодов моделей за пределы контура предприятия.</p>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="stages">
-    <div class="wrap">
-      <h2>Этапы внедрения в ИТ-контуре</h2>
-      <div class="it-stages">
-        <article class="it-stage">
-          <p class="it-stage-num">A</p>
-          <h3>Пилот на тестовом контуре</h3>
-          <p>Тестовое хранилище <em>либо</em> рабочее хранилище только на чтение, выгрузка в отдельный каталог, ограниченный перечень (15–20 позиций) → <strong>акт этапа A</strong>.</p>
+      <h2>Границы взаимодействия</h2>
+      <div class="it-bound-grid">
+        <article class="it-bound">
+          <h3>Что это</h3>
+          <p>Модуль расширения SOLIDWORKS на рабочем месте. Не отдельный сервер и не доступ к служебной базе PDM.</p>
         </article>
-        <article class="it-stage">
-          <p class="it-stage-num">B</p>
-          <h3>Рабочее хранилище</h3>
-          <p>Тот же режим только чтения на полном рабочем контуре PDM → <strong>акт этапа B</strong>.</p>
+        <article class="it-bound">
+          <h3>Куда пишем</h3>
+          <p>Только каталог «лазер». В SOLIDWORKS PDM готовые DXF и PDF <strong>не регистрируются</strong>.</p>
         </article>
-        <article class="it-stage">
-          <p class="it-stage-num">C</p>
-          <h3>Распространение и обучение</h3>
-          <p>Копирование каталога <code>%ProgramData%\SolidDxf\</code> на рабочие места технологов, обучение пользователей → <strong>акт этапа C</strong>.</p>
+        <article class="it-bound">
+          <h3>Чего нет</h3>
+          <p>Изъятие и возврат файлов в хранилище, изменение карточек документов.</p>
+        </article>
+        <article class="it-bound">
+          <h3>Закрытый контур</h3>
+          <p>Вынос моделей на съёмные носители не нужен. Работы — через удалённый рабочий стол или на площадке.</p>
         </article>
       </div>
-      <p class="it-note">После доработки модуля: завершить SOLIDWORKS на эталонном месте, обновить файлы в каталоге <code>bin</code>; системный администратор копирует обновление на остальные ПК. Повторная регистрация модуля, как правило, не требуется.</p>
     </div>
   </section>
 
-  <section class="section" id="install">
+  <section class="section section-alt" id="need">
     <div class="wrap">
-      <h2 id="install-heading">Порядок установки надстройки «Комплект Docs»</h2>
-      <p class="section-lead">Устанавливается программный модуль <strong>«Комплект Docs»</strong> (техническое имя модуля в SOLIDWORKS — SolidDxf): библиотеки и пакет настроек для площадки Меркатор. Установку выполняет <strong>системный администратор заказчика</strong> по инструкции исполнителя; присутствие исполнителя не обязательно.</p>
-      <p class="section-lead">Каталог установки — только с латинскими символами в пути.</p>
-      <pre class="it-code" aria-label="Схема установки">Установочный комплект              На компьютере пользователя
-────────────────────────────────    ────────────────────────────────
-payload\bin\          ─────────►    C:\ProgramData\SolidDxf\bin\
-  SolidDxf.AddIn.dll                  (модуль и связанные библиотеки)
-payload\clients\merkator\ ──────►   C:\ProgramData\SolidDxf\clients\merkator\
-install.ps1           ─────────►    запуск от имени администратора
-                                    (копирование файлов и регистрация
-                                     модуля в списке надстроек SOLIDWORKS)</pre>
-      <h3 class="it-subh">Включение модуля в SOLIDWORKS</h3>
-      <p class="section-lead" style="margin-bottom:12px">Выполняет пользователь или исполнитель <strong>без</strong> прав администратора после установки.</p>
-      <ol class="it-facts">
-        <li>Полностью завершить работу SOLIDWORKS и запустить программу снова.</li>
-        <li>Меню <strong>Инструменты → Надстройки</strong> (в английской локализации: Tools → Add-Ins).</li>
-        <li>В списке выбрать <strong>SolidDxf</strong>: включить для текущего сеанса и при запуске SOLIDWORKS.</li>
-        <li>В области панелей задач должна отображаться панель модуля.</li>
+      <h2>Перечень требований</h2>
+      <p class="section-lead">Восемь условий для старта внедрения. Наведите на номер — краткий смысл.</p>
+      <div class="it-req-grid">
+        <article class="it-req">
+          <span class="it-req-num">01</span>
+          <h3>Эталонное рабочее место</h3>
+          <p>ПК или ВМ с <strong>SOLIDWORKS 2018 SP3</strong> (x64) для установки и приёмки.</p>
+        </article>
+        <article class="it-req">
+          <span class="it-req-num">02</span>
+          <h3>Удалённый рабочий стол</h3>
+          <p>Доступ исполнителя; возможность закрыть SOLIDWORKS для обновления файлов модуля.</p>
+        </article>
+        <article class="it-req">
+          <span class="it-req-num">03</span>
+          <h3>Права администратора</h3>
+          <p>Один раз для установки «Комплект Docs». Выполняет <strong>системный администратор заказчика</strong> по инструкции (<a href="#install">порядок</a>).</p>
+        </article>
+        <article class="it-req">
+          <span class="it-req-num">04</span>
+          <h3>Учётка PDM</h3>
+          <p>Поиск и открытие моделей (уровень технолога), без администрирования хранилища.</p>
+        </article>
+        <article class="it-req">
+          <span class="it-req-num">05</span>
+          <h3>Каталог «лазер»</h3>
+          <p>Сетевой путь (UNC) с записью. Для пилота допустим отдельный каталог, например «лазер2».</p>
+        </article>
+        <article class="it-req">
+          <span class="it-req-num">06</span>
+          <h3>Тестовое хранилище</h3>
+          <p>Либо ограниченный пилот на рабочем хранилище только на чтение с выгрузкой в отдельный каталог.</p>
+        </article>
+        <article class="it-req">
+          <span class="it-req-num">07</span>
+          <h3>Поле обозначения</h3>
+          <p>Имя поля карточки PDM с шифром — уточняется на первом сеансе, если не задано заранее.</p>
+        </article>
+        <article class="it-req">
+          <span class="it-req-num">08</span>
+          <h3>Журналы работ</h3>
+          <p>Хранятся у заказчика; передача вовне — только по письменному согласованию.</p>
+        </article>
+      </div>
+      <p class="it-note"><strong>Не требуется:</strong> создание отдельного хранилища «для подрядчика» силами исполнителя; открытие служебной базы PDM; вынос исходных кодов моделей за контур предприятия.</p>
+    </div>
+  </section>
+
+  <section class="section" id="stages">
+    <div class="wrap">
+      <h2>Этапы внедрения</h2>
+      <div class="it-timeline" aria-label="Этапы A B C">
+        <article class="it-tl-item">
+          <div class="it-tl-badge">A</div>
+          <div class="it-tl-body">
+            <h3>Пилот</h3>
+            <p>Тестовое хранилище или рабочее только на чтение · выгрузка в отдельный каталог · 15–20 позиций · <strong>акт A</strong></p>
+          </div>
+        </article>
+        <div class="it-tl-join" aria-hidden="true"></div>
+        <article class="it-tl-item">
+          <div class="it-tl-badge">B</div>
+          <div class="it-tl-body">
+            <h3>Рабочее хранилище</h3>
+            <p>Тот же режим только чтения на полном контуре PDM · <strong>акт B</strong></p>
+          </div>
+        </article>
+        <div class="it-tl-join" aria-hidden="true"></div>
+        <article class="it-tl-item">
+          <div class="it-tl-badge">C</div>
+          <div class="it-tl-body">
+            <h3>Распространение</h3>
+            <p>Копия <code>%ProgramData%\SolidDxf\</code> на рабочие места · обучение · <strong>акт C</strong></p>
+          </div>
+        </article>
+      </div>
+      <p class="it-note">Обновление после доработки: закрыть SOLIDWORKS на эталоне, обновить <code>bin</code>; администратор копирует на остальные ПК. Повторная регистрация обычно не нужна.</p>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="install">
+    <div class="wrap">
+      <h2>Порядок установки «Комплект Docs»</h2>
+      <p class="section-lead">Установку выполняет <strong>системный администратор заказчика</strong> по инструкции. Присутствие исполнителя не обязательно. Путь установки — только латиница.</p>
+
+      <div class="it-install-flow" aria-label="Куда копируются файлы">
+        <div class="it-install-box">
+          <p class="it-install-label">Установочный комплект</p>
+          <p><code>payload\bin\</code></p>
+          <p><code>payload\clients\merkator\</code></p>
+          <p><code>install.ps1</code></p>
+        </div>
+        <div class="it-install-arrow" aria-hidden="true">→</div>
+        <div class="it-install-box it-install-box-dest">
+          <p class="it-install-label">На компьютере</p>
+          <p><code>C:\ProgramData\SolidDxf\bin\</code></p>
+          <p><code>C:\ProgramData\SolidDxf\clients\merkator\</code></p>
+          <p>регистрация в списке надстроек SOLIDWORKS</p>
+        </div>
+      </div>
+
+      <h3 class="it-subh">Включение в SOLIDWORKS</h3>
+      <ol class="it-steps">
+        <li><span>1</span> Завершить SOLIDWORKS и запустить снова</li>
+        <li><span>2</span> <strong>Инструменты → Надстройки</strong> (Tools → Add-Ins)</li>
+        <li><span>3</span> Включить <strong>SolidDxf</strong> (сеанс и при запуске)</li>
+        <li><span>4</span> Панель модуля справа в области задач</li>
       </ol>
     </div>
   </section>
 
-  <section class="section section-alt" id="out">
+  <section class="section" id="out">
     <div class="wrap">
-      <h2>Вне объёма работ Docs v1</h2>
+      <h2>Вне объёма Docs v1</h2>
       <ul class="it-out">
         <li>Интеграция с 1С, системами раскроя и печать из надстройки</li>
         <li>Регистрация выпущенных DXF и PDF в SOLIDWORKS PDM</li>
-        <li>Администрирование сервера PDM и развёртывание хранилищ силами исполнителя</li>
+        <li>Администрирование сервера PDM силами исполнителя</li>
       </ul>
-      <p class="section-lead" style="margin-top:20px">Вопросы по инфраструктуре: <a href="tel:+79105290465">+7 910 529-04-65</a> · <a href="mailto:vorobjev.alexandr-2017@yandex.ru">vorobjev.alexandr-2017@yandex.ru</a> · Воробьёв А.С.</p>
-      <p><a class="btn primary" href="index.html#contact">Контакт на главной</a>
-         <a class="btn" href="index.html#pdm-safe">Работа с PDM на главной</a></p>
+      <p class="section-lead" style="margin-top:20px">Вопросы: <a href="tel:+79105290465">+7 910 529-04-65</a> · <a href="mailto:vorobjev.alexandr-2017@yandex.ru">vorobjev.alexandr-2017@yandex.ru</a></p>
+      <p><a class="btn primary" href="index.html#contact">Контакт</a>
+         <a class="btn" href="index.html#pdm-safe">Работа с PDM</a></p>
     </div>
   </section>
 
@@ -231,7 +279,7 @@ install.ps1           ─────────►    запуск от име
     <div class="wrap footer-inner">
       <div class="footer-brand">
         <p class="footer-title">Комплект Docs · Docs v1</p>
-        <p class="muted">Требования к службе ИТ · ООО «Меркатор Калуга»</p>
+        <p class="muted">Инфраструктура внедрения · ООО «Меркатор Калуга»</p>
         <p class="footer-site">
           <a href="https://alexpror.github.io/solid-dxf-demo/" rel="noopener noreferrer">alexpror.github.io/solid-dxf-demo</a>
           · <a href="index.html">главная</a>
