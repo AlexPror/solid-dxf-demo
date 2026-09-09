@@ -3778,19 +3778,40 @@ h2 {
 
 .it-icon-list li {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: flex-start;
-  margin-bottom: 10px;
-  line-height: 1.4;
+  margin-bottom: 12px;
+  line-height: 1.45;
   font-size: 0.92rem;
+}
+
+.it-icon-list li:last-child {
+  margin-bottom: 0;
 }
 
 .it-li-mark {
   flex-shrink: 0;
-  width: 1.75rem;
-  text-align: center;
-  font-size: 0.75rem;
-  opacity: 0.85;
+  width: 32px;
+  height: 32px;
+  margin-top: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #eef4f8;
+  color: var(--navy);
+  border: 1px solid #d5e2ec;
+}
+
+.it-card-accent .it-li-mark {
+  background: #e8f1f8;
+  border-color: #c5d8e6;
+}
+
+.it-ico {
+  width: 16px;
+  height: 16px;
+  display: block;
 }
 
 .it-bound-grid {
@@ -3814,6 +3835,22 @@ h2 {
   margin: 0 0 6px;
   font-size: 0.95rem;
   color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.it-bound-ico {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  background: #eef4f8;
+  color: var(--navy);
+  border: 1px solid #d5e2ec;
 }
 
 .it-bound p {
@@ -3834,33 +3871,41 @@ h2 {
 }
 
 .it-req {
-  position: relative;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 10px;
-  padding: 18px 18px 16px 56px;
-  min-height: 100px;
+  padding: 18px 20px;
+  min-height: 0;
+}
+
+.it-req-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
 }
 
 .it-req-num {
-  position: absolute;
-  left: 14px;
-  top: 16px;
-  font-size: 1.1rem;
+  flex-shrink: 0;
+  min-width: 1.6rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #9a3412;
   letter-spacing: 0.02em;
-  line-height: 1;
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums;
 }
 
 .it-req h3 {
-  margin: 0 0 6px;
+  margin: 0;
   font-size: 0.98rem;
   color: var(--navy);
+  line-height: 1.25;
 }
 
 .it-req p {
   margin: 0;
+  padding-left: calc(1.6rem + 12px);
   font-size: 0.88rem;
   line-height: 1.45;
   color: var(--muted);
@@ -4020,8 +4065,7 @@ h2 {
   }
 
   .it-card,
-  .it-bound,
-  .it-req {
+  .it-bound {
     padding-top: 18px;
     padding-bottom: 16px;
   }
