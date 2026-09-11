@@ -1,14 +1,14 @@
-# Презентация «Надстройка Меркатор»
+# Демо SolidDxf
 
-Статический сайт для ООО «Меркатор Калуга».
+Статический сайт для листового производства.
 
 **Сайт:** [https://alexpror.github.io/solid-dxf-demo/](https://alexpror.github.io/solid-dxf-demo/)  
 **ИТ (требования):** [https://alexpror.github.io/solid-dxf-demo/it.html](https://alexpror.github.io/solid-dxf-demo/it.html)  
 **Репозиторий:** [solid-dxf-demo](https://github.com/AlexPror/solid-dxf-demo)
 
-Публичная версия: **v1.14** — страница требований к службе ИТ (`it.html`).
+Публичная версия: **v1.23** — обезличенное демо (без бренда заказчика).
 
-Интерактивный калькулятор окупаемости в `index.html` закомментирован (`CALCULATOR_HIDDEN`) — на публичной версии только замеры и блок стоимости. Калькулятор остаётся в исходниках для локального использования.
+Интерактивный калькулятор окупаемости в `index.html` закомментирован (`CALCULATOR_HIDDEN`). Блок оплаты скрыт (`PAYMENT_HIDDEN`).
 
 ## Локальный просмотр
 

@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <meta name="description" content="Инфраструктура внедрения надстройки Меркатор: требования к ИТ, PDM только чтение, каталог «лазер», этапы A–C и порядок установки." />
-  <title>Инфраструктура внедрения · Надстройка Меркатор</title>
+  <meta name="description" content="Инфраструктура внедрения надстройки SolidDxf: требования к ИТ, PDM только чтение, каталог «лазер», этапы A–C и порядок установки." />
+  <title>Инфраструктура внедрения · Надстройка SolidDxf</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="canonical" href="https://alexpror.github.io/solid-dxf-demo/it.html" />
 </head>
@@ -15,14 +15,14 @@
 
   <header class="site-header">
     <div class="draft-banner">
-      Материалы к согласованию · сайт v1.22 ·
+      Демо · сайт v1.23 ·
       <a class="draft-banner-link" href="https://alexpror.github.io/solid-dxf-demo/" rel="noopener noreferrer">alexpror.github.io/solid-dxf-demo</a>
     </div>
 
     <div class="site-nav">
       <div class="wrap site-nav-inner">
         <a class="site-brand" href="index.html#top">
-          <span class="site-brand-mark">Меркатор</span>
+          <span class="site-brand-mark">SolidDxf</span>
           <span class="site-brand-sub">Надстройка</span>
         </a>
 
@@ -53,7 +53,7 @@
     <div class="wrap">
       <p class="eyebrow">Для службы информационных технологий и администратора SOLIDWORKS PDM</p>
       <h1>Инфраструктура внедрения</h1>
-      <p class="hero-tagline">Условия со стороны заказчика для <strong>надстройки Меркатор</strong>: рабочее место, доступы, каталог выгрузки и установка.</p>
+      <p class="hero-tagline">Условия со стороны заказчика для <strong>надстройки SolidDxf</strong>: рабочее место, доступы, каталог выгрузки и установка.</p>
       <p class="lead">Надстройка работает <strong>внутри SOLIDWORKS</strong>. Сервер PDM не администрируем. Готовые файлы в хранилище моделей <strong>не записываем</strong>.</p>
       <div class="hero-actions">
         <a class="btn primary" href="#need">Требования</a>
@@ -113,7 +113,7 @@
             </li>
             <li>
               <span class="it-li-mark" aria-hidden="true"><svg class="it-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
-              Первичная установка надстройки Меркатор <a href="#install">системным администратором</a>
+              Первичная установка надстройки SolidDxf <a href="#install">системным администратором</a>
             </li>
             <li>
               <span class="it-li-mark" aria-hidden="true"><svg class="it-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
@@ -207,7 +207,7 @@
             <span class="it-req-num">03</span>
             <h3>Права администратора</h3>
           </div>
-          <p>Один раз для установки надстройки Меркатор. Выполняет <strong>системный администратор заказчика</strong> по инструкции (<a href="#install">порядок</a>).</p>
+          <p>Один раз для установки надстройки SolidDxf. Выполняет <strong>системный администратор заказчика</strong> по инструкции (<a href="#install">порядок</a>).</p>
         </article>
         <article class="it-req">
           <div class="it-req-head">
@@ -278,21 +278,21 @@
 
   <section class="section section-alt" id="install">
     <div class="wrap">
-      <h2>Порядок установки надстройки Меркатор</h2>
+      <h2>Порядок установки надстройки SolidDxf</h2>
       <p class="section-lead">Установку выполняет <strong>системный администратор заказчика</strong> по инструкции. Присутствие исполнителя не обязательно. Путь установки — только латиница.</p>
 
       <div class="it-install-flow" aria-label="Куда копируются файлы">
         <div class="it-install-box">
           <p class="it-install-label">Установочный комплект</p>
           <p><code>payload\bin\</code></p>
-          <p><code>payload\clients\merkator\</code></p>
+          <p><code>payload\clients\customer\</code></p>
           <p><code>install.ps1</code></p>
         </div>
         <div class="it-install-arrow" aria-hidden="true">→</div>
         <div class="it-install-box it-install-box-dest">
           <p class="it-install-label">На компьютере</p>
           <p><code>C:\ProgramData\SolidDxf\bin\</code></p>
-          <p><code>C:\ProgramData\SolidDxf\clients\merkator\</code></p>
+          <p><code>C:\ProgramData\SolidDxf\clients\customer\</code></p>
           <p>регистрация в списке надстроек SOLIDWORKS</p>
         </div>
       </div>
@@ -319,7 +319,7 @@
             <p>Скрипт <code>install.ps1</code> (под локальным администратором, один раз):</p>
             <ul>
               <li>копирует DLL в <code>%ProgramData%\SolidDxf\bin\</code>;</li>
-              <li>копирует правила завода в <code>%ProgramData%\SolidDxf\clients\merkator\</code>;</li>
+              <li>копирует правила завода в <code>%ProgramData%\SolidDxf\clients\customer\</code>;</li>
               <li>регистрирует COM через <code>RegAsm /codebase</code>;</li>
               <li>добавляет запись в список надстроек SOLIDWORKS: <code>HKLM\SOFTWARE\SolidWorks\Addins\{…}</code>.</li>
             </ul>
@@ -401,8 +401,8 @@
   <footer class="footer">
     <div class="wrap footer-inner">
       <div class="footer-brand">
-        <p class="footer-title">Надстройка Меркатор</p>
-        <p class="muted">Инфраструктура внедрения · ООО «Меркатор Калуга»</p>
+        <p class="footer-title">Надстройка SolidDxf</p>
+        <p class="muted">Инфраструктура внедрения</p>
         <p class="footer-site">
           <a href="https://alexpror.github.io/solid-dxf-demo/" rel="noopener noreferrer">alexpror.github.io/solid-dxf-demo</a>
           · <a href="index.html">главная</a>
