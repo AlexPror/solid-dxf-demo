@@ -1353,12 +1353,21 @@ h2 {
   margin: 20px 0 0;
 }
 
+.package-box-noscale .package-includes {
+  padding: 28px 32px 20px;
+}
+
 .package-box > .pricing-summary {
   margin: 0;
   padding: 20px 24px 8px;
   gap: 14px;
   border-top: 1px solid var(--line);
   background: #f4f7fa;
+}
+
+.pricing-summary-terms {
+  grid-template-columns: 1fr;
+  max-width: 420px;
 }
 
 @media (max-width: 860px) {
